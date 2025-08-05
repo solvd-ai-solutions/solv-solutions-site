@@ -434,172 +434,141 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       ) : (
         <div>
           <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-        <h3 style={{ fontSize: '20px', fontWeight: '600', color: 'black', marginBottom: '6px' }}>Project Specifications</h3>
-        <p style={{ fontSize: '16px', color: 'black' }}>Help us understand the scope and timeline</p>
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        <div>
-          <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '8px' }}>Complexity Level</label>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-            {[
-              { level: 'simple', color: '#4FB3A6', label: '1-2 main features' },
-              { level: 'moderate', color: '#C5A3E0', label: '3-5 features' },
-              { level: 'complex', color: '#F29E8E', label: '6+ features' }
-            ].map(({ level, color, label }) => (
-              <button
-                key={level}
-                onClick={() => handleInputChange('complexity', level)}
-                style={{
-                  padding: '8px 12px',
-                  borderRadius: '12px',
-                  textAlign: 'center',
-                  border: `1px solid ${formData.complexity === level ? color : 'black'}`,
-                  backgroundColor: formData.complexity === level ? color : 'white',
-                  color: formData.complexity === level ? 'black' : 'black',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s'
-                }}
-              >
-                <div style={{ fontWeight: '500', textTransform: 'capitalize' }}>{level}</div>
-                <div style={{ fontSize: '14px', marginTop: '4px' }}>
-                  {label}
-                </div>
-              </button>
-            ))}
+            <h3 style={{ fontSize: '20px', fontWeight: '600', color: 'black', marginBottom: '6px' }}>Additional Details</h3>
+            <p style={{ fontSize: '16px', color: 'black' }}>Help us understand your timeline and contact information</p>
           </div>
-        </div>
 
-        <div>
-          <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '8px' }}>Timeline Preference</label>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
-            {[
-              { value: 'rush', label: 'Rush (ASAP)', desc: '+$250 cost' },
-              { value: 'standard', label: 'Standard', desc: 'Best value' },
-              { value: 'flexible', label: 'Flexible', desc: '15% discount' }
-            ].map((option) => (
-              <button
-                key={option.value}
-                onClick={() => handleInputChange('timeline', option.value)}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '8px' }}>Timeline Preference</label>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
+                {[
+                  { value: 'rush', label: 'Rush (ASAP)', desc: '50% of total cost' },
+                  { value: 'standard', label: 'Standard', desc: 'Best value' },
+                  { value: 'flexible', label: 'Flexible', desc: '15% discount' }
+                ].map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => handleInputChange('timeline', option.value)}
+                    style={{
+                      padding: '8px 12px',
+                      borderRadius: '8px',
+                      textAlign: 'center',
+                      border: `1px solid ${formData.timeline === option.value ? '#F29E8E' : 'black'}`,
+                      backgroundColor: formData.timeline === option.value ? '#F29E8E' : 'white',
+                      color: formData.timeline === option.value ? 'white' : 'black',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s',
+                      fontSize: '14px'
+                    }}
+                  >
+                    <div style={{ fontWeight: '500' }}>{option.label}</div>
+                    <div style={{ fontSize: '12px', marginTop: '2px' }}>{option.desc}</div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '8px' }}>Contact Information</label>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+                <input
+                  type="text"
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
+                    borderRadius: '8px',
+                    border: '1px solid black',
+                    fontSize: '14px',
+                    backgroundColor: 'white'
+                  }}
+                  placeholder="Your Name"
+                  value={formData.contactInfo.name}
+                  onChange={(e) => handleInputChange('contactInfo.name', e.target.value)}
+                />
+                <input
+                  type="email"
+                  style={{
+                    width: '100%',
+                    padding: '8px 12px',
+                    borderRadius: '8px',
+                    border: '1px solid black',
+                    fontSize: '14px',
+                    backgroundColor: 'white'
+                  }}
+                  placeholder="Email Address"
+                  value={formData.contactInfo.email}
+                  onChange={(e) => handleInputChange('contactInfo.email', e.target.value)}
+                />
+              </div>
+              <input
+                type="text"
                 style={{
+                  width: '100%',
                   padding: '8px 12px',
                   borderRadius: '8px',
-                  textAlign: 'center',
-                  border: `1px solid ${formData.timeline === option.value ? '#F29E8E' : 'black'}`,
-                  backgroundColor: formData.timeline === option.value ? '#F29E8E' : 'white',
-                  color: formData.timeline === option.value ? 'white' : 'black',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  fontSize: '14px'
+                  border: '1px solid black',
+                  fontSize: '14px',
+                  backgroundColor: 'white',
+                  marginTop: '8px'
                 }}
-              >
-                <div style={{ fontWeight: '500' }}>{option.label}</div>
-                <div style={{ fontSize: '12px', marginTop: '2px' }}>{option.desc}</div>
-              </button>
-            ))}
+                placeholder="Company (Optional)"
+                value={formData.contactInfo.company}
+                onChange={(e) => handleInputChange('contactInfo.company', e.target.value)}
+              />
+              <input
+                type="text"
+                style={{
+                  width: '100%',
+                  padding: '8px 12px',
+                  borderRadius: '8px',
+                  border: '1px solid black',
+                  fontSize: '14px',
+                  backgroundColor: 'white',
+                  marginTop: '8px'
+                }}
+                placeholder="State (Optional)"
+                value={formData.contactInfo.state}
+                onChange={(e) => handleInputChange('contactInfo.state', e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px' }}>
+            <button 
+              onClick={() => setStep(1)}
+              style={{
+                padding: '8px 20px',
+                fontSize: '14px',
+                backgroundColor: 'white',
+                color: 'black',
+                border: '1px solid black',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '500'
+              }}
+            >
+              Back
+            </button>
+            <button 
+              onClick={generateQuote}
+              disabled={!formData.timeline || !formData.contactInfo.name || !formData.contactInfo.email}
+              style={{
+                padding: '8px 20px',
+                fontSize: '14px',
+                backgroundColor: (!formData.timeline || !formData.contactInfo.name || !formData.contactInfo.email) ? '#ccc' : '#8B5CF6',
+                color: 'white',
+                border: '1px solid #8B5CF6',
+                borderRadius: '8px',
+                cursor: (!formData.timeline || !formData.contactInfo.name || !formData.contactInfo.email) ? 'not-allowed' : 'pointer',
+                fontWeight: '500'
+              }}
+            >
+              Generate Quote
+            </button>
           </div>
         </div>
-
-        <div>
-          <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '8px' }}>Contact Information</label>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
-            <input
-              type="text"
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                borderRadius: '8px',
-                border: '1px solid black',
-                fontSize: '14px',
-                backgroundColor: 'white'
-              }}
-              placeholder="Your Name"
-              value={formData.contactInfo.name}
-              onChange={(e) => handleInputChange('contactInfo.name', e.target.value)}
-            />
-            <input
-              type="email"
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                borderRadius: '8px',
-                border: '1px solid black',
-                fontSize: '14px',
-                backgroundColor: 'white'
-              }}
-              placeholder="Email Address"
-              value={formData.contactInfo.email}
-              onChange={(e) => handleInputChange('contactInfo.email', e.target.value)}
-            />
-          </div>
-          <input
-            type="text"
-            style={{
-              width: '100%',
-              padding: '8px 12px',
-              borderRadius: '8px',
-              border: '1px solid black',
-              fontSize: '14px',
-              backgroundColor: 'white',
-              marginTop: '8px'
-            }}
-            placeholder="Company (Optional)"
-            value={formData.contactInfo.company}
-            onChange={(e) => handleInputChange('contactInfo.company', e.target.value)}
-          />
-          <input
-            type="text"
-            style={{
-              width: '100%',
-              padding: '8px 12px',
-              borderRadius: '8px',
-              border: '1px solid black',
-              fontSize: '14px',
-              backgroundColor: 'white',
-              marginTop: '8px'
-            }}
-            placeholder="State (Optional)"
-            value={formData.contactInfo.state}
-            onChange={(e) => handleInputChange('contactInfo.state', e.target.value)}
-          />
-        </div>
-      </div>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '16px' }}>
-        <button 
-          onClick={() => setStep(1)}
-          style={{
-            padding: '8px 20px',
-            fontSize: '14px',
-            backgroundColor: 'white',
-            color: 'black',
-            border: '1px solid black',
-            borderRadius: '8px',
-            cursor: 'pointer',
-            fontWeight: '500'
-          }}
-        >
-          Back
-        </button>
-        <button 
-          onClick={generateQuote}
-          disabled={!formData.timeline || !formData.contactInfo.name || !formData.contactInfo.email}
-          style={{
-            padding: '8px 20px',
-            fontSize: '14px',
-            backgroundColor: (!formData.timeline || !formData.contactInfo.name || !formData.contactInfo.email) ? '#ccc' : '#8B5CF6',
-            color: 'white',
-            border: '1px solid #8B5CF6',
-            borderRadius: '8px',
-            cursor: (!formData.timeline || !formData.contactInfo.name || !formData.contactInfo.email) ? 'not-allowed' : 'pointer',
-            fontWeight: '500'
-          }}
-        >
-          Generate Quote
-        </button>
-      </div>
-          </div>
-        )}
+      )}
     </div>
   );
 
