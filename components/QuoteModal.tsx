@@ -80,22 +80,16 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       setFormData(prev => ({
         ...prev,
         [parent]: {
-          ...(prev[parent as keyof typeof prev] as Record<string, string>),
+          ...prev[parent as keyof typeof prev],
           [child]: value
         }
       }));
     } else {
-      setFormData(prev => ({ ...prev, [field]: value }));
+      setFormData(prev => ({
+        ...prev,
+        [field]: value
+      }));
     }
-  };
-
-  const handleFeatureToggle = (feature: string) => {
-    setFormData(prev => ({
-      ...prev,
-      features: prev.features.includes(feature)
-        ? prev.features.filter(f => f !== feature)
-        : [...prev.features, feature]
-    }));
   };
 
   const generateQuote = async () => {
