@@ -28,10 +28,10 @@ Complexity: ${complexity}
 User Count: ${userCount}
 
 Pricing Rules:
-- Base development cost: $300
+- Base development cost: $200
 - Simple complexity: 1.0x multiplier, 1-2 business days delivery
-- Moderate complexity: 1.2x multiplier, 2-4 business days delivery  
-- Complex complexity: 1.4x multiplier, 5-7+ business days delivery
+- Moderate complexity: 1.3x multiplier, 2-4 business days delivery  
+- Complex complexity: 1.6x multiplier, 5-7+ business days delivery
 - Rush timeline: cuts delivery time in half, adds 50% of total cost
 - Each integration: $50 (first 5), $75 each (after 5)
 - Features multiplier: 1.1 per feature selected

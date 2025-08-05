@@ -49,34 +49,53 @@ Please provide a comprehensive analysis including:
 
 1. **REQUIRED INTEGRATIONS ANALYSIS**: The AI has determined the following integrations are needed: ${quote.requiredIntegrations ? quote.requiredIntegrations.join(", ") : 'None'}. Please analyze if these are appropriate and suggest any additional integrations that might be needed.
 
-2. **PROJECT SCOPE BREAKDOWN**: Detailed breakdown of what this project entails, including:
+2. **MINIMAL INTEGRATIONS REQUIRED**: What is the absolute minimum number and type of integrations needed to complete this project successfully? Focus on essential integrations only.
+
+3. **AI TOOLS RECOMMENDATION**: What specific AI tools would be most beneficial for this project? Consider tools like:
+   - Figma (for design)
+   - Make (for automation)
+   - Cursor (for coding)
+   - GitHub Copilot (for development)
+   - ChatGPT/Claude (for planning)
+   - Other relevant AI tools
+   Please specify which tools are essential vs. optional.
+
+4. **TIME ESTIMATION WITH AI ASSISTANCE**: Convert the delivery timeline to hours and minutes of development work, assuming AI tools are used to accelerate the process. Consider:
+   - Frontend development hours (with AI assistance)
+   - Backend development hours (with AI assistance)
+   - Integration work hours (with AI assistance)
+   - Testing and QA hours (with AI assistance)
+   - Total estimated hours with AI tools
+   - Time savings compared to traditional development
+
+5. **PROJECT SCOPE BREAKDOWN**: Detailed breakdown of what this project entails, including:
    - Core functionality
    - Technical requirements
    - User experience considerations
    - Data management needs
 
-3. **TIME ESTIMATION**: Convert the delivery timeline to hours and minutes of development work. Consider:
-   - Frontend development hours
-   - Backend development hours
-   - Integration work hours
-   - Testing and QA hours
-   - Total estimated hours
+6. **IMPORTANT HIGHLIGHTS**: Key considerations, risks, or special requirements that need attention.
 
-4. **IMPORTANT HIGHLIGHTS**: Key considerations, risks, or special requirements that need attention.
-
-5. **TECHNICAL RECOMMENDATIONS**: Suggested tech stack, architecture decisions, and best practices.
+7. **TECHNICAL RECOMMENDATIONS**: Suggested tech stack, architecture decisions, and best practices.
 
 Format the response as JSON:
 {
   "integrations": ["list of required integrations"],
-  "projectScope": "detailed project breakdown",
+  "minimalIntegrations": ["list of absolutely essential integrations only"],
+  "aiTools": {
+    "essential": ["list of essential AI tools"],
+    "optional": ["list of optional AI tools"],
+    "recommendations": "detailed explanation of AI tool usage"
+  },
   "timeEstimation": {
     "frontend": number,
     "backend": number,
     "integration": number,
     "testing": number,
-    "total": number
+    "total": number,
+    "timeSavings": "percentage or hours saved with AI tools"
   },
+  "projectScope": "detailed project breakdown",
   "highlights": ["list of important points"],
   "technicalRecommendations": "detailed technical advice"
 }`;
@@ -112,14 +131,21 @@ Format the response as JSON:
       // Fallback analysis
       analysisData = {
         integrations: ["Basic API integration", "Database setup"],
-        projectScope: "Standard development project based on requirements",
+        minimalIntegrations: ["Basic API integration", "Database setup"],
+        aiTools: {
+          essential: ["Basic API integration", "Database setup"],
+          optional: ["Figma", "Make", "Cursor", "GitHub Copilot", "ChatGPT/Claude"],
+          recommendations: "Use modern web technologies and best practices"
+        },
         timeEstimation: {
           frontend: 20,
           backend: 30,
           integration: 10,
           testing: 15,
-          total: 75
+          total: 75,
+          timeSavings: "50%"
         },
+        projectScope: "Standard development project based on requirements",
         highlights: ["Standard complexity project", "Requires standard integrations"],
         technicalRecommendations: "Use modern web technologies and best practices"
       };
@@ -159,18 +185,29 @@ AI ANALYSIS:
 REQUIRED INTEGRATIONS (AI-Determined):
 ${quote.requiredIntegrations ? quote.requiredIntegrations.map((integration: string) => `• ${integration}`).join('\n') : '• None required'}
 
-ADDITIONAL INTEGRATIONS ANALYSIS:
-${analysisData.integrations.map((integration: string) => `• ${integration}`).join('\n')}
+MINIMAL INTEGRATIONS REQUIRED:
+${analysisData.minimalIntegrations.map((integration: string) => `• ${integration}`).join('\n')}
 
-PROJECT SCOPE:
-${analysisData.projectScope}
+AI TOOLS RECOMMENDATION:
+Essential AI Tools:
+${analysisData.aiTools.essential.map((tool: string) => `• ${tool}`).join('\n')}
 
-TIME ESTIMATION:
+Optional AI Tools:
+${analysisData.aiTools.optional.map((tool: string) => `• ${tool}`).join('\n')}
+
+AI Tools Recommendations:
+${analysisData.aiTools.recommendations}
+
+TIME ESTIMATION (WITH AI ASSISTANCE):
 Frontend Development: ${analysisData.timeEstimation.frontend} hours
 Backend Development: ${analysisData.timeEstimation.backend} hours
 Integration Work: ${analysisData.timeEstimation.integration} hours
 Testing & QA: ${analysisData.timeEstimation.testing} hours
 TOTAL: ${analysisData.timeEstimation.total} hours (${Math.floor(analysisData.timeEstimation.total / 8)} business days)
+Time Savings with AI: ${analysisData.timeEstimation.timeSavings}
+
+PROJECT SCOPE:
+${analysisData.projectScope}
 
 IMPORTANT HIGHLIGHTS:
 ${analysisData.highlights.map((highlight: string) => `• ${highlight}`).join('\n')}
