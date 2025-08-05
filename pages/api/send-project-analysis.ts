@@ -196,7 +196,7 @@ TOTAL: $${quote.price}
     // Send email using Resend
     try {
       const { data, error } = await resend.emails.send({
-        from: 'Solvd AI Solutions <noreply@solv-solutions-site.vercel.app>',
+        from: 'Solvd AI Solutions <onboarding@resend.dev>',
         to: ['gpeterson3030@gmail.com'],
         subject: emailSubject,
         text: emailBody,
