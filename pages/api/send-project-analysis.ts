@@ -1,9 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
+import { Resend } from 'resend';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(
   req: NextApiRequest,
@@ -177,12 +180,29 @@ ${quote.breakdown.rushCost > 0 ? `Rush Cost: +$${quote.breakdown.rushCost}` : ''
 TOTAL: $${quote.price}
 `;
 
-    // Send email (you'll need to implement email sending)
-    // For now, we'll just return the analysis data
-    console.log('Email would be sent to business owner:', emailSubject, emailBody);
+    // Send email using Resend
+    try {
+      const { data, error } = await resend.emails.send({
+        from: 'Solvd AI Solutions <noreply@solv-solutions-site.vercel.app>',
+        to: ['gpeterson3030@gmail.com'],
+        subject: emailSubject,
+        text: emailBody,
+      });
+
+      if (error) {
+        console.error('Resend error:', error);
+        throw new Error(`Email sending failed: ${error.message}`);
+      }
+
+      console.log('Email sent successfully:', data);
+    } catch (emailError) {
+      console.error('Email sending error:', emailError);
+      // Don't fail the entire request if email fails
+      console.log('Email would be sent to business owner:', emailSubject, emailBody);
+    }
 
     res.status(200).json({ 
-      message: "Analysis completed",
+      message: "Analysis completed and email sent",
       analysis: analysisData,
       emailSubject,
       emailBody
