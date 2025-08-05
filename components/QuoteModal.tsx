@@ -744,128 +744,132 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               </div>
             </div>
 
-          <div style={{ display: 'flex', gap: '8px', marginTop: '16px' }}>
-            <button 
-              onClick={() => {
-                setStep(1);
-                setQuote(null);
-                setFormData({
-                  projectType: '',
-                  description: '',
-                  complexity: 'simple',
-                  timeline: 'standard',
-                  budget: 'under-5k',
-                  integrations: '',
-                  userCount: '1-10',
-                  otherFeatures: '',
-                  contactInfo: { name: '', email: '', company: '', state: '' }
-                });
-              }}
-              style={{
-                flex: 1,
-                padding: '8px 16px',
-                fontSize: '14px',
-                backgroundColor: '#4FB3A6',
-                color: 'white',
-                border: '1px solid #4FB3A6',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: '500'
-              }}
-            >
-              New Quote
-            </button>
-            <button 
-              onClick={() => {
-                setStep(1);
-                // Keep the current form data so user can modify
-              }}
-              style={{
-                flex: 1,
-                padding: '8px 16px',
-                fontSize: '14px',
-                backgroundColor: '#F29E8E',
-                color: 'white',
-                border: '1px solid #F29E8E',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: '500'
-              }}
-            >
-              Modify Quote
-            </button>
-            <button 
-              onClick={async () => {
-                // Send detailed analysis to business owner
-                try {
-                  await fetch('/api/send-project-analysis', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      formData,
-                      quote,
-                      userContactInfo: formData.contactInfo
-                    }),
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px' }}>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button 
+                onClick={() => {
+                  setStep(1);
+                  setQuote(null);
+                  setFormData({
+                    projectType: '',
+                    description: '',
+                    complexity: 'simple',
+                    timeline: 'standard',
+                    budget: 'under-5k',
+                    integrations: '',
+                    userCount: '1-10',
+                    otherFeatures: '',
+                    contactInfo: { name: '', email: '', company: '', state: '' }
                   });
-                } catch (error) {
-                  console.error('Error sending analysis:', error);
-                }
-                
-                // Send email to client
-                window.location.href = `mailto:hello@solvd.ai?subject=Project Quote - ${quote?.price}&body=Hi! I just generated a quote for my project:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AI'd like to proceed with this project.`;
-              }}
-              style={{
-                flex: 1,
-                padding: '8px 16px',
-                fontSize: '14px',
-                backgroundColor: '#8B5CF6',
-                color: 'white',
-                border: '1px solid #8B5CF6',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: '500'
-              }}
-            >
-              Accept Quote
-            </button>
-            <button 
-              onClick={async () => {
-                // Send detailed analysis to business owner
-                try {
-                  await fetch('/api/send-project-analysis', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      formData,
-                      quote,
-                      userContactInfo: formData.contactInfo
-                    }),
-                  });
-                } catch (error) {
-                  console.error('Error sending analysis:', error);
-                }
-                
-                // Send email to client
-                window.location.href = `mailto:hello@solvd.ai?subject=Quote Questions&body=Hi! I have questions about the quote I received:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AQuestions/Comments:`;
-              }}
-              style={{
-                flex: 1,
-                padding: '8px 16px',
-                fontSize: '14px',
-                backgroundColor: '#F29E8E',
-                color: 'white',
-                border: '1px solid #F29E8E',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontWeight: '500'
-              }}
-            >
-              Ask Questions
-            </button>
+                }}
+                style={{
+                  flex: 1,
+                  padding: '8px 16px',
+                  fontSize: '14px',
+                  backgroundColor: '#4FB3A6',
+                  color: 'white',
+                  border: '1px solid #4FB3A6',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: '500'
+                }}
+              >
+                New Quote
+              </button>
+              <button 
+                onClick={() => {
+                  setStep(1);
+                  // Keep the current form data so user can modify
+                }}
+                style={{
+                  flex: 1,
+                  padding: '8px 16px',
+                  fontSize: '14px',
+                  backgroundColor: '#F29E8E',
+                  color: 'white',
+                  border: '1px solid #F29E8E',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: '500'
+                }}
+              >
+                Modify Quote
+              </button>
+            </div>
+            <div style={{ display: 'flex', gap: '8px' }}>
+              <button 
+                onClick={async () => {
+                  // Send detailed analysis to business owner
+                  try {
+                    await fetch('/api/send-project-analysis', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        formData,
+                        quote,
+                        userContactInfo: formData.contactInfo
+                      }),
+                    });
+                  } catch (error) {
+                    console.error('Error sending analysis:', error);
+                  }
+                  
+                  // Send email to client
+                  window.location.href = `mailto:hello@solvd.ai?subject=Project Quote - ${quote?.price}&body=Hi! I just generated a quote for my project:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AI'd like to proceed with this project.`;
+                }}
+                style={{
+                  flex: 1,
+                  padding: '8px 16px',
+                  fontSize: '14px',
+                  backgroundColor: '#8B5CF6',
+                  color: 'white',
+                  border: '1px solid #8B5CF6',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: '500'
+                }}
+              >
+                Accept Quote
+              </button>
+              <button 
+                onClick={async () => {
+                  // Send detailed analysis to business owner
+                  try {
+                    await fetch('/api/send-project-analysis', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        formData,
+                        quote,
+                        userContactInfo: formData.contactInfo
+                      }),
+                    });
+                  } catch (error) {
+                    console.error('Error sending analysis:', error);
+                  }
+                  
+                  // Send email to client
+                  window.location.href = `mailto:hello@solvd.ai?subject=Quote Questions&body=Hi! I have questions about the quote I received:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AQuestions/Comments:`;
+                }}
+                style={{
+                  flex: 1,
+                  padding: '8px 16px',
+                  fontSize: '14px',
+                  backgroundColor: '#F29E8E',
+                  color: 'white',
+                  border: '1px solid #F29E8E',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: '500'
+                }}
+              >
+                Ask Questions
+              </button>
+            </div>
           </div>
         </div>
       )}
