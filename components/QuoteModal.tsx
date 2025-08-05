@@ -22,7 +22,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       integrationCost: number;
       rushCost: number;
     };
-    features: string[];
+    determinedFeatures: string[];
     requiredIntegrations?: string[];
     confidence: number;
   } | null>(null);
@@ -707,7 +707,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                   <span>×{quote?.breakdown.complexityMultiplier}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Features ({formData.features.length + (formData.otherFeatures ? formData.otherFeatures.split(',').filter(f => f.trim()).length : 0)} total):</span>
+                  <span>Features (AI-determined):</span>
                   <span>×{quote?.breakdown.featuresMultiplier.toFixed(2)}</span>
                 </div>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
