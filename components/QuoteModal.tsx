@@ -8,6 +8,7 @@ interface QuoteModalProps {
 
 export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
   // Force deployment update - all features references removed
+  // This comment ensures Vercel picks up the latest changes
   const [step, setStep] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
   const [quote, setQuote] = useState<{
