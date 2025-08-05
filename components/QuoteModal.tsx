@@ -7,8 +7,7 @@ interface QuoteModalProps {
 }
 
 export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
-  console.log('QuoteModal rendered, isOpen:', isOpen);
-  
+  // Force deployment update - all features references removed
   const [step, setStep] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
   const [quote, setQuote] = useState<{
