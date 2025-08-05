@@ -118,6 +118,26 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       }
       
       setQuote(quoteData);
+
+      // Send email analysis automatically when quote is generated
+      try {
+        console.log('Sending automatic email analysis...');
+        await fetch('/api/send-project-analysis', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            formData,
+            quote: quoteData,
+            userContactInfo: formData.contactInfo
+          }),
+        });
+        console.log('Automatic email analysis sent successfully');
+      } catch (emailError) {
+        console.error('Error sending automatic analysis:', emailError);
+      }
+
     } catch (error) {
       console.error('Error generating quote:', error);
       // Fallback to simulated quote if API fails
@@ -169,7 +189,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       if (formData.timeline === 'rush') deliveryDays = Math.max(1, Math.floor(deliveryDays / 2));
       if (formData.timeline === 'flexible') deliveryDays += 2;
       
-      setQuote({
+      const fallbackQuote = {
         price: finalPrice,
         deliveryDays: deliveryDays,
         breakdown: {
@@ -182,7 +202,28 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
         },
         features: formData.features,
         confidence: 85
-      });
+      };
+      
+      setQuote(fallbackQuote);
+
+      // Send email analysis for fallback quote too
+      try {
+        console.log('Sending automatic email analysis for fallback quote...');
+        await fetch('/api/send-project-analysis', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            formData,
+            quote: fallbackQuote,
+            userContactInfo: formData.contactInfo
+          }),
+        });
+        console.log('Automatic email analysis sent successfully for fallback');
+      } catch (emailError) {
+        console.error('Error sending automatic analysis for fallback:', emailError);
+      }
     } finally {
       // Ensure loading screen is shown for at least 2 seconds
       const minLoadingTime = 2000;

@@ -16,12 +16,16 @@ export default async function handler(
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
+  console.log('Email API called with data:', req.body);
+
   try {
     const { 
       formData, 
       quote, 
       userContactInfo 
     } = req.body;
+
+    console.log('Processing email for:', userContactInfo);
 
     // Create a comprehensive analysis prompt
     const analysisPrompt = `Analyze this AI development project and provide a detailed breakdown:
@@ -77,6 +81,7 @@ Format the response as JSON:
   "technicalRecommendations": "detailed technical advice"
 }`;
 
+    console.log('Calling OpenAI for analysis...');
     const completion = await openai.chat.completions.create({
       model: "o4-mini",
       messages: [
@@ -97,10 +102,13 @@ Format the response as JSON:
       throw new Error("No response from OpenAI");
     }
 
+    console.log('OpenAI analysis received');
+
     let analysisData;
     try {
       analysisData = JSON.parse(response);
     } catch (error) {
+      console.log('Failed to parse OpenAI response, using fallback');
       // Fallback analysis
       analysisData = {
         integrations: ["Basic API integration", "Database setup"],
@@ -179,6 +187,11 @@ Integration Cost: +$${quote.breakdown.integrationCost}
 ${quote.breakdown.rushCost > 0 ? `Rush Cost: +$${quote.breakdown.rushCost}` : ''}
 TOTAL: $${quote.price}
 `;
+
+    console.log('Preparing to send email...');
+    console.log('Resend API Key present:', !!process.env.RESEND_API_KEY);
+    console.log('Email subject:', emailSubject);
+    console.log('Email to: gpeterson3030@gmail.com');
 
     // Send email using Resend
     try {
