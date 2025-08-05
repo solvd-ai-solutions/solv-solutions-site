@@ -17,61 +17,47 @@ export default async function handler(
     const { projectType, description, features, timeline, budget, complexity, integrations, userCount } = req.body;
 
     // Create a prompt for the AI to generate a quote
-    const prompt = `Generate a detailed quote for an AI development project with the following specifications:
+    const prompt = `You are an expert AI development consultant. Based on the project details, generate a comprehensive quote with the following requirements:
 
-Project Type: ${projectType}
-Description: ${description}
-Features: ${features.join(", ")}
-Timeline: ${timeline}
-Budget Range: ${budget}
-Complexity: ${complexity}
-User Count: ${userCount}
+PROJECT DETAILS:
+- Type: ${projectType}
+- Description: ${description}
+- Complexity: ${complexity}
+- Timeline: ${timeline}
+- Budget: ${budget}
+- User Count: ${userCount}
 
-Pricing Rules:
-- Base development cost: $200
-- Simple complexity: 1.0x multiplier, 1-2 business days delivery
-- Moderate complexity: 1.3x multiplier, 2-4 business days delivery  
-- Complex complexity: 1.6x multiplier, 5-7+ business days delivery
-- Rush timeline: cuts delivery time in half, adds 50% of total cost
-- Each integration: $50 (first 5), $75 each (after 5)
-- Features multiplier: 1.1 per feature selected
+PRICING RULES:
+- Base development cost: $300
+- Complexity multipliers: Simple (1.0x), Moderate (1.2x), Complex (1.4x)
+- Feature multiplier: 1 + (number of features × 0.1)
+- Timeline multipliers: Rush (0.5x), Standard (1.0x), Flexible (0.85x)
+- Integration costs: $50 each for first 5, $75 each after 5
+- Rush service: 50% of total cost
+- Delivery times: Simple (1-2 days), Moderate (2-4 days), Complex (5-7+ days)
 
-IMPORTANT: Based on the project type, description, features, and user count, determine what integrations will be needed. Common integrations include:
-- Payment processing (Stripe, PayPal)
-- Email services (SendGrid, Mailgun)
-- Database services (MongoDB, PostgreSQL)
-- Cloud storage (AWS S3, Google Cloud Storage)
-- Authentication (Auth0, Firebase Auth)
-- Analytics (Google Analytics, Mixpanel)
-- Communication APIs (Twilio, Slack)
-- Social media APIs (Facebook, Twitter, LinkedIn)
-- E-commerce platforms (Shopify, WooCommerce)
-- CRM systems (Salesforce, HubSpot)
+TASK:
+1. Analyze the project description and determine what features are actually needed (don't rely on user selection)
+2. Calculate the total price based on the pricing rules
+3. Determine required integrations based on the project needs
+4. Provide detailed reasoning for the quote
 
-Please provide:
-1. A total price estimate based on the pricing rules above
-2. Delivery timeline in business days based on complexity and rush status
-3. Cost breakdown (base price, complexity multiplier, features multiplier, timeline multiplier, integration costs)
-4. List of features included
-5. List of required integrations based on project analysis
-6. Confidence level (0-100)
-7. Detailed reasoning for the quote
-
-Format the response as JSON with the following structure:
+Please respond with a JSON object in this exact format:
 {
   "price": number,
   "deliveryDays": number,
+  "confidence": number,
   "breakdown": {
     "basePrice": 300,
     "complexityMultiplier": number,
     "featuresMultiplier": number,
     "timelineMultiplier": number,
-    "integrationCost": number
+    "integrationCost": number,
+    "rushCost": number
   },
-  "features": string[],
   "requiredIntegrations": ["list of integrations needed"],
-  "confidence": number,
-  "reasoning": string
+  "determinedFeatures": ["list of features the AI determined are needed"],
+  "reasoning": "detailed explanation of pricing and feature decisions"
 }`;
 
     const completion = await openai.chat.completions.create({

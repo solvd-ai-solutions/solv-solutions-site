@@ -26,20 +26,49 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     requiredIntegrations?: string[];
     confidence: number;
   } | null>(null);
+
+  // Tax calculation functions
+  const getStateTaxRate = (state: string): number => {
+    const taxRates: { [key: string]: number } = {
+      'CA': 7.25, 'TX': 6.25, 'NY': 8.875, 'FL': 6.0, 'IL': 6.25,
+      'PA': 6.0, 'OH': 5.75, 'GA': 4.0, 'NC': 4.75, 'MI': 6.0,
+      'NJ': 6.625, 'VA': 5.3, 'WA': 6.5, 'AZ': 5.6, 'MA': 6.25,
+      'IN': 7.0, 'TN': 7.0, 'MO': 4.225, 'MD': 6.0, 'CO': 2.9,
+      'MN': 6.875, 'WI': 5.0, 'AL': 4.0, 'SC': 6.0, 'LA': 4.45,
+      'KY': 6.0, 'OR': 0.0, 'OK': 4.5, 'CT': 6.35, 'IA': 6.0,
+      'UT': 4.85, 'NV': 6.85, 'AR': 6.5, 'MS': 7.0, 'KS': 6.5,
+      'NM': 5.125, 'NE': 5.5, 'ID': 6.0, 'WV': 6.0, 'HI': 4.0,
+      'NH': 0.0, 'ME': 5.5, 'RI': 7.0, 'MT': 0.0, 'DE': 0.0,
+      'SD': 4.5, 'ND': 5.0, 'AK': 0.0, 'DC': 6.0, 'VT': 6.0,
+      'WY': 4.0
+    };
+    return taxRates[state.toUpperCase()] || 0;
+  };
+
+  const calculateStateTax = (price: number, state: string): number => {
+    const taxRate = getStateTaxRate(state);
+    return Math.round(price * (taxRate / 100));
+  };
+
+  const calculateTotalWithTax = (price: number, state: string): number => {
+    const tax = calculateStateTax(price, state);
+    return price + tax;
+  };
+
   const [formData, setFormData] = useState({
     projectType: '',
     description: '',
-    features: [] as string[],
-    otherFeatures: '',
-    timeline: '',
-    budget: '',
-    complexity: '',
+    complexity: 'simple',
+    timeline: 'standard',
+    budget: 'under-5k',
     integrations: '',
-    userCount: '',
+    userCount: '1-10',
+    otherFeatures: '',
     contactInfo: {
       name: '',
       email: '',
-      company: ''
+      company: '',
+      state: ''
     }
   });
 
@@ -82,7 +111,6 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
         body: JSON.stringify({
           projectType: formData.projectType,
           description: formData.description,
-          features: formData.features,
           timeline: formData.timeline,
           budget: formData.budget,
           complexity: formData.complexity,
@@ -151,10 +179,8 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       else if (formData.complexity === 'moderate') complexity = 1.2;
       else if (formData.complexity === 'complex') complexity = 1.4;
       
-      // Feature additions
-      const otherFeaturesCount = formData.otherFeatures ? formData.otherFeatures.split(',').filter(f => f.trim()).length : 0;
-      const totalFeatures = formData.features.length + otherFeaturesCount;
-      const featureMultiplier = 1 + (totalFeatures * 0.1);
+      // Feature additions - AI determines features, so use a base multiplier
+      const featureMultiplier = 1.1; // Base feature multiplier
       
       // Timeline adjustments
       if (formData.timeline === 'rush') {
@@ -200,7 +226,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
           integrationCost: integrationCost,
           rushCost: rushCost
         },
-        features: formData.features,
+        determinedFeatures: ['AI-determined features based on project description'],
         confidence: 85
       };
       
@@ -419,61 +445,34 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <div>
-          <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '8px' }}>Key Features (select all that apply)</label>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
+          <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '8px' }}>Complexity Level</label>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
             {[
-              'User Authentication',
-              'Data Export/Import',
-              'Real-time Updates',
-              'Mobile Responsive',
-              'Search & Filter',
-              'File Upload',
-              'Email Notifications',
-              'Dashboard/Analytics',
-              'Multi-user Support',
-              'Custom Branding'
-            ].map((feature) => (
+              { level: 'simple', color: '#4FB3A6', label: '1-2 main features' },
+              { level: 'moderate', color: '#C5A3E0', label: '3-5 features' },
+              { level: 'complex', color: '#F29E8E', label: '6+ features' }
+            ].map(({ level, color, label }) => (
               <button
-                key={feature}
-                onClick={() => handleFeatureToggle(feature)}
+                key={level}
+                onClick={() => handleInputChange('complexity', level)}
                 style={{
                   padding: '8px 12px',
-                  borderRadius: '8px',
-                  textAlign: 'left',
-                  border: `1px solid ${formData.features.includes(feature) ? '#4FB3A6' : 'black'}`,
-                  backgroundColor: formData.features.includes(feature) ? '#4FB3A6' : 'white',
-                  color: formData.features.includes(feature) ? 'white' : 'black',
+                  borderRadius: '12px',
+                  textAlign: 'center',
+                  border: `1px solid ${formData.complexity === level ? color : 'black'}`,
+                  backgroundColor: formData.complexity === level ? color : 'white',
+                  color: formData.complexity === level ? 'black' : 'black',
                   cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  fontSize: '14px'
+                  transition: 'all 0.2s'
                 }}
               >
-                {feature}
+                <div style={{ fontWeight: '500', textTransform: 'capitalize' }}>{level}</div>
+                <div style={{ fontSize: '14px', marginTop: '4px' }}>
+                  {label}
+                </div>
               </button>
             ))}
           </div>
-        </div>
-
-        <div>
-          <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '8px' }}>Other Features (optional)</label>
-          <textarea
-            style={{
-              width: '100%',
-              padding: '8px 12px',
-              borderRadius: '8px',
-              border: '1px solid black',
-              fontSize: '14px',
-              backgroundColor: 'white',
-              minHeight: '60px',
-              resize: 'vertical'
-            }}
-            placeholder="Add any other features you need (these will be counted in the total features and affect pricing)"
-            value={formData.otherFeatures || ''}
-            onChange={(e) => handleInputChange('otherFeatures', e.target.value)}
-          />
-          <p style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
-            Other features will be added to the total number of features and will affect the pricing.
-          </p>
         </div>
 
         <div>
@@ -552,6 +551,21 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             placeholder="Company (Optional)"
             value={formData.contactInfo.company}
             onChange={(e) => handleInputChange('contactInfo.company', e.target.value)}
+          />
+          <input
+            type="text"
+            style={{
+              width: '100%',
+              padding: '8px 12px',
+              borderRadius: '8px',
+              border: '1px solid black',
+              fontSize: '14px',
+              backgroundColor: 'white',
+              marginTop: '8px'
+            }}
+            placeholder="State (Optional)"
+            value={formData.contactInfo.state}
+            onChange={(e) => handleInputChange('contactInfo.state', e.target.value)}
           />
         </div>
       </div>
@@ -717,9 +731,15 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                     <span>+${quote.breakdown.rushCost}</span>
                   </div>
                 )}
+                {formData.contactInfo.state && (
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span>State Tax (${getStateTaxRate(formData.contactInfo.state)}%):</span>
+                    <span>+${calculateStateTax(quote?.price || 0, formData.contactInfo.state)}</span>
+                  </div>
+                )}
                 <div style={{ borderTop: '1px solid black', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', fontWeight: '600', fontSize: '16px' }}>
                   <span>Total:</span>
-                  <span>${quote?.price}</span>
+                  <span>${calculateTotalWithTax(quote?.price || 0, formData.contactInfo.state)}</span>
                 </div>
               </div>
               
@@ -738,14 +758,13 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                 setFormData({
                   projectType: '',
                   description: '',
-                  features: [],
-                  otherFeatures: '',
-                  timeline: '',
-                  budget: '',
-                  complexity: '',
+                  complexity: 'simple',
+                  timeline: 'standard',
+                  budget: 'under-5k',
                   integrations: '',
-                  userCount: '',
-                  contactInfo: { name: '', email: '', company: '' }
+                  userCount: '1-10',
+                  otherFeatures: '',
+                  contactInfo: { name: '', email: '', company: '', state: '' }
                 });
               }}
               style={{
@@ -761,6 +780,25 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               }}
             >
               New Quote
+            </button>
+            <button 
+              onClick={() => {
+                setStep(1);
+                // Keep the current form data so user can modify
+              }}
+              style={{
+                flex: 1,
+                padding: '8px 16px',
+                fontSize: '14px',
+                backgroundColor: '#F29E8E',
+                color: 'white',
+                border: '1px solid #F29E8E',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '500'
+              }}
+            >
+              Modify Quote
             </button>
             <button 
               onClick={async () => {

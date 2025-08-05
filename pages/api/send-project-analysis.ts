@@ -8,6 +8,24 @@ const openai = new OpenAI({
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Tax calculation function
+const getStateTaxRate = (state: string): number => {
+  const taxRates: { [key: string]: number } = {
+    'CA': 7.25, 'TX': 6.25, 'NY': 8.875, 'FL': 6.0, 'IL': 6.25,
+    'PA': 6.0, 'OH': 5.75, 'GA': 4.0, 'NC': 4.75, 'MI': 6.0,
+    'NJ': 6.625, 'VA': 5.3, 'WA': 6.5, 'AZ': 5.6, 'MA': 6.25,
+    'IN': 7.0, 'TN': 7.0, 'MO': 4.225, 'MD': 6.0, 'CO': 2.9,
+    'MN': 6.875, 'WI': 5.0, 'AL': 4.0, 'SC': 6.0, 'LA': 4.45,
+    'KY': 6.0, 'OR': 0.0, 'OK': 4.5, 'CT': 6.35, 'IA': 6.0,
+    'UT': 4.85, 'NV': 6.85, 'AR': 6.5, 'MS': 7.0, 'KS': 6.5,
+    'NM': 5.125, 'NE': 5.5, 'ID': 6.0, 'WV': 6.0, 'HI': 4.0,
+    'NH': 0.0, 'ME': 5.5, 'RI': 7.0, 'MT': 0.0, 'DE': 0.0,
+    'SD': 4.5, 'ND': 5.0, 'AK': 0.0, 'DC': 6.0, 'VT': 6.0,
+    'WY': 4.0
+  };
+  return taxRates[state.toUpperCase()] || 0;
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -168,9 +186,8 @@ Description: ${formData.description}
 Complexity: ${formData.complexity}
 Timeline: ${formData.timeline}
 Budget Range: ${formData.budget}
-Features: ${formData.features.join(", ")}
-Other Features: ${formData.otherFeatures || 'None'}
 User Count: ${formData.userCount}
+State: ${formData.contactInfo.state || 'Not specified'}
 
 QUOTE SUMMARY:
 Total Price: $${quote.price}
@@ -178,9 +195,14 @@ Delivery Days: ${quote.deliveryDays}
 Confidence: ${quote.confidence}%
 Required Integrations: ${quote.requiredIntegrations ? quote.requiredIntegrations.join(", ") : 'None'}
 Integration Cost: $${quote.breakdown.integrationCost}
+State Tax: ${formData.contactInfo.state ? `$${Math.round(quote.price * (getStateTaxRate(formData.contactInfo.state) / 100))}` : 'N/A'}
+Total with Tax: ${formData.contactInfo.state ? `$${quote.price + Math.round(quote.price * (getStateTaxRate(formData.contactInfo.state) / 100))}` : `$${quote.price}`}
 
 AI ANALYSIS:
 ===========
+
+DETERMINED FEATURES (AI-Analyzed):
+${quote.determinedFeatures ? quote.determinedFeatures.map((feature: string) => `• ${feature}`).join('\n') : '• Features determined by AI analysis'}
 
 REQUIRED INTEGRATIONS (AI-Determined):
 ${quote.requiredIntegrations ? quote.requiredIntegrations.map((integration: string) => `• ${integration}`).join('\n') : '• None required'}
@@ -222,7 +244,9 @@ Features Multiplier: ×${quote.breakdown.featuresMultiplier}
 Timeline Multiplier: ×${quote.breakdown.timelineMultiplier}
 Integration Cost: +$${quote.breakdown.integrationCost}
 ${quote.breakdown.rushCost > 0 ? `Rush Cost: +$${quote.breakdown.rushCost}` : ''}
-TOTAL: $${quote.price}
+Subtotal: $${quote.price}
+${formData.contactInfo.state ? `State Tax (${getStateTaxRate(formData.contactInfo.state)}%): +$${Math.round(quote.price * (getStateTaxRate(formData.contactInfo.state) / 100))}` : ''}
+TOTAL: ${formData.contactInfo.state ? `$${quote.price + Math.round(quote.price * (getStateTaxRate(formData.contactInfo.state) / 100))}` : `$${quote.price}`}
 `;
 
     console.log('Preparing to send email...');
