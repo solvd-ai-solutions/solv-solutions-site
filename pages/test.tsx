@@ -10,7 +10,7 @@ export default function TestPage() {
         <ul>
           <li>✅ Basic Next.js is working</li>
           <li>❌ Component imports need fixing</li>
-          <li>🔧 We'll identify the problematic component</li>
+          <li>🔧 We&apos;ll identify the problematic component</li>
         </ul>
       </div>
     </div>

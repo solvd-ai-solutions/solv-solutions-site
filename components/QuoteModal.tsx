@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { OutlineCard, OutlineCardContent } from "./ui/outline-card";
-import { OutlineButton } from "./ui/outline-button";
+
 
 interface QuoteModalProps {
   isOpen: boolean;
@@ -21,8 +20,10 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       featuresMultiplier: number;
       timelineMultiplier: number;
       integrationCost: number;
+      rushCost: number;
     };
     features: string[];
+    requiredIntegrations?: string[];
     confidence: number;
   } | null>(null);
   const [formData, setFormData] = useState({
@@ -297,14 +298,14 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
           }}
           onMouseEnter={(e) => {
             if (!(!formData.projectType || !formData.description || !formData.complexity)) {
-              e.target.style.backgroundColor = 'white';
-              e.target.style.color = '#8B5CF6';
+              (e.target as HTMLElement).style.backgroundColor = 'white';
+              (e.target as HTMLElement).style.color = '#8B5CF6';
             }
           }}
           onMouseLeave={(e) => {
             if (!(!formData.projectType || !formData.description || !formData.complexity)) {
-              e.target.style.backgroundColor = '#8B5CF6';
-              e.target.style.color = 'white';
+              (e.target as HTMLElement).style.backgroundColor = '#8B5CF6';
+              (e.target as HTMLElement).style.color = 'white';
             }
           }}
         >
@@ -697,6 +698,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                   projectType: '',
                   description: '',
                   features: [],
+                  otherFeatures: '',
                   timeline: '',
                   budget: '',
                   complexity: '',
