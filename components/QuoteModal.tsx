@@ -120,7 +120,8 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
       // Send email analysis automatically
       try {
-        await fetch('/api/send-project-analysis', {
+        console.log('Attempting to send email analysis...');
+        const emailResponse = await fetch('/api/send-project-analysis', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -131,6 +132,13 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             userContactInfo: formData.contactInfo
           }),
         });
+        
+        if (!emailResponse.ok) {
+          const errorText = await emailResponse.text();
+          console.error('Email API error:', emailResponse.status, errorText);
+        } else {
+          console.log('Email sent successfully!');
+        }
       } catch (emailError) {
         console.error('Error sending automatic analysis:', emailError);
       }
@@ -142,7 +150,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
         price: 990,
         deliveryDays: 7,
         breakdown: {
-          basePrice: 300,
+          basePrice: 200,
           complexityMultiplier: 1.4,
           featuresMultiplier: 2.0,
           timelineMultiplier: 1,

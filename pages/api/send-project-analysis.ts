@@ -35,6 +35,7 @@ export default async function handler(
   }
 
   console.log('Email API called with data:', req.body);
+  console.log('Environment variables check - RESEND_API_KEY:', process.env.RESEND_API_KEY ? 'Present' : 'Missing');
 
   try {
     const { 

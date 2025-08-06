@@ -86,7 +86,7 @@ Please respond with a JSON object in this exact format:
       quoteData = JSON.parse(response);
       
       // Validate and correct the calculations
-      const basePrice = 300;
+      const basePrice = 200;
       const complexityMultiplier = quoteData.breakdown.complexityMultiplier;
       const featuresMultiplier = quoteData.breakdown.featuresMultiplier;
       const timelineMultiplier = quoteData.breakdown.timelineMultiplier;
@@ -146,7 +146,7 @@ Please respond with a JSON object in this exact format:
       });
       
       // Calculate proper fallback values
-      const basePrice = 300;
+      const basePrice = 200;
       const complexityMultiplier = complexity === 'simple' ? 1.0 : complexity === 'moderate' ? 1.2 : 1.4;
       const featuresMultiplier = 1 + (features.length * 0.1);
       
