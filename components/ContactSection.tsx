@@ -72,18 +72,35 @@ export function ContactSection() {
                     📅
                     Book a Call
                   </OutlineButton>
-                  <a 
-                    href={`mailto:gpeterson3030@gmail.com?subject=New Project Inquiry&body=${encodeURIComponent(`Hi! I'm interested in discussing a custom AI solution.
+                  <OutlineButton 
+                    variant="primary"
+                    className="w-full py-3 text-lg flex items-center justify-center gap-2 hover:outline-lavender"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const emailBody = `Hi! I'm interested in discussing a custom AI solution.
 
 Please include any details about your project requirements, timeline, and budget range.
 
-Looking forward to hearing from you!`)}`}
-                    className="w-full py-3 text-lg flex items-center justify-center gap-2 border-2 border-black rounded-lg bg-white text-black hover:bg-gray-50 transition-colors cursor-pointer text-decoration-none"
-                    style={{ textDecoration: 'none' }}
+Looking forward to hearing from you!`;
+                      
+                      // Try different approaches for email
+                      try {
+                        // Method 1: Direct window.location
+                        window.location.href = `mailto:gpeterson3030@gmail.com?subject=New Project Inquiry&body=${encodeURIComponent(emailBody)}`;
+                      } catch (error) {
+                        console.error('Error opening email:', error);
+                        // Method 2: Create temporary link and click it
+                        const link = document.createElement('a');
+                        link.href = `mailto:gpeterson3030@gmail.com?subject=New Project Inquiry&body=${encodeURIComponent(emailBody)}`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                      }
+                    }}
                   >
                     📧
                     Email Us
-                  </a>
+                  </OutlineButton>
                 </div>
               </OutlineCardContent>
             </OutlineCard>
