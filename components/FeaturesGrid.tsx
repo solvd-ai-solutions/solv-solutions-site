@@ -3,13 +3,6 @@ import { OutlineButton } from "./ui/outline-button";
 import { Hammer, Heart, ArrowRight } from "lucide-react";
 
 export function FeaturesGrid() {
-  const scrollToDemo = (demoId: string) => {
-    const element = document.getElementById(demoId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section id="demos" className="py-140 px-6 bg-white">
       <div className="container mx-auto max-w-6xl">
@@ -95,7 +88,7 @@ export function FeaturesGrid() {
 
               <OutlineButton 
                 variant="mint"
-                onClick={() => scrollToDemo('pet-bio-demo')}
+                onClick={() => window.open('https://solvdaisolutions.com/demos/pet-bio-generator', '_blank', 'noopener,noreferrer')}
                 className="w-full flex items-center justify-center gap-3 group py-3 text-lg"
               >
                 View Demo
