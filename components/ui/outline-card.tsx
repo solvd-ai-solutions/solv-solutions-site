@@ -15,7 +15,7 @@ export function OutlineCard({
   accentColor,
 }: OutlineCardProps) {
   const baseClasses = "card-base";
-  const hoverClasses = hover ? "hover:scale-105 cursor-pointer" : "";
+  const hoverClasses = hover ? "cursor-pointer" : "";
   const accentClasses = accentColor
     ? {
         mint: "hover:outline-mint",

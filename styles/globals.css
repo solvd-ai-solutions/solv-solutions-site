@@ -400,7 +400,7 @@
 .transition-colors { transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-color 0.2s ease-in-out; }
 .transition-transform { transition: transform 0.2s ease-in-out; }
 
-.hover\:scale-105:hover { transform: scale(1.05); }
+
 .hover\:translate-x-1:hover { transform: translateX(4px); }
 
 .overflow-hidden { overflow: hidden; }
