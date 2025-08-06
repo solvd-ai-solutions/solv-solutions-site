@@ -75,7 +75,15 @@ export function ContactSection() {
                   <OutlineButton 
                     variant="primary"
                     className="w-full py-3 text-lg flex items-center justify-center gap-2 hover:outline-lavender"
-                    onClick={() => window.location.href = 'mailto:hello@solvd.ai?subject=New Project Inquiry'}
+                    onClick={() => {
+                      const emailBody = `Hi! I'm interested in discussing a custom AI solution.
+
+Please include any details about your project requirements, timeline, and budget range.
+
+Looking forward to hearing from you!`;
+                      
+                      window.open(`mailto:gpeterson3030@gmail.com?subject=New Project Inquiry&body=${encodeURIComponent(emailBody)}`);
+                    }}
                   >
                     📧
                     Email Us
