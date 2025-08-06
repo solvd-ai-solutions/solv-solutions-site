@@ -78,7 +78,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       setFormData(prev => ({
         ...prev,
         [parent]: {
-          ...(prev[parent as keyof typeof prev] as any),
+          ...(prev[parent as keyof typeof prev] as Record<string, unknown>),
           [child]: value
         }
       }));
