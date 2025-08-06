@@ -56,7 +56,7 @@ export default function CutOrderManagerDemo() {
             color: '#666',
             marginBottom: '24px'
           }}>
-            You'll be redirected to the live demo automatically. If you're not redirected, click the button below.
+            You&apos;ll be redirected to the live demo automatically. If you&apos;re not redirected, click the button below.
           </p>
           <a 
             href="https://cut-order-manager-git-main-geoff-petersons-projects.vercel.app"

@@ -89,7 +89,8 @@ Please respond with a JSON object in this exact format:
       const basePrice = 250;
       const complexityMultiplier = quoteData.breakdown.complexityMultiplier;
       const featuresMultiplier = quoteData.breakdown.featuresMultiplier;
-      const timelineMultiplier = quoteData.breakdown.timelineMultiplier;
+      // timelineMultiplier is not used in new calculation method
+      // const timelineMultiplier = quoteData.breakdown.timelineMultiplier;
       
       // Override AI's basePrice to ensure it's correct
       quoteData.breakdown.basePrice = basePrice;
@@ -135,8 +136,9 @@ Please respond with a JSON object in this exact format:
       quoteData.breakdown.timelineMultiplier = 1; // Always 1 since we handle rush separately
       quoteData.breakdown.rushCost = rushCost;
       
-    } catch (error) {
+    } catch (parseError) {
       // If JSON parsing fails, create a fallback response
+      console.log('JSON parsing failed:', parseError);
       // Calculate integration cost properly
       let integrationCost = 0;
       const integrationList = integrations ? integrations.split(',').filter((i: string) => i.trim()) : [];

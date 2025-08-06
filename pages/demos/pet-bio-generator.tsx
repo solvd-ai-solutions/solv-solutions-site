@@ -57,8 +57,8 @@ export default function PetBioGeneratorDemo() {
             color: '#666',
             marginBottom: '24px'
           }}>
-            This demo is coming soon! We're working on deploying the Pet Bio Generator.
-            You'll be redirected back to see our other demos.
+            This demo is coming soon! We&apos;re working on deploying the Pet Bio Generator.
+            You&apos;ll be redirected back to see our other demos.
           </p>
           <a 
             href="https://solvdaisolutions.com/#demos"

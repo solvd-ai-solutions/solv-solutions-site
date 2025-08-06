@@ -145,8 +145,8 @@ Format the response as JSON:
     let analysisData;
     try {
       analysisData = JSON.parse(response);
-    } catch (error) {
-      console.log('Failed to parse OpenAI response, using fallback');
+    } catch (parseError) {
+      console.log('Failed to parse OpenAI response, using fallback:', parseError);
       // Fallback analysis
       analysisData = {
         integrations: ["Basic API integration", "Database setup"],
