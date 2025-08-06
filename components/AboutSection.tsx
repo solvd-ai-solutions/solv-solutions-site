@@ -61,10 +61,10 @@ export function AboutSection() {
           <OutlineCard hover accentColor="mint">
             <OutlineCardContent className="text-center p-6">
               <div className="bg-mint rounded-lg p-3 w-fit mx-auto mb-4 outline-mint" style={{ outline: '2px solid var(--color-mint)', outlineOffset: '0' }}>
-                <div className="w-12 h-12 text-white text-2xl flex items-center justify-center">⚡</div>
+                <div className="w-12 h-12 text-white text-2xl flex items-center justify-center">🎨</div>
               </div>
-              <h3 className="font-semibold text-black mb-2 text-lg">Lightning Fast</h3>
-              <p className="text-base text-black leading-relaxed">Most projects delivered within 48-72 hours</p>
+              <h3 className="font-semibold text-black mb-2 text-lg">Beautiful Builds</h3>
+              <p className="text-base text-black leading-relaxed">Simple, easy-to-navigate, accessible designs that solve problems in style</p>
             </OutlineCardContent>
           </OutlineCard>
 
