@@ -55,7 +55,7 @@ export function FeaturesGrid() {
 
               <OutlineButton 
                 variant="coral"
-                onClick={() => window.open('https://demos.solvdaisolutions.com/cut-order-manager', '_blank', 'noopener,noreferrer')}
+                onClick={() => window.open('https://solvdaisolutions.com/demos/cut-order-manager', '_blank', 'noopener,noreferrer')}
                 className="w-full flex items-center justify-center gap-3 group py-3 text-lg"
               >
                 View Demo
