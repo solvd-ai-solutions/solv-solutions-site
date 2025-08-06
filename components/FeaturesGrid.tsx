@@ -49,9 +49,8 @@ export function FeaturesGrid() {
               <OutlineButton 
                 variant="coral"
                 onClick={() => {
-                  // Use current domain for demo redirect
-                  const currentDomain = window.location.origin;
-                  window.open(`${currentDomain}/demos/cut-order-manager`, '_blank', 'noopener,noreferrer');
+                  // Always use the canonical www domain for consistency
+                  window.open('https://www.solvdaisolutions.com/demos/cut-order-manager', '_blank', 'noopener,noreferrer');
                 }}
                 className="w-full flex items-center justify-center gap-3 group py-3 text-lg"
               >
@@ -93,9 +92,8 @@ export function FeaturesGrid() {
               <OutlineButton 
                 variant="mint"
                 onClick={() => {
-                  // Use current domain for demo redirect
-                  const currentDomain = window.location.origin;
-                  window.open(`${currentDomain}/demos/pet-bio-generator`, '_blank', 'noopener,noreferrer');
+                  // Always use the canonical www domain for consistency
+                  window.open('https://www.solvdaisolutions.com/demos/pet-bio-generator', '_blank', 'noopener,noreferrer');
                 }}
                 className="w-full flex items-center justify-center gap-3 group py-3 text-lg"
               >

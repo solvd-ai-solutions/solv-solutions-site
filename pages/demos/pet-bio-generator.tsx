@@ -61,7 +61,7 @@ export default function PetBioGeneratorDemo() {
             You&apos;ll be redirected back to see our other demos.
           </p>
           <a 
-            href="https://solvdaisolutions.com/#demos"
+            href="https://www.solvdaisolutions.com/#demos"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
