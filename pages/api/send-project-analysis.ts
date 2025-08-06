@@ -55,8 +55,6 @@ PROJECT DETAILS:
 - Complexity: ${formData.complexity}
 - Timeline: ${formData.timeline}
 - Budget Range: ${formData.budget}
-- Features: ${formData.features.join(", ")}
-- Other Features: ${formData.otherFeatures || 'None'}
 - User Count: ${formData.userCount}
 
 QUOTE DETAILS:
