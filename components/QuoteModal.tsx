@@ -500,7 +500,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               <div style={{ textAlign: 'center' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '4px' }}>
                   <div style={{ width: '20px', height: '20px', color: '#8B5CF6', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>💰</div>
-                  <span style={{ fontSize: '24px', fontWeight: 'bold', color: 'black' }}>${quote?.price}</span>
+                  <span style={{ fontSize: '24px', fontWeight: 'bold', color: 'black' }}>${calculateTotalWithTax(quote?.price || 0, formData.contactInfo.state)}</span>
                 </div>
                 <p style={{ fontSize: '14px', color: 'black' }}>Total Project Cost</p>
               </div>
@@ -645,24 +645,22 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               Accept Quote
             </button>
             <button 
-              onClick={async () => {
-                try {
-                  await fetch('/api/send-project-analysis', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                      formData,
-                      quote,
-                      userContactInfo: formData.contactInfo
-                    }),
-                  });
-                } catch (error) {
-                  console.error('Error sending analysis:', error);
-                }
+              onClick={() => {
+                const userName = formData.contactInfo.name || 'User';
+                const projectDesc = formData.description || 'Project';
+                const quotedPrice = quote?.price || 0;
+                const deliveryDays = quote?.deliveryDays || 0;
                 
-                window.location.href = `mailto:gpeterson3030@gmail.com?subject=Quote Questions from ${formData.contactInfo.name}&body=Hi! I have questions about the quote I received:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AQuestions/Comments:`;
+                const emailBody = `Hi! I have questions about the quote I received:
+
+Project: ${projectDesc}
+Quoted Price: $${quotedPrice}
+Estimated Delivery: ${deliveryDays} business days
+
+Questions/Comments:
+`;
+                
+                window.open(`mailto:gpeterson3030@gmail.com?subject=Quote Questions from ${userName}&body=${encodeURIComponent(emailBody)}`);
               }}
               style={{
                 flex: 1,
@@ -705,7 +703,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
         width: '100%',
         maxHeight: '90vh',
         overflowY: 'auto',
-        border: '1px solid black'
+        border: '2px solid black'
       }}>
         <div style={{ padding: '16px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
