@@ -55,7 +55,7 @@ export function FeaturesGrid() {
 
               <OutlineButton 
                 variant="coral"
-                onClick={() => scrollToDemo('cut-manager-demo')}
+                onClick={() => window.open('https://cut-order-manager-git-main-geoff-petersons-projects.vercel.app', '_blank')}
                 className="w-full flex items-center justify-center gap-3 group py-3 text-lg"
               >
                 View Demo
