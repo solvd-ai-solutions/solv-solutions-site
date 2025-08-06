@@ -1,16 +1,13 @@
 import { useState } from "react";
 
-
 interface QuoteModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
 export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
-  // Force deployment update - all features references removed
-  // This comment ensures Vercel picks up the latest changes
-  // No feature checkboxes - AI determines features based on description
-  // CACHE BUSTING: This version has NO feature checkboxes anywhere
+  // COMPLETELY NEW VERSION - NO FEATURE CHECKBOXES ANYWHERE
+  // AI determines features from project description only
   const [step, setStep] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
   const [quote, setQuote] = useState<{
@@ -65,7 +62,6 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     budget: 'under-5k',
     integrations: '',
     userCount: '1-10',
-    otherFeatures: '',
     contactInfo: {
       name: '',
       email: '',
@@ -120,32 +116,10 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       }
 
       const quoteData = await response.json();
-      console.log('API Response:', quoteData);
-      
-      // Validate the API response
-      const basePrice = 300;
-      const complexityMultiplier = quoteData.breakdown.complexityMultiplier;
-      const featuresMultiplier = quoteData.breakdown.featuresMultiplier;
-      const timelineMultiplier = quoteData.breakdown.timelineMultiplier;
-      const integrationCost = quoteData.breakdown.integrationCost;
-      
-      // Validate the API response but don't override unless there's a major discrepancy
-      const calculatedPrice = Math.round((basePrice * complexityMultiplier * featuresMultiplier * timelineMultiplier) + integrationCost);
-      console.log('API Response:', quoteData);
-      console.log('Calculated price:', calculatedPrice, 'API price:', quoteData.price);
-      console.log('Integration cost from API:', integrationCost);
-      
-      // Only override if there's a major discrepancy (more than 20% difference)
-      if (Math.abs(calculatedPrice - quoteData.price) > (quoteData.price * 0.2)) {
-        quoteData.price = calculatedPrice;
-        console.log('Using calculated price due to major discrepancy:', calculatedPrice);
-      }
-      
       setQuote(quoteData);
 
-      // Send email analysis automatically when quote is generated
+      // Send email analysis automatically
       try {
-        console.log('Sending automatic email analysis...');
         await fetch('/api/send-project-analysis', {
           method: 'POST',
           headers: {
@@ -157,97 +131,29 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             userContactInfo: formData.contactInfo
           }),
         });
-        console.log('Automatic email analysis sent successfully');
       } catch (emailError) {
         console.error('Error sending automatic analysis:', emailError);
       }
 
     } catch (error) {
       console.error('Error generating quote:', error);
-      // Fallback to simulated quote if API fails
-      const basePrice = 300;
-      let complexity = 1;
-      let timeMultiplier = 1;
-      let rushCost = 0;
-      
-      // Complexity scoring
-      if (formData.complexity === 'simple') complexity = 1;
-      else if (formData.complexity === 'moderate') complexity = 1.2;
-      else if (formData.complexity === 'complex') complexity = 1.4;
-      
-      // Feature additions - AI determines features, so use a base multiplier
-      const featureMultiplier = 1.1; // Base feature multiplier
-      
-      // Timeline adjustments
-      if (formData.timeline === 'rush') {
-        timeMultiplier = 0.5;
-      } else if (formData.timeline === 'standard') timeMultiplier = 1;
-      else if (formData.timeline === 'flexible') timeMultiplier = 0.85;
-      
-      // Integration complexity
-      let integrationCost = 0;
-      const integrations = formData.integrations.split(',').filter(i => i.trim());
-      integrations.forEach((integration, index) => {
-        if (index < 5) {
-          integrationCost += 50;
-        } else {
-          integrationCost += 75;
-        }
-      });
-      
-      // Calculate base price before rush cost
-      const basePriceWithMultipliers = Math.round((basePrice * complexity * featureMultiplier * timeMultiplier) + integrationCost);
-      
-      // Rush cost is 50% of the total cost
-      if (formData.timeline === 'rush') {
-        rushCost = Math.round(basePriceWithMultipliers * 0.5);
-      }
-      
-      const finalPrice = basePriceWithMultipliers + rushCost;
-      
-      // Delivery time calculation
-      let deliveryDays = formData.complexity === 'simple' ? 2 : 
-                        formData.complexity === 'moderate' ? 4 : 7;
-      if (formData.timeline === 'rush') deliveryDays = Math.max(1, Math.floor(deliveryDays / 2));
-      if (formData.timeline === 'flexible') deliveryDays += 2;
-      
+      // Fallback quote
       const fallbackQuote = {
-        price: finalPrice,
-        deliveryDays: deliveryDays,
+        price: 990,
+        deliveryDays: 7,
         breakdown: {
-          basePrice: basePrice,
-          complexityMultiplier: complexity,
-          featuresMultiplier: featureMultiplier,
-          timelineMultiplier: timeMultiplier,
-          integrationCost: integrationCost,
-          rushCost: rushCost
+          basePrice: 300,
+          complexityMultiplier: 1.4,
+          featuresMultiplier: 2.0,
+          timelineMultiplier: 1,
+          integrationCost: 150,
+          rushCost: 0
         },
         determinedFeatures: ['AI-determined features based on project description'],
         confidence: 85
       };
-      
       setQuote(fallbackQuote);
-
-      // Send email analysis for fallback quote too
-      try {
-        console.log('Sending automatic email analysis for fallback quote...');
-        await fetch('/api/send-project-analysis', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            formData,
-            quote: fallbackQuote,
-            userContactInfo: formData.contactInfo
-          }),
-        });
-        console.log('Automatic email analysis sent successfully for fallback');
-      } catch (emailError) {
-        console.error('Error sending automatic analysis for fallback:', emailError);
-      }
     } finally {
-      // Ensure loading screen is shown for at least 2 seconds
       const minLoadingTime = 2000;
       const elapsedTime = Date.now() - startTime;
       const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
@@ -269,15 +175,15 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         <div>
           <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '6px' }}>Project Type</label>
-                      <select 
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                borderRadius: '12px',
-                border: '1px solid black',
-                fontSize: '16px',
-                backgroundColor: 'white'
-              }}
+          <select 
+            style={{
+              width: '100%',
+              padding: '8px 12px',
+              borderRadius: '12px',
+              border: '1px solid black',
+              fontSize: '16px',
+              backgroundColor: 'white'
+            }}
             value={formData.projectType}
             onChange={(e) => handleInputChange('projectType', e.target.value)}
           >
@@ -293,17 +199,17 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
         <div>
           <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '6px' }}>Project Description</label>
-                      <textarea 
-              style={{
-                width: '100%',
-                padding: '8px 12px',
-                borderRadius: '12px',
-                border: '1px solid black',
-                fontSize: '16px',
-                backgroundColor: 'white',
-                minHeight: '80px',
-                resize: 'vertical'
-              }}
+          <textarea 
+            style={{
+              width: '100%',
+              padding: '8px 12px',
+              borderRadius: '12px',
+              border: '1px solid black',
+              fontSize: '16px',
+              backgroundColor: 'white',
+              minHeight: '80px',
+              resize: 'vertical'
+            }}
             rows={4}
             placeholder="Describe what you need your AI app to do..."
             value={formData.description}
@@ -359,18 +265,6 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             fontWeight: '500',
             transition: 'all 0.2s'
           }}
-          onMouseEnter={(e) => {
-            if (!(!formData.projectType || !formData.description || !formData.complexity)) {
-              (e.target as HTMLElement).style.backgroundColor = 'white';
-              (e.target as HTMLElement).style.color = '#8B5CF6';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (!(!formData.projectType || !formData.description || !formData.complexity)) {
-              (e.target as HTMLElement).style.backgroundColor = '#8B5CF6';
-              (e.target as HTMLElement).style.color = 'white';
-            }
-          }}
         >
           Next Step
         </button>
@@ -382,7 +276,6 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
       {isGenerating ? (
         <div style={{ textAlign: 'center', padding: '32px 20px' }}>
-          {/* Animated loading icon */}
           <div style={{ 
             backgroundColor: '#8B5CF6', 
             borderRadius: '50%', 
@@ -397,7 +290,6 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
           
           <h3 style={{ fontSize: '20px', fontWeight: '600', color: 'black', marginBottom: '12px' }}>AI is Analyzing Your Project...</h3>
           
-          {/* Progress steps */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px', maxWidth: '300px', margin: '0 auto 20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#4FB3A6' }}>
               <div style={{ width: '16px', height: '16px', backgroundColor: '#4FB3A6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '10px' }}>✓</div>
@@ -419,7 +311,6 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
           
           <p style={{ fontSize: '14px', color: '#666', fontStyle: 'italic' }}>This usually takes 10-15 seconds...</p>
           
-          {/* Loading animation styles */}
           <style jsx>{`
             @keyframes pulse {
               0% { transform: scale(1); }
@@ -575,275 +466,215 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
   const renderStep3 = () => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-      {isGenerating ? (
-        <div style={{ textAlign: 'center', padding: '32px 20px' }}>
-          {/* Animated loading icon */}
+      <div>
+        <div style={{ textAlign: 'center', marginBottom: '12px' }}>
           <div style={{ 
             backgroundColor: '#8B5CF6', 
-            borderRadius: '50%', 
-            padding: '20px', 
-            width: 'fit-content', 
-            margin: '0 auto 24px',
-            border: '2px solid #8B5CF6',
-            animation: 'pulse 2s infinite'
-          }}>
-            <div style={{ width: '32px', height: '32px', color: 'white', fontSize: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✨</div>
-          </div>
-          
-          <h3 style={{ fontSize: '20px', fontWeight: '600', color: 'black', marginBottom: '12px' }}>AI is Analyzing Your Project...</h3>
-          
-          {/* Progress steps */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '20px', maxWidth: '300px', margin: '0 auto 20px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#4FB3A6' }}>
-              <div style={{ width: '16px', height: '16px', backgroundColor: '#4FB3A6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '10px' }}>✓</div>
-              <span>Analyzing project requirements</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#4FB3A6' }}>
-              <div style={{ width: '16px', height: '16px', backgroundColor: '#4FB3A6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '10px' }}>✓</div>
-              <span>Determining required integrations</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#8B5CF6' }}>
-              <div style={{ width: '16px', height: '16px', backgroundColor: '#8B5CF6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '10px', animation: 'spin 1s linear infinite' }}>⟳</div>
-              <span>Calculating optimal pricing</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#ccc' }}>
-              <div style={{ width: '16px', height: '16px', backgroundColor: '#ccc', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '10px' }}>○</div>
-              <span>Generating detailed breakdown</span>
-            </div>
-          </div>
-          
-          <p style={{ fontSize: '14px', color: '#666', fontStyle: 'italic' }}>This usually takes 10-15 seconds...</p>
-          
-          {/* Loading animation styles */}
-          <style jsx>{`
-            @keyframes pulse {
-              0% { transform: scale(1); }
-              50% { transform: scale(1.05); }
-              100% { transform: scale(1); }
-            }
-            @keyframes spin {
-              from { transform: rotate(0deg); }
-              to { transform: rotate(360deg); }
-            }
-          `}</style>
-        </div>
-      ) : (
-        <div>
-          <div style={{ textAlign: 'center', marginBottom: '12px' }}>
-            <div style={{ 
-              backgroundColor: '#8B5CF6', 
-              borderRadius: '8px', 
-              padding: '8px', 
-              width: 'fit-content', 
-              margin: '0 auto 8px',
-              border: '1px solid #8B5CF6'
-            }}>
-              <div style={{ width: '20px', height: '20px', color: 'white', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✨</div>
-            </div>
-            <h3 style={{ fontSize: '18px', fontWeight: '600', color: 'black', marginBottom: '4px' }}>Your AI-Generated Quote</h3>
-            <p style={{ fontSize: '14px', color: 'black' }}>Based on your project requirements and complexity analysis</p>
-          </div>
-
-          <div style={{ 
-            border: '1px solid black', 
             borderRadius: '8px', 
-            padding: '12px',
-            marginBottom: '12px'
+            padding: '8px', 
+            width: 'fit-content', 
+            margin: '0 auto 8px',
+            border: '1px solid #8B5CF6'
           }}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '12px' }}>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '4px' }}>
-                    <div style={{ width: '20px', height: '20px', color: '#8B5CF6', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>💰</div>
-                    <span style={{ fontSize: '24px', fontWeight: 'bold', color: 'black' }}>${quote?.price}</span>
-                  </div>
-                  <p style={{ fontSize: '14px', color: 'black' }}>Total Project Cost</p>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '4px' }}>
-                    <div style={{ width: '20px', height: '20px', color: '#4FB3A6', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⏰</div>
-                    <span style={{ fontSize: '24px', fontWeight: 'bold', color: 'black' }}>{quote?.deliveryDays}</span>
-                    <span style={{ fontSize: '14px', color: 'black' }}>days</span>
-                  </div>
-                  <p style={{ fontSize: '14px', color: 'black' }}>Estimated Delivery Time</p>
-                </div>
-              </div>
-              
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '14px', color: 'black' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Base Development:</span>
-                  <span>${quote?.breakdown.basePrice}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Complexity Factor ({formData.complexity}):</span>
-                  <span>×{quote?.breakdown.complexityMultiplier}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Features (AI-determined):</span>
-                  <span>×{quote?.breakdown.featuresMultiplier.toFixed(2)}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Timeline ({formData.timeline}):</span>
-                  <span>×{quote?.breakdown.timelineMultiplier}</span>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span>Integrations ({quote?.requiredIntegrations ? quote.requiredIntegrations.length : 0}):</span>
-                  <span>+${quote?.breakdown.integrationCost || 0}</span>
-                </div>
+            <div style={{ width: '20px', height: '20px', color: 'white', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✨</div>
+          </div>
+          <h3 style={{ fontSize: '18px', fontWeight: '600', color: 'black', marginBottom: '4px' }}>Your AI-Generated Quote</h3>
+          <p style={{ fontSize: '14px', color: 'black' }}>Based on your project requirements and complexity analysis</p>
+        </div>
 
-                {quote?.breakdown.rushCost && quote.breakdown.rushCost > 0 && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span>Rush Service:</span>
-                    <span>+${quote.breakdown.rushCost}</span>
-                  </div>
-                )}
-                {formData.contactInfo.state && (
-                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <span>State Tax (${getStateTaxRate(formData.contactInfo.state)}%):</span>
-                    <span>+${calculateStateTax(quote?.price || 0, formData.contactInfo.state)}</span>
-                  </div>
-                )}
-                <div style={{ borderTop: '1px solid black', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', fontWeight: '600', fontSize: '16px' }}>
-                  <span>Total:</span>
-                  <span>${calculateTotalWithTax(quote?.price || 0, formData.contactInfo.state)}</span>
+        <div style={{ 
+          border: '1px solid black', 
+          borderRadius: '8px', 
+          padding: '12px',
+          marginBottom: '12px'
+        }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', marginBottom: '12px' }}>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '4px' }}>
+                  <div style={{ width: '20px', height: '20px', color: '#8B5CF6', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>💰</div>
+                  <span style={{ fontSize: '24px', fontWeight: 'bold', color: 'black' }}>${quote?.price}</span>
                 </div>
+                <p style={{ fontSize: '14px', color: 'black' }}>Total Project Cost</p>
               </div>
-              
-              <div style={{ marginTop: '12px', padding: '8px', backgroundColor: '#8B5CF6', borderRadius: '8px', border: '1px solid #8B5CF6' }}>
-                <p style={{ color: 'white', fontWeight: '500', fontSize: '14px' }}>
-                  AI Confidence: {quote?.confidence}% • This quote includes 30 days of support and revisions
-                </p>
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '4px' }}>
+                  <div style={{ width: '20px', height: '20px', color: '#4FB3A6', fontSize: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⏰</div>
+                  <span style={{ fontSize: '24px', fontWeight: 'bold', color: 'black' }}>{quote?.deliveryDays}</span>
+                  <span style={{ fontSize: '14px', color: 'black' }}>days</span>
+                </div>
+                <p style={{ fontSize: '14px', color: 'black' }}>Estimated Delivery Time</p>
               </div>
             </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '14px', color: 'black' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Base Development:</span>
+                <span>${quote?.breakdown.basePrice}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Complexity Factor ({formData.complexity}):</span>
+                <span>×{quote?.breakdown.complexityMultiplier}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Features (AI-determined):</span>
+                <span>×{quote?.breakdown.featuresMultiplier.toFixed(2)}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Timeline ({formData.timeline}):</span>
+                <span>×{quote?.breakdown.timelineMultiplier}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <span>Integrations ({quote?.requiredIntegrations ? quote.requiredIntegrations.length : 0}):</span>
+                <span>+${quote?.breakdown.integrationCost || 0}</span>
+              </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px' }}>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <button 
-                onClick={() => {
-                  setStep(1);
-                  setQuote(null);
-                  setFormData({
-                    projectType: '',
-                    description: '',
-                    complexity: 'simple',
-                    timeline: 'standard',
-                    budget: 'under-5k',
-                    integrations: '',
-                    userCount: '1-10',
-                    otherFeatures: '',
-                    contactInfo: { name: '', email: '', company: '', state: '' }
-                  });
-                }}
-                style={{
-                  flex: 1,
-                  padding: '8px 16px',
-                  fontSize: '14px',
-                  backgroundColor: '#4FB3A6',
-                  color: 'white',
-                  border: '1px solid #4FB3A6',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontWeight: '500'
-                }}
-              >
-                New Quote
-              </button>
-              <button 
-                onClick={() => {
-                  setStep(1);
-                  // Keep the current form data so user can modify
-                }}
-                style={{
-                  flex: 1,
-                  padding: '8px 16px',
-                  fontSize: '14px',
-                  backgroundColor: '#F29E8E',
-                  color: 'white',
-                  border: '1px solid #F29E8E',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontWeight: '500'
-                }}
-              >
-                Modify Quote
-              </button>
+              {quote?.breakdown.rushCost && quote.breakdown.rushCost > 0 && (
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Rush Service:</span>
+                  <span>+${quote.breakdown.rushCost}</span>
+                </div>
+              )}
+              {formData.contactInfo.state && (
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>State Tax (${getStateTaxRate(formData.contactInfo.state)}%):</span>
+                  <span>+${calculateStateTax(quote?.price || 0, formData.contactInfo.state)}</span>
+                </div>
+              )}
+              <div style={{ borderTop: '1px solid black', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', fontWeight: '600', fontSize: '16px' }}>
+                <span>Total:</span>
+                <span>${calculateTotalWithTax(quote?.price || 0, formData.contactInfo.state)}</span>
+              </div>
             </div>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <button 
-                onClick={async () => {
-                  // Send detailed analysis to business owner
-                  try {
-                    await fetch('/api/send-project-analysis', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        formData,
-                        quote,
-                        userContactInfo: formData.contactInfo
-                      }),
-                    });
-                  } catch (error) {
-                    console.error('Error sending analysis:', error);
-                  }
-                  
-                  // Send email to client
-                  window.location.href = `mailto:hello@solvd.ai?subject=Project Quote - ${quote?.price}&body=Hi! I just generated a quote for my project:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AI'd like to proceed with this project.`;
-                }}
-                style={{
-                  flex: 1,
-                  padding: '8px 16px',
-                  fontSize: '14px',
-                  backgroundColor: '#8B5CF6',
-                  color: 'white',
-                  border: '1px solid #8B5CF6',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontWeight: '500'
-                }}
-              >
-                Accept Quote
-              </button>
-              <button 
-                onClick={async () => {
-                  // Send detailed analysis to business owner
-                  try {
-                    await fetch('/api/send-project-analysis', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        formData,
-                        quote,
-                        userContactInfo: formData.contactInfo
-                      }),
-                    });
-                  } catch (error) {
-                    console.error('Error sending analysis:', error);
-                  }
-                  
-                  // Send email to client
-                  window.location.href = `mailto:hello@solvd.ai?subject=Quote Questions&body=Hi! I have questions about the quote I received:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AQuestions/Comments:`;
-                }}
-                style={{
-                  flex: 1,
-                  padding: '8px 16px',
-                  fontSize: '14px',
-                  backgroundColor: '#F29E8E',
-                  color: 'white',
-                  border: '1px solid #F29E8E',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  fontWeight: '500'
-                }}
-              >
-                Ask Questions
-              </button>
+            
+            <div style={{ marginTop: '12px', padding: '8px', backgroundColor: '#8B5CF6', borderRadius: '8px', border: '1px solid #8B5CF6' }}>
+              <p style={{ color: 'white', fontWeight: '500', fontSize: '14px' }}>
+                AI Confidence: {quote?.confidence}% • This quote includes 30 days of support and revisions
+              </p>
             </div>
           </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px' }}>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button 
+              onClick={() => {
+                setStep(1);
+                setQuote(null);
+                setFormData({
+                  projectType: '',
+                  description: '',
+                  complexity: 'simple',
+                  timeline: 'standard',
+                  budget: 'under-5k',
+                  integrations: '',
+                  userCount: '1-10',
+                  contactInfo: { name: '', email: '', company: '', state: '' }
+                });
+              }}
+              style={{
+                flex: 1,
+                padding: '8px 16px',
+                fontSize: '14px',
+                backgroundColor: '#4FB3A6',
+                color: 'white',
+                border: '1px solid #4FB3A6',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '500'
+              }}
+            >
+              New Quote
+            </button>
+            <button 
+              onClick={() => {
+                setStep(1);
+              }}
+              style={{
+                flex: 1,
+                padding: '8px 16px',
+                fontSize: '14px',
+                backgroundColor: '#F29E8E',
+                color: 'white',
+                border: '1px solid #F29E8E',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '500'
+              }}
+            >
+              Modify Quote
+            </button>
+          </div>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button 
+              onClick={async () => {
+                try {
+                  await fetch('/api/send-project-analysis', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      formData,
+                      quote,
+                      userContactInfo: formData.contactInfo
+                    }),
+                  });
+                } catch (error) {
+                  console.error('Error sending analysis:', error);
+                }
+                
+                window.location.href = `mailto:hello@solvd.ai?subject=Project Quote - ${quote?.price}&body=Hi! I just generated a quote for my project:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AI'd like to proceed with this project.`;
+              }}
+              style={{
+                flex: 1,
+                padding: '8px 16px',
+                fontSize: '14px',
+                backgroundColor: '#8B5CF6',
+                color: 'white',
+                border: '1px solid #8B5CF6',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '500'
+              }}
+            >
+              Accept Quote
+            </button>
+            <button 
+              onClick={async () => {
+                try {
+                  await fetch('/api/send-project-analysis', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      formData,
+                      quote,
+                      userContactInfo: formData.contactInfo
+                    }),
+                  });
+                } catch (error) {
+                  console.error('Error sending analysis:', error);
+                }
+                
+                window.location.href = `mailto:hello@solvd.ai?subject=Quote Questions&body=Hi! I have questions about the quote I received:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AQuestions/Comments:`;
+              }}
+              style={{
+                flex: 1,
+                padding: '8px 16px',
+                fontSize: '14px',
+                backgroundColor: '#F29E8E',
+                color: 'white',
+                border: '1px solid #F29E8E',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: '500'
+              }}
+            >
+              Ask Questions
+            </button>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 
@@ -892,9 +723,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                 backgroundColor: 'transparent',
                 cursor: 'pointer',
                 fontSize: '18px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
                 width: '24px',
                 height: '24px'
               }}
@@ -903,7 +732,6 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             </button>
           </div>
 
-          {/* Progress Indicator */}
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
             {[1, 2, 3].map((stepNum) => (
               <div key={stepNum} style={{ display: 'flex', alignItems: 'center' }}>
