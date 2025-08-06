@@ -519,10 +519,6 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                 <span>Features (AI-determined):</span>
                 <span>×{quote?.breakdown.featuresMultiplier.toFixed(2)}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Timeline ({formData.timeline}):</span>
-                <span>×{quote?.breakdown.timelineMultiplier}</span>
-              </div>
               {(quote?.requiredIntegrations && quote.requiredIntegrations.length > 0) && (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span>Integrations ({quote.requiredIntegrations.length}):</span>
