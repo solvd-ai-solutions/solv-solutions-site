@@ -173,6 +173,18 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
   outline-offset: 0;
   border: none;
   text-decoration: none;
+  transform: translateY(0);
+}
+
+/* Button Hover & Click Animation */
+.btn-base:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-base:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 ```
 
@@ -187,6 +199,21 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 /* Large */
 .btn-lg { padding: var(--space-3) var(--space-5); font-size: var(--text-lg); }
 ```
+
+#### Button Animation Behavior
+
+**Animation Flow:**
+1. **Default State**: Button sits at normal position with subtle shadow
+2. **Hover State**: Button lifts up 2px with enhanced shadow (feels elevated)
+3. **Active/Click State**: Button returns to normal position with pressed shadow (feels clicked)
+4. **Color Transitions**: Background and outline colors change smoothly during hover
+
+**Implementation Notes:**
+- All buttons using `.btn-base` automatically get these animations
+- The 2px lift is subtle but provides clear visual feedback
+- Shadow changes enhance the depth perception
+- Works alongside color transitions for full interactive experience
+- Animation timing is 0.2s ease-in-out for smooth, professional feel
 
 ### Cards
 
@@ -351,10 +378,22 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 
 ### Hover Effects
 ```css
-/* Slide right */
+/* Button lift (applied automatically to .btn-base) */
+.btn-base:hover { 
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+}
+
+/* Button press (applied automatically to .btn-base) */
+.btn-base:active { 
+  transform: translateY(0); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+/* Slide right (for arrows and icons) */
 .hover\:translate-x-1:hover { transform: translateX(4px); }
 
-/* Outline color change */
+/* Outline color change (for cards and components) */
 .hover\:outline-mint:hover { outline-color: var(--color-mint); }
 ```
 
@@ -557,9 +596,10 @@ module.exports = {
 - Use 2px outlines on all interactive elements
 - Maintain 8px grid spacing throughout
 - Use accent colors purposefully (not decoratively)
-- Keep animations subtle and functional
+- Keep animations subtle and functional (like the 2px button lift)
 - Ensure high contrast ratios
-- Test all interactions and hover states
+- Test all button hover and click animations
+- Use consistent animation timing (0.2s ease-in-out)
 
 #### Don'ts ❌
 - Don't use gradients or complex shadows
