@@ -662,7 +662,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                   console.error('Error sending analysis:', error);
                 }
                 
-                window.location.href = `mailto:hello@solvd.ai?subject=Quote Questions&body=Hi! I have questions about the quote I received:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AQuestions/Comments:`;
+                window.location.href = `mailto:gpeterson3030@gmail.com?subject=Quote Questions from ${formData.contactInfo.name}&body=Hi! I have questions about the quote I received:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AQuestions/Comments:`;
               }}
               style={{
                 flex: 1,
