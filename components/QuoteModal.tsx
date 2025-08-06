@@ -523,10 +523,12 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                 <span>Timeline ({formData.timeline}):</span>
                 <span>×{quote?.breakdown.timelineMultiplier}</span>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Integrations ({quote?.requiredIntegrations ? quote.requiredIntegrations.length : 0}):</span>
-                <span>+${quote?.breakdown.integrationCost || 0}</span>
-              </div>
+              {(quote?.requiredIntegrations && quote.requiredIntegrations.length > 0) && (
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <span>Integrations ({quote.requiredIntegrations.length}):</span>
+                  <span>+${quote?.breakdown.integrationCost || 0}</span>
+                </div>
+              )}
 
               {quote?.breakdown.rushCost && quote.breakdown.rushCost > 0 && (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
