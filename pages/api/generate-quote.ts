@@ -111,13 +111,26 @@ Please respond with a JSON object in this exact format:
       quoteData.requiredIntegrations = finalIntegrations;
       
       // Recalculate the price with correct integration cost
-      const calculatedPrice = Math.round((basePrice * complexityMultiplier * featuresMultiplier * timelineMultiplier) + correctIntegrationCost);
+      // Remove timeline multiplier from base calculation - rush is handled as separate cost
+      const basePriceWithMultipliers = Math.round((basePrice * complexityMultiplier * featuresMultiplier) + correctIntegrationCost);
+      
+      // Calculate rush cost as 50% of the base price (if rush is selected)
+      let rushCost = 0;
+      if (timeline === 'rush') {
+        rushCost = Math.round(basePriceWithMultipliers * 0.5);
+      }
+      
+      const calculatedPrice = basePriceWithMultipliers + rushCost;
       
       // Update the price if it doesn't match
       if (Math.abs(calculatedPrice - quoteData.price) > 10) {
         console.log('Price mismatch detected. Recalculating...');
         quoteData.price = calculatedPrice;
       }
+      
+      // Update the breakdown to reflect the correct calculation
+      quoteData.breakdown.timelineMultiplier = 1; // Always 1 since we handle rush separately
+      quoteData.breakdown.rushCost = rushCost;
       
     } catch (error) {
       // If JSON parsing fails, create a fallback response
@@ -136,49 +149,34 @@ Please respond with a JSON object in this exact format:
       const basePrice = 300;
       const complexityMultiplier = complexity === 'simple' ? 1.0 : complexity === 'moderate' ? 1.2 : 1.4;
       const featuresMultiplier = 1 + (features.length * 0.1);
-      const timelineMultiplier = timeline === 'rush' ? 0.5 : timeline === 'flexible' ? 0.85 : 1.0;
       
-      // Determine integrations based on project type and features
-      let fallbackIntegrations: string[] = [];
-      if (projectType === 'ecommerce') {
-        fallbackIntegrations = ['Payment Processing', 'Inventory Management', 'Email Marketing'];
-      } else if (projectType === 'business') {
-        fallbackIntegrations = ['Database', 'Email Service', 'Analytics'];
-      } else if (projectType === 'productivity') {
-        fallbackIntegrations = ['Cloud Storage', 'Authentication', 'Email Service'];
-      } else if (projectType === 'data') {
-        fallbackIntegrations = ['Database', 'Analytics', 'Cloud Storage'];
-      } else if (projectType === 'automation') {
-        fallbackIntegrations = ['API Integration', 'Email Service', 'Database'];
+      // Calculate base price without timeline multiplier
+      const basePriceWithMultipliers = Math.round((basePrice * complexityMultiplier * featuresMultiplier) + integrationCost);
+      
+      // Calculate rush cost as 50% of the base price (if rush is selected)
+      let rushCost = 0;
+      if (timeline === 'rush') {
+        rushCost = Math.round(basePriceWithMultipliers * 0.5);
       }
       
-      // Calculate integration cost for fallback integrations
-      let fallbackIntegrationCost = 0;
-      fallbackIntegrations.forEach((integration: string, index: number) => {
-        if (index < 5) {
-          fallbackIntegrationCost += 50;
-        } else {
-          fallbackIntegrationCost += 75;
-        }
-      });
+      const calculatedPrice = basePriceWithMultipliers + rushCost;
       
-      const calculatedPrice = Math.round((basePrice * complexityMultiplier * featuresMultiplier * timelineMultiplier) + fallbackIntegrationCost);
-      
-              quoteData = {
-          price: calculatedPrice,
-          deliveryDays: complexity === 'simple' ? 2 : complexity === 'moderate' ? 4 : 7,
-          breakdown: {
-            basePrice: basePrice,
-            complexityMultiplier: complexityMultiplier,
-            featuresMultiplier: featuresMultiplier,
-            timelineMultiplier: timelineMultiplier,
-            integrationCost: fallbackIntegrationCost
-          },
-          features: features,
-          requiredIntegrations: fallbackIntegrations,
-          confidence: 85,
-          reasoning: "Generated based on project specifications"
-        };
+      quoteData = {
+        price: calculatedPrice,
+        deliveryDays: complexity === 'simple' ? 2 : complexity === 'moderate' ? 4 : 7,
+        breakdown: {
+          basePrice: basePrice,
+          complexityMultiplier: complexityMultiplier,
+          featuresMultiplier: featuresMultiplier,
+          timelineMultiplier: 1, // Always 1 since we handle rush separately
+          integrationCost: integrationCost,
+          rushCost: rushCost
+        },
+        features: features,
+        requiredIntegrations: integrationList,
+        confidence: 85,
+        reasoning: "Generated based on project specifications"
+      };
     }
 
     res.status(200).json(quoteData);
