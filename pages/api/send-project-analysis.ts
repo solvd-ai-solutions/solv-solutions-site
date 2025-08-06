@@ -207,34 +207,34 @@ REQUIRED INTEGRATIONS (AI-Determined):
 ${quote.requiredIntegrations ? quote.requiredIntegrations.map((integration: string) => `• ${integration}`).join('\n') : '• None required'}
 
 MINIMAL INTEGRATIONS REQUIRED:
-${analysisData.minimalIntegrations.map((integration: string) => `• ${integration}`).join('\n')}
+${analysisData.minimalIntegrations && Array.isArray(analysisData.minimalIntegrations) ? analysisData.minimalIntegrations.map((integration: string) => `• ${integration}`).join('\n') : '• Basic integrations required'}
 
 AI TOOLS RECOMMENDATION:
 Essential AI Tools:
-${analysisData.aiTools.essential.map((tool: string) => `• ${tool}`).join('\n')}
+${analysisData.aiTools?.essential && Array.isArray(analysisData.aiTools.essential) ? analysisData.aiTools.essential.map((tool: string) => `• ${tool}`).join('\n') : '• Standard development tools recommended'}
 
 Optional AI Tools:
-${analysisData.aiTools.optional.map((tool: string) => `• ${tool}`).join('\n')}
+${analysisData.aiTools?.optional && Array.isArray(analysisData.aiTools.optional) ? analysisData.aiTools.optional.map((tool: string) => `• ${tool}`).join('\n') : '• Additional AI tools may be beneficial'}
 
 AI Tools Recommendations:
-${analysisData.aiTools.recommendations}
+${analysisData.aiTools?.recommendations || 'Use modern development tools and best practices'}
 
 TIME ESTIMATION (WITH AI ASSISTANCE):
-Frontend Development: ${analysisData.timeEstimation.frontend} hours
-Backend Development: ${analysisData.timeEstimation.backend} hours
-Integration Work: ${analysisData.timeEstimation.integration} hours
-Testing & QA: ${analysisData.timeEstimation.testing} hours
-TOTAL: ${analysisData.timeEstimation.total} hours (${Math.floor(analysisData.timeEstimation.total / 8)} business days)
-Time Savings with AI: ${analysisData.timeEstimation.timeSavings}
+Frontend Development: ${analysisData.timeEstimation?.frontend || 20} hours
+Backend Development: ${analysisData.timeEstimation?.backend || 30} hours
+Integration Work: ${analysisData.timeEstimation?.integration || 10} hours
+Testing & QA: ${analysisData.timeEstimation?.testing || 15} hours
+TOTAL: ${analysisData.timeEstimation?.total || 75} hours (${Math.floor((analysisData.timeEstimation?.total || 75) / 8)} business days)
+Time Savings with AI: ${analysisData.timeEstimation?.timeSavings || '50%'}
 
 PROJECT SCOPE:
-${analysisData.projectScope}
+${analysisData.projectScope || 'Standard development project based on requirements'}
 
 IMPORTANT HIGHLIGHTS:
-${analysisData.highlights.map((highlight: string) => `• ${highlight}`).join('\n')}
+${analysisData.highlights && Array.isArray(analysisData.highlights) ? analysisData.highlights.map((highlight: string) => `• ${highlight}`).join('\n') : '• Standard complexity project\n• Requires standard integrations'}
 
 TECHNICAL RECOMMENDATIONS:
-${analysisData.technicalRecommendations}
+${analysisData.technicalRecommendations || 'Use modern web technologies and best practices'}
 
 COST BREAKDOWN:
 Base Development: $${quote.breakdown.basePrice}
