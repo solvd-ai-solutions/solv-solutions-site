@@ -150,7 +150,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
         price: 990,
         deliveryDays: 7,
         breakdown: {
-          basePrice: 200,
+          basePrice: 250,
           complexityMultiplier: 1.4,
           featuresMultiplier: 2.0,
           timelineMultiplier: 1,
