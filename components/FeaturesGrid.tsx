@@ -48,7 +48,11 @@ export function FeaturesGrid() {
 
               <OutlineButton 
                 variant="coral"
-                onClick={() => window.open('https://solvdaisolutions.com/demos/cut-order-manager', '_blank', 'noopener,noreferrer')}
+                onClick={() => {
+                  // Use current domain for demo redirect
+                  const currentDomain = window.location.origin;
+                  window.open(`${currentDomain}/demos/cut-order-manager`, '_blank', 'noopener,noreferrer');
+                }}
                 className="w-full flex items-center justify-center gap-3 group py-3 text-lg"
               >
                 View Demo
@@ -88,7 +92,11 @@ export function FeaturesGrid() {
 
               <OutlineButton 
                 variant="mint"
-                onClick={() => window.open('https://solvdaisolutions.com/demos/pet-bio-generator', '_blank', 'noopener,noreferrer')}
+                onClick={() => {
+                  // Use current domain for demo redirect
+                  const currentDomain = window.location.origin;
+                  window.open(`${currentDomain}/demos/pet-bio-generator`, '_blank', 'noopener,noreferrer');
+                }}
                 className="w-full flex items-center justify-center gap-3 group py-3 text-lg"
               >
                 View Demo
