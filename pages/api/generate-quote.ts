@@ -28,7 +28,7 @@ PROJECT DETAILS:
 - User Count: ${userCount}
 
 PRICING RULES:
-- Base development cost: $300
+- Base development cost: $250
 - Complexity multipliers: Simple (1.0x), Moderate (1.2x), Complex (1.4x)
 - Feature multiplier: 1 + (number of features × 0.1)
 - Timeline multipliers: Rush (0.5x), Standard (1.0x), Flexible (0.85x)
@@ -48,7 +48,7 @@ Please respond with a JSON object in this exact format:
   "deliveryDays": number,
   "confidence": number,
   "breakdown": {
-    "basePrice": 300,
+    "basePrice": 250,
     "complexityMultiplier": number,
     "featuresMultiplier": number,
     "timelineMultiplier": number,
@@ -90,6 +90,9 @@ Please respond with a JSON object in this exact format:
       const complexityMultiplier = quoteData.breakdown.complexityMultiplier;
       const featuresMultiplier = quoteData.breakdown.featuresMultiplier;
       const timelineMultiplier = quoteData.breakdown.timelineMultiplier;
+      
+      // Override AI's basePrice to ensure it's correct
+      quoteData.breakdown.basePrice = basePrice;
       
       // Use AI-determined integrations or fallback to user-provided ones
       const aiIntegrations = quoteData.requiredIntegrations || [];
