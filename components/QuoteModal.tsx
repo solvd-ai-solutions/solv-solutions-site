@@ -121,6 +121,12 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       // Send email analysis automatically
       try {
         console.log('Attempting to send email analysis...');
+        console.log('Form data being sent:', {
+          projectType: formData.projectType,
+          description: formData.description,
+          contactInfo: formData.contactInfo
+        });
+        
         const emailResponse = await fetch('/api/send-project-analysis', {
           method: 'POST',
           headers: {
@@ -133,11 +139,19 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
           }),
         });
         
+        const emailResult = await emailResponse.json();
+        console.log('Email API response:', emailResult);
+        
         if (!emailResponse.ok) {
-          const errorText = await emailResponse.text();
-          console.error('Email API error:', emailResponse.status, errorText);
+          console.error('Email API error:', emailResponse.status, emailResult);
         } else {
-          console.log('Email sent successfully!');
+          if (emailResult.emailId) {
+            console.log('Email sent successfully! Email ID:', emailResult.emailId);
+          } else if (emailResult.emailError) {
+            console.warn('Email failed to send:', emailResult.emailError);
+          } else {
+            console.log('Email API completed:', emailResult.message);
+          }
         }
       } catch (emailError) {
         console.error('Error sending automatic analysis:', emailError);

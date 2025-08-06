@@ -121,7 +121,7 @@ Format the response as JSON:
 
     console.log('Calling OpenAI for analysis...');
     const completion = await openai.chat.completions.create({
-      model: "o4-mini",
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
@@ -257,6 +257,12 @@ TOTAL: ${formData.contactInfo.state ? `$${quote.price + Math.round(quote.price *
 
     // Send email using Resend
     try {
+      console.log('Attempting to send email with Resend...');
+      console.log('From: Solvd AI Solutions <onboarding@resend.dev>');
+      console.log('To: gpeterson3030@gmail.com');
+      console.log('Subject length:', emailSubject.length);
+      console.log('Body length:', emailBody.length);
+      
       const { data, error } = await resend.emails.send({
         from: 'Solvd AI Solutions <onboarding@resend.dev>',
         to: ['gpeterson3030@gmail.com'],
@@ -265,23 +271,32 @@ TOTAL: ${formData.contactInfo.state ? `$${quote.price + Math.round(quote.price *
       });
 
       if (error) {
-        console.error('Resend error:', error);
-        throw new Error(`Email sending failed: ${error.message}`);
+        console.error('Resend error details:', JSON.stringify(error, null, 2));
+        throw new Error(`Email sending failed: ${error.message || JSON.stringify(error)}`);
       }
 
-      console.log('Email sent successfully:', data);
+      console.log('Email sent successfully! Response:', JSON.stringify(data, null, 2));
+      
+      return res.status(200).json({ 
+        message: "Analysis completed and email sent successfully",
+        analysis: analysisData,
+        emailId: data?.id,
+        emailSubject
+      });
+      
     } catch (emailError) {
-      console.error('Email sending error:', emailError);
-      // Don't fail the entire request if email fails
-      console.log('Email would be sent to business owner:', emailSubject, emailBody);
+      console.error('Email sending error details:', emailError);
+      console.error('Error stack:', emailError instanceof Error ? emailError.stack : 'No stack trace');
+      
+      // Return success but note email failure
+      return res.status(200).json({ 
+        message: "Analysis completed but email failed to send",
+        analysis: analysisData,
+        emailError: emailError instanceof Error ? emailError.message : String(emailError),
+        emailSubject,
+        emailBody: emailBody.substring(0, 500) + '...' // Include partial body for debugging
+      });
     }
-
-    res.status(200).json({ 
-      message: "Analysis completed and email sent",
-      analysis: analysisData,
-      emailSubject,
-      emailBody
-    });
 
   } catch (error) {
     console.error("Error generating analysis:", error);
