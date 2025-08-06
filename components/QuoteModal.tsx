@@ -10,6 +10,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
   // Force deployment update - all features references removed
   // This comment ensures Vercel picks up the latest changes
   // No feature checkboxes - AI determines features based on description
+  // CACHE BUSTING: This version has NO feature checkboxes anywhere
   const [step, setStep] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
   const [quote, setQuote] = useState<{
@@ -434,7 +435,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       ) : (
         <div>
           <div style={{ textAlign: 'center', marginBottom: '16px' }}>
-            <h3 style={{ fontSize: '20px', fontWeight: '600', color: 'black', marginBottom: '6px' }}>Additional Details</h3>
+            <h3 style={{ fontSize: '20px', fontWeight: '600', color: 'black', marginBottom: '6px' }}>Timeline & Contact Details</h3>
             <p style={{ fontSize: '16px', color: 'black' }}>Help us understand your timeline and contact information</p>
           </div>
 
@@ -443,9 +444,9 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               <label style={{ display: 'block', fontSize: '16px', fontWeight: '500', color: 'black', marginBottom: '8px' }}>Timeline Preference</label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px' }}>
                 {[
-                  { value: 'rush', label: 'Rush (ASAP)', desc: '50% of total cost' },
-                  { value: 'standard', label: 'Standard', desc: 'Best value' },
-                  { value: 'flexible', label: 'Flexible', desc: '15% discount' }
+                  { value: 'rush', label: 'Rush (ASAP)', desc: '50% of total cost', color: '#F29E8E' },
+                  { value: 'standard', label: 'Standard', desc: 'Best value', color: '#4FB3A6' },
+                  { value: 'flexible', label: 'Flexible', desc: '15% discount', color: '#C5A3E0' }
                 ].map((option) => (
                   <button
                     key={option.value}
@@ -454,8 +455,8 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                       padding: '8px 12px',
                       borderRadius: '8px',
                       textAlign: 'center',
-                      border: `1px solid ${formData.timeline === option.value ? '#F29E8E' : 'black'}`,
-                      backgroundColor: formData.timeline === option.value ? '#F29E8E' : 'white',
+                      border: `1px solid ${formData.timeline === option.value ? option.color : 'black'}`,
+                      backgroundColor: formData.timeline === option.value ? option.color : 'white',
                       color: formData.timeline === option.value ? 'white' : 'black',
                       cursor: 'pointer',
                       transition: 'all 0.2s',
