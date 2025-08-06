@@ -72,22 +72,18 @@ export function ContactSection() {
                     📅
                     Book a Call
                   </OutlineButton>
-                  <OutlineButton 
-                    variant="primary"
-                    className="w-full py-3 text-lg flex items-center justify-center gap-2 hover:outline-lavender"
-                    onClick={() => {
-                      const emailBody = `Hi! I'm interested in discussing a custom AI solution.
+                  <a 
+                    href={`mailto:gpeterson3030@gmail.com?subject=New Project Inquiry&body=${encodeURIComponent(`Hi! I'm interested in discussing a custom AI solution.
 
 Please include any details about your project requirements, timeline, and budget range.
 
-Looking forward to hearing from you!`;
-                      
-                      window.open(`mailto:gpeterson3030@gmail.com?subject=New Project Inquiry&body=${encodeURIComponent(emailBody)}`);
-                    }}
+Looking forward to hearing from you!`)}`}
+                    className="w-full py-3 text-lg flex items-center justify-center gap-2 border-2 border-black rounded-lg bg-white text-black hover:bg-gray-50 transition-colors cursor-pointer text-decoration-none"
+                    style={{ textDecoration: 'none' }}
                   >
                     📧
                     Email Us
-                  </OutlineButton>
+                  </a>
                 </div>
               </OutlineCardContent>
             </OutlineCard>
