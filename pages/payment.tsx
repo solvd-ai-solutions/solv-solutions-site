@@ -88,7 +88,7 @@ function PaymentForm({ amount, project, customer, email }: {
           Payment Processing
         </h3>
         <p style={{ fontSize: '14px', color: '#666' }}>
-          Your payment is being processed. You'll receive a confirmation email shortly.
+          Your payment is being processed. You&apos;ll receive a confirmation email shortly.
         </p>
       </div>
     );

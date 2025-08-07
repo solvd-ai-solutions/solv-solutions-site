@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 export default function PaymentSuccessPage() {
   const router = useRouter();
-  const [paymentStatus, setPaymentStatus] = useState<'success' | 'processing' | 'error'>('processing');
+  const [_paymentStatus, setPaymentStatus] = useState<'success' | 'processing' | 'error'>('processing');
 
   useEffect(() => {
     // Check payment status from URL parameters
@@ -73,7 +73,7 @@ export default function PaymentSuccessPage() {
                 margin: '0 0 16px 0',
                 color: 'black'
               }}>
-                What's Next?
+                What&apos;s Next?
               </h2>
               
               <div style={{
@@ -110,7 +110,7 @@ export default function PaymentSuccessPage() {
                       Confirmation Email
                     </div>
                     <div style={{ fontSize: '14px', color: '#666' }}>
-                      You'll receive a payment confirmation email within the next few minutes.
+                      You&apos;ll receive a payment confirmation email within the next few minutes.
                     </div>
                   </div>
                 </div>
@@ -172,7 +172,7 @@ export default function PaymentSuccessPage() {
                       Project Kickoff
                     </div>
                     <div style={{ fontSize: '14px', color: '#666' }}>
-                      You'll receive a kickoff email with next steps and timeline.
+                      You&apos;ll receive a kickoff email with next steps and timeline.
                     </div>
                   </div>
                 </div>
