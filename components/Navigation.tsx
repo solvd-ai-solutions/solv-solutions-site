@@ -1,6 +1,7 @@
 import { OutlineButton } from "./ui/outline-button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
 
 
 export function Navigation() {
@@ -20,9 +21,11 @@ export function Navigation() {
         <div className="flex items-center justify-between w-full">
           {/* Logo */}
           <div className="flex items-center">
-            <img 
+            <Image 
               src="/Assets/white_on_black_logo.png" 
               alt="Solvd: AI Solutions" 
+              width={150}
+              height={50}
               style={{ width: '150px', height: 'auto' }}
             />
           </div>

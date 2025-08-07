@@ -3,7 +3,7 @@ import Stripe from 'stripe';
 import nodemailer from 'nodemailer';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2023-10-16',
+  apiVersion: '2025-07-30.basil',
 });
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -50,7 +50,7 @@ async function handlePaymentSuccess(paymentIntent: Stripe.PaymentIntent) {
   const amount = (paymentIntent.amount / 100).toFixed(2);
 
   // Create email transporter
-  const transporter = nodemailer.createTransporter({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
@@ -127,7 +127,7 @@ async function handlePaymentFailure(paymentIntent: Stripe.PaymentIntent) {
   const amount = (paymentIntent.amount / 100).toFixed(2);
 
   // Create email transporter
-  const transporter = nodemailer.createTransporter({
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,

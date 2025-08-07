@@ -9,7 +9,7 @@ export default function ContactPage() {
     project?: string;
     customer?: string;
     email?: string;
-    quote?: any;
+    quote?: Record<string, unknown>;
   } | null>(null);
 
   useEffect(() => {
