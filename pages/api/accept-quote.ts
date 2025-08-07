@@ -96,9 +96,8 @@ This quote was accepted at ${new Date().toLocaleString()}
       html: emailContent.replace(/\n/g, '<br>'),
     });
 
-    // For now, redirect to a simple payment page
-    // In production, you'd integrate with Stripe, PayPal, etc.
-    const paymentUrl = `https://www.solvdaisolutions.com/payment?amount=${totalWithTax}&project=${encodeURIComponent(formData?.description || '')}&customer=${encodeURIComponent(userContactInfo?.name || '')}`;
+    // Redirect to payment portal with all necessary information
+    const paymentUrl = `https://www.solvdaisolutions.com/payment?amount=${totalWithTax}&project=${encodeURIComponent(formData?.description || '')}&customer=${encodeURIComponent(userContactInfo?.name || '')}&email=${encodeURIComponent(userContactInfo?.email || '')}`;
 
     res.status(200).json({ 
       success: true, 

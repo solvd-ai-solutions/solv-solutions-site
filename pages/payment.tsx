@@ -1,31 +1,206 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { loadStripe } from '@stripe/stripe-js';
+import {
+  Elements,
+  PaymentElement,
+  useStripe,
+  useElements,
+} from '@stripe/react-stripe-js';
 
+// Load Stripe
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+
+// Payment Form Component
+function PaymentForm({ amount, project, customer, email }: { 
+  amount: string; 
+  project: string; 
+  customer: string; 
+  email: string; 
+}) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // Create payment intent
+      const response = await fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount,
+          project,
+          customer,
+          email,
+        }),
+      });
+
+      const { success, clientSecret, error: apiError } = await response.json();
+
+      if (!success) {
+        throw new Error(apiError || 'Failed to create payment intent');
+      }
+
+      // Confirm payment
+      const { error: confirmError } = await stripe.confirmPayment({
+        elements,
+        clientSecret,
+        confirmParams: {
+          return_url: `${window.location.origin}/payment-success`,
+        },
+      });
+
+      if (confirmError) {
+        setError(confirmError.message || 'Payment failed');
+      } else {
+        setSuccess(true);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Payment failed');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (success) {
+    return (
+      <div style={{
+        textAlign: 'center',
+        padding: '40px 20px'
+      }}>
+        <div style={{ fontSize: '48px', marginBottom: '16px' }}>🎉</div>
+        <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '8px', color: 'black' }}>
+          Payment Processing
+        </h3>
+        <p style={{ fontSize: '14px', color: '#666' }}>
+          Your payment is being processed. You'll receive a confirmation email shortly.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <PaymentElement />
+      
+      {error && (
+        <div style={{
+          backgroundColor: '#FEE2E2',
+          color: '#DC2626',
+          padding: '12px',
+          borderRadius: '6px',
+          marginTop: '16px',
+          fontSize: '14px'
+        }}>
+          {error}
+        </div>
+      )}
+      
+      <button
+        type="submit"
+        disabled={!stripe || isLoading}
+        style={{
+          width: '100%',
+          padding: '16px',
+          backgroundColor: '#8B5CF6',
+          color: 'white',
+          border: 'none',
+          borderRadius: '8px',
+          fontSize: '16px',
+          fontWeight: '500',
+          cursor: isLoading ? 'not-allowed' : 'pointer',
+          opacity: isLoading ? 0.6 : 1,
+          marginTop: '20px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px'
+        }}
+      >
+        {isLoading ? '⏳ Processing...' : '💳 Pay $' + amount}
+      </button>
+    </form>
+  );
+}
+
+// Main Payment Page Component
 export default function PaymentPage() {
   const router = useRouter();
   const [amount, setAmount] = useState<string>('');
   const [project, setProject] = useState<string>('');
   const [customer, setCustomer] = useState<string>('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState<string>('');
+  const [clientSecret, setClientSecret] = useState<string>('');
 
   useEffect(() => {
     if (router.isReady) {
       setAmount(router.query.amount as string || '');
       setProject(router.query.project as string || '');
       setCustomer(router.query.customer as string || '');
+      setEmail(router.query.email as string || '');
     }
   }, [router.isReady, router.query]);
 
-  const handlePayment = async (paymentMethod: string) => {
-    setIsLoading(true);
-    
-    // Simulate payment processing
-    setTimeout(() => {
-      alert(`Payment processing for $${amount} via ${paymentMethod}. In a real implementation, this would integrate with Stripe, PayPal, or another payment processor.`);
-      setIsLoading(false);
-    }, 2000);
-  };
+  // Create payment intent when component mounts
+  useEffect(() => {
+    if (amount && project && customer) {
+      fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount,
+          project,
+          customer,
+          email,
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          setClientSecret(data.clientSecret);
+        }
+      })
+      .catch(error => {
+        console.error('Error creating payment intent:', error);
+      });
+    }
+  }, [amount, project, customer, email]);
+
+  if (!clientSecret) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        backgroundColor: '#f8f9fa',
+        fontFamily: 'Inter, sans-serif',
+        padding: '24px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{ fontSize: '32px', marginBottom: '16px' }}>⏳</div>
+          <div style={{ fontSize: '16px', color: '#666' }}>Loading payment form...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -114,7 +289,7 @@ export default function PaymentPage() {
               </div>
             </div>
 
-            {/* Payment Methods */}
+            {/* Stripe Payment Form */}
             <div style={{ marginBottom: '24px' }}>
               <h3 style={{
                 fontSize: '18px',
@@ -122,79 +297,17 @@ export default function PaymentPage() {
                 margin: '0 0 16px 0',
                 color: 'black'
               }}>
-                💳 Choose Payment Method
+                💳 Payment Details
               </h3>
               
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <button
-                  onClick={() => handlePayment('Credit Card')}
-                  disabled={isLoading}
-                  style={{
-                    width: '100%',
-                    padding: '16px',
-                    backgroundColor: '#8B5CF6',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    cursor: isLoading ? 'not-allowed' : 'pointer',
-                    opacity: isLoading ? 0.6 : 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px'
-                  }}
-                >
-                  {isLoading ? '⏳ Processing...' : '💳 Pay with Credit Card'}
-                </button>
-                
-                <button
-                  onClick={() => handlePayment('PayPal')}
-                  disabled={isLoading}
-                  style={{
-                    width: '100%',
-                    padding: '16px',
-                    backgroundColor: '#0070BA',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    cursor: isLoading ? 'not-allowed' : 'pointer',
-                    opacity: isLoading ? 0.6 : 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px'
-                  }}
-                >
-                  {isLoading ? '⏳ Processing...' : '🔗 Pay with PayPal'}
-                </button>
-                
-                <button
-                  onClick={() => handlePayment('Bank Transfer')}
-                  disabled={isLoading}
-                  style={{
-                    width: '100%',
-                    padding: '16px',
-                    backgroundColor: '#4FB3A6',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    fontWeight: '500',
-                    cursor: isLoading ? 'not-allowed' : 'pointer',
-                    opacity: isLoading ? 0.6 : 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px'
-                  }}
-                >
-                  {isLoading ? '⏳ Processing...' : '🏦 Pay with Bank Transfer'}
-                </button>
-              </div>
+              <Elements stripe={stripePromise} options={{ clientSecret }}>
+                <PaymentForm 
+                  amount={amount} 
+                  project={project} 
+                  customer={customer} 
+                  email={email}
+                />
+              </Elements>
             </div>
 
             {/* Security Notice */}
@@ -209,7 +322,7 @@ export default function PaymentPage() {
                 🔒 Secure Payment Processing
               </div>
               <div style={{ fontSize: '12px', opacity: '0.9', marginTop: '4px' }}>
-                All payments are encrypted and secure. You'll receive a confirmation email once payment is complete.
+                Powered by Stripe. Your payment information is encrypted and secure.
               </div>
             </div>
 
