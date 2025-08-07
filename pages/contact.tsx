@@ -4,7 +4,13 @@ import Head from 'next/head';
 
 export default function ContactPage() {
   const router = useRouter();
-  const [quoteData, setQuoteData] = useState<any>(null);
+  const [quoteData, setQuoteData] = useState<{
+    amount?: string;
+    project?: string;
+    customer?: string;
+    email?: string;
+    quote?: any;
+  } | null>(null);
 
   useEffect(() => {
     if (router.isReady && router.query.quote) {
