@@ -48,7 +48,15 @@ export function DemoSections() {
                 </div>
               </div>
 
-              <OutlineButton variant="coral" size="lg" className="px-8 py-4 text-lg">
+              <OutlineButton 
+                variant="coral" 
+                size="lg" 
+                className="px-8 py-4 text-lg"
+                onClick={() => {
+                  // Always use the canonical www domain for consistency
+                  window.open('https://www.solvdaisolutions.com/demos/cut-order-manager', '_blank', 'noopener,noreferrer');
+                }}
+              >
                 Try It Now
               </OutlineButton>
             </div>
@@ -235,7 +243,15 @@ export function DemoSections() {
                 </div>
               </div>
 
-              <OutlineButton variant="mint" size="lg" className="px-8 py-4 text-lg">
+              <OutlineButton 
+                variant="mint" 
+                size="lg" 
+                className="px-8 py-4 text-lg"
+                onClick={() => {
+                  // Always use the canonical www domain for consistency
+                  window.open('https://www.solvdaisolutions.com/demos/pet-bio-generator', '_blank', 'noopener,noreferrer');
+                }}
+              >
                 Try It Now
               </OutlineButton>
             </div>
