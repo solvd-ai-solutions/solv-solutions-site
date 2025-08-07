@@ -49,8 +49,8 @@ export function FeaturesGrid() {
               <OutlineButton 
                 variant="coral"
                 onClick={() => {
-                  // Always use the canonical www domain for consistency
-                  window.open('https://www.solvdaisolutions.com/demos/cut-order-manager', '_blank', 'noopener,noreferrer');
+                  // Link to the Cut & Order Manager demo
+                  window.open('https://demo1.solvdaisolutions.com', '_blank', 'noopener,noreferrer');
                 }}
                 className="w-full flex items-center justify-center gap-3 group py-3 text-lg"
               >

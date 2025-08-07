@@ -53,8 +53,8 @@ export function DemoSections() {
                 size="lg" 
                 className="px-8 py-4 text-lg"
                 onClick={() => {
-                  // Always use the canonical www domain for consistency
-                  window.open('https://www.solvdaisolutions.com/demos/cut-order-manager', '_blank', 'noopener,noreferrer');
+                  // Link to the Cut & Order Manager demo
+                  window.open('https://demo1.solvdaisolutions.com', '_blank', 'noopener,noreferrer');
                 }}
               >
                 Try It Now
