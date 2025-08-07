@@ -88,21 +88,31 @@ ${quote?.requiredIntegrations?.map((integration: string) => `• ${integration}`
 This quote was accepted at ${new Date().toLocaleString()}
     `;
 
-    // Send notification email
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: 'gpeterson3030@gmail.com',
-      subject: `🎉 QUOTE ACCEPTED - ${userContactInfo?.name || 'Customer'} - $${totalWithTax}`,
-      html: emailContent.replace(/\n/g, '<br>'),
-    });
+    // Try to send notification email (will fail gracefully if email not configured)
+    try {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: 'gpeterson3030@gmail.com',
+        subject: `🎉 QUOTE ACCEPTED - ${userContactInfo?.name || 'Customer'} - $${totalWithTax}`,
+        html: emailContent.replace(/\n/g, '<br>'),
+      });
+    } catch (error) {
+      console.log('Email notification failed (not configured yet):', error);
+    }
 
-    // Redirect to payment portal with all necessary information
-    const paymentUrl = `https://www.solvdaisolutions.com/payment?amount=${totalWithTax}&project=${encodeURIComponent(formData?.description || '')}&customer=${encodeURIComponent(userContactInfo?.name || '')}&email=${encodeURIComponent(userContactInfo?.email || '')}`;
+    // For now, redirect to contact page instead of payment
+    const contactUrl = `https://www.solvdaisolutions.com/contact?quote=${encodeURIComponent(JSON.stringify({
+      amount: totalWithTax,
+      project: formData?.description || '',
+      customer: userContactInfo?.name || '',
+      email: userContactInfo?.email || '',
+      quote: quote
+    }))}`;
 
     res.status(200).json({ 
       success: true, 
       message: 'Quote accepted successfully',
-      paymentUrl 
+      contactUrl 
     });
 
   } catch (error) {

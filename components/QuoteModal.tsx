@@ -666,8 +666,8 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                   const result = await response.json();
                   
                   if (result.success) {
-                    // Redirect to payment portal
-                    window.location.href = result.paymentUrl;
+                    // Redirect to contact page with quote details
+                    window.location.href = result.contactUrl;
                   } else {
                     alert('Error accepting quote. Please try again or contact us directly.');
                   }
