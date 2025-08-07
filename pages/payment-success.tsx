@@ -4,15 +4,13 @@ import Head from 'next/head';
 
 export default function PaymentSuccessPage() {
   const router = useRouter();
-  const [_paymentStatus, setPaymentStatus] = useState<'success' | 'processing' | 'error'>('processing');
-
   useEffect(() => {
     // Check payment status from URL parameters
     const { payment_intent_client_secret } = router.query;
     
     if (payment_intent_client_secret) {
       // In a real implementation, you'd verify the payment status with your backend
-      setPaymentStatus('success');
+      // Payment status is handled by Stripe webhooks
     }
   }, [router.query]);
 
