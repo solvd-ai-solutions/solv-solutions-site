@@ -541,10 +541,33 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                 <span>Features (AI-determined):</span>
                 <span>×{quote?.breakdown.featuresMultiplier.toFixed(2)}</span>
               </div>
-              {(quote?.requiredIntegrations && quote.requiredIntegrations.length > 0) && (
+              
+              {/* AI-Determined Features List */}
+              {quote?.determinedFeatures && quote.determinedFeatures.length > 0 && (
+                <div style={{ 
+                  marginTop: '8px', 
+                  padding: '8px', 
+                  backgroundColor: '#f8f9fa', 
+                  borderRadius: '6px',
+                  border: '1px solid #e9ecef'
+                }}>
+                  <div style={{ fontSize: '12px', color: '#6c757d', marginBottom: '4px', fontWeight: '500' }}>
+                    AI-Determined Features:
+                  </div>
+                  <div style={{ fontSize: '12px', color: 'black', lineHeight: '1.4' }}>
+                    {quote.determinedFeatures.map((feature: string, index: number) => (
+                      <div key={index} style={{ marginBottom: '2px' }}>
+                        • {feature}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+              
+              {quote?.requiredIntegrations && quote.requiredIntegrations.length > 0 && (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span>Integrations ({quote.requiredIntegrations.length}):</span>
-                  <span>+${quote?.breakdown.integrationCost || 0}</span>
+                  <span>+${quote?.breakdown.integrationCost}</span>
                 </div>
               )}
 
@@ -554,7 +577,7 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                   <span>+${quote.breakdown.rushCost}</span>
                 </div>
               )}
-              {formData.contactInfo.state && (
+              {formData.contactInfo.state && calculateStateTax(quote?.price || 0, formData.contactInfo.state) > 0 && (
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span>State Tax (${getStateTaxRate(formData.contactInfo.state)}%):</span>
                   <span>+${calculateStateTax(quote?.price || 0, formData.contactInfo.state)}</span>
