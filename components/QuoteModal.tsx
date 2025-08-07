@@ -650,7 +650,8 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             <button 
               onClick={async () => {
                 try {
-                  await fetch('/api/send-project-analysis', {
+                  // Send quote acceptance notification
+                  const response = await fetch('/api/accept-quote', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
@@ -661,11 +662,19 @@ export function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                       userContactInfo: formData.contactInfo
                     }),
                   });
+
+                  const result = await response.json();
+                  
+                  if (result.success) {
+                    // Redirect to payment portal
+                    window.location.href = result.paymentUrl;
+                  } else {
+                    alert('Error accepting quote. Please try again or contact us directly.');
+                  }
                 } catch (error) {
-                  console.error('Error sending analysis:', error);
+                  console.error('Error accepting quote:', error);
+                  alert('Error accepting quote. Please try again or contact us directly.');
                 }
-                
-                window.location.href = `mailto:hello@solvd.ai?subject=Project Quote - ${quote?.price}&body=Hi! I just generated a quote for my project:%0A%0AProject: ${formData.description}%0AQuoted Price: ${quote?.price}%0AEstimated Delivery: ${quote?.deliveryDays} business days%0A%0AI'd like to proceed with this project.`;
               }}
               style={{
                 flex: 1,
