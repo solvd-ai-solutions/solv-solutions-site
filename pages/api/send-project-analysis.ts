@@ -11,17 +11,57 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // Tax calculation function
 const getStateTaxRate = (state: string): number => {
   const taxRates: { [key: string]: number } = {
-    'CA': 7.25, 'TX': 6.25, 'NY': 8.875, 'FL': 6.0, 'IL': 6.25,
-    'PA': 6.0, 'OH': 5.75, 'GA': 4.0, 'NC': 4.75, 'MI': 6.0,
-    'NJ': 6.625, 'VA': 5.3, 'WA': 6.5, 'AZ': 5.6, 'MA': 6.25,
-    'IN': 7.0, 'TN': 7.0, 'MO': 4.225, 'MD': 6.0, 'CO': 2.9,
-    'MN': 6.875, 'WI': 5.0, 'AL': 4.0, 'SC': 6.0, 'LA': 4.45,
-    'KY': 6.0, 'OR': 0.0, 'OK': 4.5, 'CT': 6.35, 'IA': 6.0,
-    'UT': 4.85, 'NV': 6.85, 'AR': 6.5, 'MS': 7.0, 'KS': 6.5,
-    'NM': 5.125, 'NE': 5.5, 'ID': 6.0, 'WV': 6.0, 'HI': 4.0,
-    'NH': 0.0, 'ME': 5.5, 'RI': 7.0, 'MT': 0.0, 'DE': 0.0,
-    'SD': 4.5, 'ND': 5.0, 'AK': 0.0, 'DC': 6.0, 'VT': 6.0,
-    'WY': 4.0
+    CA: 7.25,
+    TX: 6.25,
+    NY: 8.875,
+    FL: 6.0,
+    IL: 6.25,
+    PA: 6.0,
+    OH: 5.75,
+    GA: 4.0,
+    NC: 4.75,
+    MI: 6.0,
+    NJ: 6.625,
+    VA: 5.3,
+    WA: 6.5,
+    AZ: 5.6,
+    MA: 6.25,
+    IN: 7.0,
+    TN: 7.0,
+    MO: 4.225,
+    MD: 6.0,
+    CO: 2.9,
+    MN: 6.875,
+    WI: 5.0,
+    AL: 4.0,
+    SC: 6.0,
+    LA: 4.45,
+    KY: 6.0,
+    OR: 0.0,
+    OK: 4.5,
+    CT: 6.35,
+    IA: 6.0,
+    UT: 4.85,
+    NV: 6.85,
+    AR: 6.5,
+    MS: 7.0,
+    KS: 6.5,
+    NM: 5.125,
+    NE: 5.5,
+    ID: 6.0,
+    WV: 6.0,
+    HI: 4.0,
+    NH: 0.0,
+    ME: 5.5,
+    RI: 7.0,
+    MT: 0.0,
+    DE: 0.0,
+    SD: 4.5,
+    ND: 5.0,
+    AK: 0.0,
+    DC: 6.0,
+    VT: 6.0,
+    WY: 4.0,
   };
   return taxRates[state.toUpperCase()] || 0;
 };
@@ -35,14 +75,13 @@ export default async function handler(
   }
 
   console.log('Email API called with data:', req.body);
-  console.log('Environment variables check - RESEND_API_KEY:', process.env.RESEND_API_KEY ? 'Present' : 'Missing');
+  console.log(
+    'Environment variables check - RESEND_API_KEY:',
+    process.env.RESEND_API_KEY ? 'Present' : 'Missing'
+  );
 
   try {
-    const { 
-      formData, 
-      quote, 
-      userContactInfo 
-    } = req.body;
+    const { formData, quote, userContactInfo } = req.body;
 
     console.log('Processing email for:', userContactInfo);
 
@@ -64,7 +103,7 @@ QUOTE DETAILS:
 
 Please provide a comprehensive analysis including:
 
-1. **REQUIRED INTEGRATIONS ANALYSIS**: The AI has determined the following integrations are needed: ${quote.requiredIntegrations ? quote.requiredIntegrations.join(", ") : 'None'}. Please analyze if these are appropriate and suggest any additional integrations that might be needed.
+1. **REQUIRED INTEGRATIONS ANALYSIS**: The AI has determined the following integrations are needed: ${quote.requiredIntegrations ? quote.requiredIntegrations.join(', ') : 'None'}. Please analyze if these are appropriate and suggest any additional integrations that might be needed.
 
 2. **MINIMAL INTEGRATIONS REQUIRED**: What is the absolute minimum number and type of integrations needed to complete this project successfully? Focus on essential integrations only.
 
@@ -119,23 +158,24 @@ Format the response as JSON:
 
     console.log('Calling OpenAI for analysis...');
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: 'gpt-4o-mini',
       messages: [
         {
-          role: "system",
-          content: "You are an expert AI development consultant with deep technical knowledge. Provide detailed, accurate analysis for development projects."
+          role: 'system',
+          content:
+            'You are an expert AI development consultant with deep technical knowledge. Provide detailed, accurate analysis for development projects.',
         },
         {
-          role: "user",
-          content: analysisPrompt
-        }
+          role: 'user',
+          content: analysisPrompt,
+        },
       ],
     });
 
     const response = completion.choices[0]?.message?.content;
-    
+
     if (!response) {
-      throw new Error("No response from OpenAI");
+      throw new Error('No response from OpenAI');
     }
 
     console.log('OpenAI analysis received');
@@ -144,15 +184,24 @@ Format the response as JSON:
     try {
       analysisData = JSON.parse(response);
     } catch (parseError) {
-      console.log('Failed to parse OpenAI response, using fallback:', parseError);
+      console.log(
+        'Failed to parse OpenAI response, using fallback:',
+        parseError
+      );
       // Fallback analysis
       analysisData = {
-        integrations: ["Basic API integration", "Database setup"],
-        minimalIntegrations: ["Basic API integration", "Database setup"],
+        integrations: ['Basic API integration', 'Database setup'],
+        minimalIntegrations: ['Basic API integration', 'Database setup'],
         aiTools: {
-          essential: ["Basic API integration", "Database setup"],
-          optional: ["Figma", "Make", "Cursor", "GitHub Copilot", "ChatGPT/Claude"],
-          recommendations: "Use modern web technologies and best practices"
+          essential: ['Basic API integration', 'Database setup'],
+          optional: [
+            'Figma',
+            'Make',
+            'Cursor',
+            'GitHub Copilot',
+            'ChatGPT/Claude',
+          ],
+          recommendations: 'Use modern web technologies and best practices',
         },
         timeEstimation: {
           frontend: 20,
@@ -160,11 +209,15 @@ Format the response as JSON:
           integration: 10,
           testing: 15,
           total: 75,
-          timeSavings: "50%"
+          timeSavings: '50%',
         },
-        projectScope: "Standard development project based on requirements",
-        highlights: ["Standard complexity project", "Requires standard integrations"],
-        technicalRecommendations: "Use modern web technologies and best practices"
+        projectScope: 'Standard development project based on requirements',
+        highlights: [
+          'Standard complexity project',
+          'Requires standard integrations',
+        ],
+        technicalRecommendations:
+          'Use modern web technologies and best practices',
       };
     }
 
@@ -192,7 +245,7 @@ QUOTE SUMMARY:
 Total Price: $${quote.price}
 Delivery Days: ${quote.deliveryDays}
 Confidence: ${quote.confidence}%
-Required Integrations: ${quote.requiredIntegrations ? quote.requiredIntegrations.join(", ") : 'None'}
+Required Integrations: ${quote.requiredIntegrations ? quote.requiredIntegrations.join(', ') : 'None'}
 Integration Cost: $${quote.breakdown.integrationCost}
 State Tax: ${formData.contactInfo.state ? `$${Math.round(quote.price * (getStateTaxRate(formData.contactInfo.state) / 100))}` : 'N/A'}
 Total with Tax: ${formData.contactInfo.state ? `$${quote.price + Math.round(quote.price * (getStateTaxRate(formData.contactInfo.state) / 100))}` : `$${quote.price}`}
@@ -260,7 +313,7 @@ TOTAL: ${formData.contactInfo.state ? `$${quote.price + Math.round(quote.price *
       console.log('To: gpeterson3030@gmail.com');
       console.log('Subject length:', emailSubject.length);
       console.log('Body length:', emailBody.length);
-      
+
       const { data, error } = await resend.emails.send({
         from: 'Solvd AI Solutions <onboarding@resend.dev>',
         to: ['gpeterson3030@gmail.com'],
@@ -270,37 +323,44 @@ TOTAL: ${formData.contactInfo.state ? `$${quote.price + Math.round(quote.price *
 
       if (error) {
         console.error('Resend error details:', JSON.stringify(error, null, 2));
-        throw new Error(`Email sending failed: ${error.message || JSON.stringify(error)}`);
+        throw new Error(
+          `Email sending failed: ${error.message || JSON.stringify(error)}`
+        );
       }
 
-      console.log('Email sent successfully! Response:', JSON.stringify(data, null, 2));
-      
-      return res.status(200).json({ 
-        message: "Analysis completed and email sent successfully",
+      console.log(
+        'Email sent successfully! Response:',
+        JSON.stringify(data, null, 2)
+      );
+
+      return res.status(200).json({
+        message: 'Analysis completed and email sent successfully',
         analysis: analysisData,
         emailId: data?.id,
-        emailSubject
+        emailSubject,
       });
-      
     } catch (emailError) {
       console.error('Email sending error details:', emailError);
-      console.error('Error stack:', emailError instanceof Error ? emailError.stack : 'No stack trace');
-      
+      console.error(
+        'Error stack:',
+        emailError instanceof Error ? emailError.stack : 'No stack trace'
+      );
+
       // Return success but note email failure
-      return res.status(200).json({ 
-        message: "Analysis completed but email failed to send",
+      return res.status(200).json({
+        message: 'Analysis completed but email failed to send',
         analysis: analysisData,
-        emailError: emailError instanceof Error ? emailError.message : String(emailError),
+        emailError:
+          emailError instanceof Error ? emailError.message : String(emailError),
         emailSubject,
-        emailBody: emailBody.substring(0, 500) + '...' // Include partial body for debugging
+        emailBody: emailBody.substring(0, 500) + '...', // Include partial body for debugging
       });
     }
-
   } catch (error) {
-    console.error("Error generating analysis:", error);
-    res.status(500).json({ 
-      message: "Error generating analysis",
-      error: error instanceof Error ? error.message : "Unknown error"
+    console.error('Error generating analysis:', error);
+    res.status(500).json({
+      message: 'Error generating analysis',
+      error: error instanceof Error ? error.message : 'Unknown error',
     });
   }
-} 
+}

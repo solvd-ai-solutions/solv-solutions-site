@@ -5,12 +5,14 @@
 Add these environment variables to your Vercel project settings:
 
 ### **Email Configuration**
+
 ```
 EMAIL_USER=your-email@gmail.com
 EMAIL_PASS=your-app-password
 ```
 
 ### **Stripe Configuration**
+
 ```
 STRIPE_SECRET_KEY=sk_test_... (or sk_live_... for production)
 STRIPE_WEBHOOK_SECRET=whsec_...
@@ -66,11 +68,13 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_... (or pk_live_... for production)
 ## **Testing the Setup**
 
 ### **1. Test Email Notifications**
+
 1. Generate a quote on your site
 2. Click "Accept Quote"
 3. Check your email (`gpeterson3030@gmail.com`) for the notification
 
 ### **2. Test Stripe Payments**
+
 1. Use Stripe's test card numbers:
    - **Success**: `4242 4242 4242 4242`
    - **Decline**: `4000 0000 0000 0002`
@@ -78,6 +82,7 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_... (or pk_live_... for production)
 3. Check for confirmation emails
 
 ### **3. Test Webhooks**
+
 1. Go to Stripe Dashboard → Webhooks
 2. Click on your webhook endpoint
 3. Send test events to verify they're working
@@ -104,17 +109,20 @@ NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_... (or pk_live_... for production)
 ## **Monitoring & Analytics**
 
 ### **Stripe Dashboard**
+
 - Monitor payments in real-time
 - View customer data and analytics
 - Track webhook events
 
 ### **Email Notifications**
+
 - You'll receive emails for:
   - Quote acceptances
   - Successful payments
   - Failed payments
 
 ### **Vercel Analytics**
+
 - Monitor site performance
 - Track user behavior
 - Monitor API endpoint usage
@@ -156,4 +164,4 @@ Once everything is working:
 
 ---
 
-**🎉 Congratulations!** Your payment system is now production-ready! 
+**🎉 Congratulations!** Your payment system is now production-ready!

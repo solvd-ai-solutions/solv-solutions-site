@@ -1,5 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import OpenAI from "openai";
+import type { NextApiRequest, NextApiResponse } from 'next';
+import OpenAI from 'openai';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -9,12 +9,21 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method not allowed' });
   }
 
   try {
-    const { projectType, description, features, timeline, budget, complexity, integrations, userCount } = req.body;
+    const {
+      projectType,
+      description,
+      features,
+      timeline,
+      budget,
+      complexity,
+      integrations,
+      userCount,
+    } = req.body;
 
     // Create a prompt for the AI to generate a quote
     const prompt = `You are an expert AI development consultant. Based on the project details, generate a comprehensive quote with the following requirements:
@@ -61,45 +70,49 @@ Please respond with a JSON object in this exact format:
 }`;
 
     const completion = await openai.chat.completions.create({
-      model: "o4-mini",
+      model: 'o4-mini',
       messages: [
         {
-          role: "system",
-          content: "You are an expert AI development consultant. Provide accurate, realistic quotes based on project specifications. Consider market rates, complexity, and timeline factors."
+          role: 'system',
+          content:
+            'You are an expert AI development consultant. Provide accurate, realistic quotes based on project specifications. Consider market rates, complexity, and timeline factors.',
         },
         {
-          role: "user",
-          content: prompt
-        }
+          role: 'user',
+          content: prompt,
+        },
       ],
     });
 
     const response = completion.choices[0]?.message?.content;
-    
+
     if (!response) {
-      throw new Error("No response from OpenAI");
+      throw new Error('No response from OpenAI');
     }
 
     // Try to parse the JSON response
     let quoteData;
     try {
       quoteData = JSON.parse(response);
-      
+
       // Validate and correct the calculations
       const basePrice = 250;
       const complexityMultiplier = quoteData.breakdown.complexityMultiplier;
       const featuresMultiplier = quoteData.breakdown.featuresMultiplier;
       // timelineMultiplier is not used in new calculation method
       // const timelineMultiplier = quoteData.breakdown.timelineMultiplier;
-      
+
       // Override AI's basePrice to ensure it's correct
       quoteData.breakdown.basePrice = basePrice;
-      
+
       // Use AI-determined integrations or fallback to user-provided ones
       const aiIntegrations = quoteData.requiredIntegrations || [];
-      const userIntegrations = integrations ? integrations.split(',').filter((i: string) => i.trim()) : [];
-      const finalIntegrations = aiIntegrations.length > 0 ? aiIntegrations : userIntegrations;
-      
+      const userIntegrations = integrations
+        ? integrations.split(',').filter((i: string) => i.trim())
+        : [];
+      const finalIntegrations =
+        aiIntegrations.length > 0 ? aiIntegrations : userIntegrations;
+
       // Calculate correct integration cost based on AI-determined integrations
       let correctIntegrationCost = 0;
       finalIntegrations.forEach((integration: string, index: number) => {
@@ -109,39 +122,43 @@ Please respond with a JSON object in this exact format:
           correctIntegrationCost += 75;
         }
       });
-      
+
       // Override the AI's integration cost with the correct calculation
       quoteData.breakdown.integrationCost = correctIntegrationCost;
       quoteData.requiredIntegrations = finalIntegrations;
-      
+
       // Recalculate the price with correct integration cost
       // Remove timeline multiplier from base calculation - rush is handled as separate cost
-      const basePriceWithMultipliers = Math.round((basePrice * complexityMultiplier * featuresMultiplier) + correctIntegrationCost);
-      
+      const basePriceWithMultipliers = Math.round(
+        basePrice * complexityMultiplier * featuresMultiplier +
+          correctIntegrationCost
+      );
+
       // Calculate rush cost as 50% of the base price (if rush is selected)
       let rushCost = 0;
       if (timeline === 'rush') {
         rushCost = Math.round(basePriceWithMultipliers * 0.5);
       }
-      
+
       const calculatedPrice = basePriceWithMultipliers + rushCost;
-      
+
       // Update the price if it doesn't match
       if (Math.abs(calculatedPrice - quoteData.price) > 10) {
         console.log('Price mismatch detected. Recalculating...');
         quoteData.price = calculatedPrice;
       }
-      
+
       // Update the breakdown to reflect the correct calculation
       quoteData.breakdown.timelineMultiplier = 1; // Always 1 since we handle rush separately
       quoteData.breakdown.rushCost = rushCost;
-      
     } catch (parseError) {
       // If JSON parsing fails, create a fallback response
       console.log('JSON parsing failed:', parseError);
       // Calculate integration cost properly
       let integrationCost = 0;
-      const integrationList = integrations ? integrations.split(',').filter((i: string) => i.trim()) : [];
+      const integrationList = integrations
+        ? integrations.split(',').filter((i: string) => i.trim())
+        : [];
       integrationList.forEach((integration: string, index: number) => {
         if (index < 5) {
           integrationCost += 50;
@@ -149,47 +166,51 @@ Please respond with a JSON object in this exact format:
           integrationCost += 75;
         }
       });
-      
+
       // Calculate proper fallback values
       const basePrice = 250;
-      const complexityMultiplier = complexity === 'simple' ? 1.0 : complexity === 'moderate' ? 1.2 : 1.4;
-      const featuresMultiplier = 1 + (features.length * 0.1);
-      
+      const complexityMultiplier =
+        complexity === 'simple' ? 1.0 : complexity === 'moderate' ? 1.2 : 1.4;
+      const featuresMultiplier = 1 + features.length * 0.1;
+
       // Calculate base price without timeline multiplier
-      const basePriceWithMultipliers = Math.round((basePrice * complexityMultiplier * featuresMultiplier) + integrationCost);
-      
+      const basePriceWithMultipliers = Math.round(
+        basePrice * complexityMultiplier * featuresMultiplier + integrationCost
+      );
+
       // Calculate rush cost as 50% of the base price (if rush is selected)
       let rushCost = 0;
       if (timeline === 'rush') {
         rushCost = Math.round(basePriceWithMultipliers * 0.5);
       }
-      
+
       const calculatedPrice = basePriceWithMultipliers + rushCost;
-      
+
       quoteData = {
         price: calculatedPrice,
-        deliveryDays: complexity === 'simple' ? 2 : complexity === 'moderate' ? 4 : 7,
+        deliveryDays:
+          complexity === 'simple' ? 2 : complexity === 'moderate' ? 4 : 7,
         breakdown: {
           basePrice: basePrice,
           complexityMultiplier: complexityMultiplier,
           featuresMultiplier: featuresMultiplier,
           timelineMultiplier: 1, // Always 1 since we handle rush separately
           integrationCost: integrationCost,
-          rushCost: rushCost
+          rushCost: rushCost,
         },
         features: features,
         requiredIntegrations: integrationList,
         confidence: 85,
-        reasoning: "Generated based on project specifications"
+        reasoning: 'Generated based on project specifications',
       };
     }
 
     res.status(200).json(quoteData);
   } catch (error) {
-    console.error("Error generating quote:", error);
-    res.status(500).json({ 
-      message: "Error generating quote",
-      error: error instanceof Error ? error.message : "Unknown error"
+    console.error('Error generating quote:', error);
+    res.status(500).json({
+      message: 'Error generating quote',
+      error: error instanceof Error ? error.message : 'Unknown error',
     });
   }
-} 
+}

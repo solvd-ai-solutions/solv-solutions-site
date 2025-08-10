@@ -1,9 +1,11 @@
 # Solvd AI Solutions Design System
 
 ## Overview
+
 This design system provides a comprehensive guide for creating consistent, accessible, and beautiful interfaces following the Solvd AI Solutions brand guidelines. Built on principles of simplicity, clarity, and professional aesthetics.
 
 ## Core Principles
+
 - **High Contrast**: Pure black (#000000) and white (#FFFFFF) for maximum readability
 - **Accessible**: 2px outlines and clear visual hierarchy
 - **Consistent**: 8px grid system for all spacing and sizing
@@ -15,19 +17,22 @@ This design system provides a comprehensive guide for creating consistent, acces
 ## Color Palette
 
 ### Primary Colors
+
 ```css
---color-black: #000000    /* Primary text, borders, outlines */
---color-white: #FFFFFF    /* Backgrounds, inverted text */
+--color-black: #000000 /* Primary text, borders, outlines */
+  --color-white: #ffffff /* Backgrounds, inverted text */;
 ```
 
 ### Accent Colors (Pastels)
+
 ```css
---color-mint: #4FB3A6     /* Technology, growth, innovation */
---color-coral: #F29E8E    /* Energy, action, CTA buttons */
---color-lavender: #C5A3E0 /* Creativity, premium features */
+--color-mint: #4fb3a6 /* Technology, growth, innovation */
+  --color-coral: #f29e8e /* Energy, action, CTA buttons */
+  --color-lavender: #c5a3e0 /* Creativity, premium features */;
 ```
 
 ### Usage Guidelines
+
 - **Black**: Primary text, borders, outlines, icons
 - **White**: Backgrounds, cards, inverted text on colored buttons
 - **Mint**: Tech-focused features, success states, nature/growth themes
@@ -35,6 +40,7 @@ This design system provides a comprehensive guide for creating consistent, acces
 - **Lavender**: Premium features, creativity tools, luxury touches
 
 ### Color Combinations
+
 - **High Energy**: Coral backgrounds with white text
 - **Tech Focus**: Mint backgrounds with white text
 - **Premium**: Lavender backgrounds with white text
@@ -45,38 +51,50 @@ This design system provides a comprehensive guide for creating consistent, acces
 ## Typography
 
 ### Font Family
+
 ```css
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+font-family:
+  'Inter',
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  Roboto,
+  sans-serif;
 ```
 
 ### Type Scale (14px base)
+
 ```css
---text-xs: 12px    /* Labels, captions */
---text-sm: 14px    /* Body text, descriptions */
---text-base: 16px  /* Default body text */
---text-lg: 18px    /* Emphasized text */
---text-xl: 20px    /* Subheadings */
---text-2xl: 24px   /* H3 headings */
---text-3xl: 28px   /* H2 headings */
---text-4xl: 32px   /* H1 headings */
+--text-xs: 12px /* Labels, captions */ --text-sm: 14px
+  /* Body text, descriptions */ --text-base: 16px /* Default body text */
+  --text-lg: 18px /* Emphasized text */ --text-xl: 20px /* Subheadings */
+  --text-2xl: 24px /* H3 headings */ --text-3xl: 28px /* H2 headings */
+  --text-4xl: 32px /* H1 headings */;
 ```
 
 ### Font Weights
+
 ```css
---font-weight-normal: 400    /* Body text */
---font-weight-medium: 500    /* Emphasized text, labels */
---font-weight-semibold: 600  /* Subheadings, H2-H3 */
---font-weight-bold: 700      /* H1, important emphasis */
+--font-weight-normal: 400 /* Body text */ --font-weight-medium: 500
+  /* Emphasized text, labels */ --font-weight-semibold: 600
+  /* Subheadings, H2-H3 */ --font-weight-bold: 700 /* H1, important emphasis */;
 ```
 
 ### Hierarchy Examples
+
 ```html
-<h1>Main Page Title</h1>          <!-- 32px, bold -->
-<h2>Section Heading</h2>          <!-- 28px, semibold -->
-<h3>Subsection Title</h3>         <!-- 24px, semibold -->
-<h4>Card Title</h4>               <!-- 20px, medium -->
-<p>Body text content</p>          <!-- 16px, normal -->
-<small>Supporting information</small> <!-- 14px, normal -->
+<h1>Main Page Title</h1>
+<!-- 32px, bold -->
+<h2>Section Heading</h2>
+<!-- 28px, semibold -->
+<h3>Subsection Title</h3>
+<!-- 24px, semibold -->
+<h4>Card Title</h4>
+<!-- 20px, medium -->
+<p>Body text content</p>
+<!-- 16px, normal -->
+<small>Supporting information</small>
+<!-- 14px, normal -->
 ```
 
 ---
@@ -84,21 +102,19 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
 ## Spacing System
 
 ### 8px Grid
+
 ```css
---space-1: 8px     /* Tight spacing */
---space-2: 16px    /* Default spacing */
---space-3: 24px    /* Comfortable spacing */
---space-4: 32px    /* Section spacing */
---space-5: 40px    /* Large section spacing */
---space-6: 48px    /* Hero section spacing */
---space-8: 64px    /* Major section breaks */
---space-10: 80px   /* Large section breaks */
---space-12: 96px   /* Hero padding */
---space-16: 128px  /* Major layout spacing */
---space-20: 160px  /* Extra large spacing */
+--space-1: 8px /* Tight spacing */ --space-2: 16px /* Default spacing */
+  --space-3: 24px /* Comfortable spacing */ --space-4: 32px
+  /* Section spacing */ --space-5: 40px /* Large section spacing */
+  --space-6: 48px /* Hero section spacing */ --space-8: 64px
+  /* Major section breaks */ --space-10: 80px /* Large section breaks */
+  --space-12: 96px /* Hero padding */ --space-16: 128px
+  /* Major layout spacing */ --space-20: 160px /* Extra large spacing */;
 ```
 
 ### Usage Guidelines
+
 - **8px**: Icon gaps, tight element spacing
 - **16px**: Default padding, button padding, form field spacing
 - **24px**: Card padding, component spacing
@@ -110,20 +126,23 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
 ## Border & Radius
 
 ### Border Radius
+
 ```css
---radius-sm: 4px    /* Small elements, badges */
---radius: 8px       /* Default buttons, inputs, cards */
---radius-lg: 12px   /* Large cards, modals */
---radius-xl: 16px   /* Hero sections, major containers */
---radius-full: 9999px /* Pills, circular buttons */
+--radius-sm: 4px /* Small elements, badges */ --radius: 8px
+  /* Default buttons, inputs, cards */ --radius-lg: 12px
+  /* Large cards, modals */ --radius-xl: 16px
+  /* Hero sections, major containers */ --radius-full: 9999px
+  /* Pills, circular buttons */;
 ```
 
 ### Outlines (Signature Element)
+
 ```css
---outline-width: 2px /* Consistent 2px outline thickness */
+--outline-width: 2px /* Consistent 2px outline thickness */;
 ```
 
 All interactive elements use 2px outlines for accessibility and brand consistency:
+
 - **Black outline**: Default state for buttons, cards, inputs
 - **Colored outline**: Hover states (mint, coral, lavender)
 - **No outline-offset**: Outlines sit directly on element edge
@@ -135,27 +154,37 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ### Buttons
 
 #### Outline Button (Primary Pattern)
+
 ```html
 <!-- Primary Button -->
-<button class="btn-base bg-white text-black outline-primary hover:outline-mint hover:bg-mint hover:text-white">
+<button
+  class="btn-base bg-white text-black outline-primary hover:outline-mint hover:bg-mint hover:text-white"
+>
   Primary Action
 </button>
 
 <!-- Accent Buttons -->
-<button class="btn-base bg-mint text-white outline-mint hover:outline-black hover:bg-white hover:text-black">
+<button
+  class="btn-base bg-mint text-white outline-mint hover:outline-black hover:bg-white hover:text-black"
+>
   Mint Button
 </button>
 
-<button class="btn-base bg-coral text-white outline-coral hover:outline-black hover:bg-white hover:text-black">
+<button
+  class="btn-base bg-coral text-white outline-coral hover:outline-black hover:bg-white hover:text-black"
+>
   Coral Button
 </button>
 
-<button class="btn-base bg-lavender text-white outline-lavender hover:outline-black hover:bg-white hover:text-black">
+<button
+  class="btn-base bg-lavender text-white outline-lavender hover:outline-black hover:bg-white hover:text-black"
+>
   Lavender Button
 </button>
 ```
 
 #### Button Base Styles
+
 ```css
 .btn-base {
   display: inline-flex;
@@ -189,26 +218,38 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ```
 
 #### Button Sizes
+
 ```css
 /* Small */
-.btn-sm { padding: var(--space-1) var(--space-2); font-size: var(--text-sm); }
+.btn-sm {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+}
 
 /* Medium (Default) */
-.btn-md { padding: var(--space-2) var(--space-3); font-size: var(--text-base); }
+.btn-md {
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-base);
+}
 
 /* Large */
-.btn-lg { padding: var(--space-3) var(--space-5); font-size: var(--text-lg); }
+.btn-lg {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-lg);
+}
 ```
 
 #### Button Animation Behavior
 
 **Animation Flow:**
+
 1. **Default State**: Button sits at normal position with subtle shadow
 2. **Hover State**: Button lifts up 2px with enhanced shadow (feels elevated)
 3. **Active/Click State**: Button returns to normal position with pressed shadow (feels clicked)
 4. **Color Transitions**: Background and outline colors change smoothly during hover
 
 **Implementation Notes:**
+
 - All buttons using `.btn-base` automatically get these animations
 - The 2px lift is subtle but provides clear visual feedback
 - Shadow changes enhance the depth perception
@@ -218,6 +259,7 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ### Cards
 
 #### Outline Card (Primary Pattern)
+
 ```html
 <div class="card-base cursor-pointer hover:outline-mint">
   <div class="p-3">
@@ -229,6 +271,7 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ```
 
 #### Card Base Styles
+
 ```css
 .card-base {
   background-color: var(--color-white);
@@ -243,8 +286,9 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ### Form Elements
 
 #### Input Fields
+
 ```html
-<input class="input-base" type="text" placeholder="Enter text">
+<input class="input-base" type="text" placeholder="Enter text" />
 <textarea class="input-base" rows="4" placeholder="Enter message"></textarea>
 <select class="input-base">
   <option>Select option</option>
@@ -252,6 +296,7 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ```
 
 #### Input Base Styles
+
 ```css
 .input-base {
   display: block;
@@ -279,6 +324,7 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ## Layout System
 
 ### Container
+
 ```css
 .container {
   max-width: 1200px;
@@ -288,6 +334,7 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ```
 
 ### Grid System
+
 ```html
 <!-- 2-column grid on desktop -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -304,6 +351,7 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ```
 
 ### Flexbox Utilities
+
 ```html
 <!-- Center content -->
 <div class="flex items-center justify-center">Centered</div>
@@ -326,6 +374,7 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ## Page Patterns
 
 ### Hero Section
+
 ```html
 <section class="py-20 bg-white">
   <div class="container">
@@ -341,6 +390,7 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ```
 
 ### Feature Grid
+
 ```html
 <section class="py-16 bg-white">
   <div class="container">
@@ -364,6 +414,7 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ```
 
 ### Section Divider
+
 ```html
 <div class="py-8">
   <div class="container">
@@ -377,40 +428,51 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ## Interactive States
 
 ### Hover Effects
+
 ```css
 /* Button lift (applied automatically to .btn-base) */
-.btn-base:hover { 
-  transform: translateY(-2px); 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
+.btn-base:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Button press (applied automatically to .btn-base) */
-.btn-base:active { 
-  transform: translateY(0); 
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+.btn-base:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Slide right (for arrows and icons) */
-.hover\:translate-x-1:hover { transform: translateX(4px); }
+.hover\:translate-x-1:hover {
+  transform: translateX(4px);
+}
 
 /* Outline color change (for cards and components) */
-.hover\:outline-mint:hover { outline-color: var(--color-mint); }
+.hover\:outline-mint:hover {
+  outline-color: var(--color-mint);
+}
 ```
 
 ### Transitions
+
 ```css
 /* All properties */
-.transition-all { transition: all 0.2s ease-in-out; }
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
 
 /* Colors only */
-.transition-colors { 
-  transition: color 0.2s ease-in-out, 
-              background-color 0.2s ease-in-out, 
-              border-color 0.2s ease-in-out; 
+.transition-colors {
+  transition:
+    color 0.2s ease-in-out,
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
 }
 
 /* Transform only */
-.transition-transform { transition: transform 0.2s ease-in-out; }
+.transition-transform {
+  transition: transform 0.2s ease-in-out;
+}
 ```
 
 ---
@@ -418,17 +480,20 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ## Accessibility Guidelines
 
 ### Outline Usage
+
 - **Always use 2px outlines** on interactive elements
 - **No outline-offset** for consistent edge alignment
 - **Color-coded hover states** for clear interaction feedback
 - **High contrast ratios** maintained across all color combinations
 
 ### Focus States
+
 - All interactive elements have visible focus states
 - Focus states use mint color for consistency
 - Tab navigation is fully supported
 
 ### Color Contrast
+
 - Black text on white backgrounds: AAA rating
 - White text on accent colors: AA+ rating
 - All accent colors tested for accessibility compliance
@@ -438,30 +503,36 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ## Responsive Design
 
 ### Breakpoints
+
 ```css
 /* Mobile First Approach */
 /* Default: Mobile (0px+) */
 
 /* Tablet */
-@media (min-width: 768px) { /* md: */ }
+@media (min-width: 768px) {
+  /* md: */
+}
 
 /* Desktop */
-@media (min-width: 1024px) { /* lg: */ }
+@media (min-width: 1024px) {
+  /* lg: */
+}
 ```
 
 ### Responsive Patterns
+
 ```html
 <!-- Mobile stack, desktop row -->
 <div class="flex flex-col md:flex-row gap-6">
-
-<!-- 1 column mobile, 2 tablet, 3 desktop -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-<!-- Hide on mobile, show on desktop -->
-<div class="hidden md:block">
-
-<!-- Different text sizes -->
-<h1 class="text-2xl md:text-3xl lg:text-4xl">
+  <!-- 1 column mobile, 2 tablet, 3 desktop -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Hide on mobile, show on desktop -->
+    <div class="hidden md:block">
+      <!-- Different text sizes -->
+      <h1 class="text-2xl md:text-3xl lg:text-4xl"></h1>
+    </div>
+  </div>
+</div>
 ```
 
 ---
@@ -469,23 +540,24 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ## CSS Variable Usage
 
 ### Implementing in New Projects
+
 ```css
 /* Copy all variables from :root */
 :root {
   --color-black: #000000;
-  --color-white: #FFFFFF;
-  --color-mint: #4FB3A6;
-  --color-coral: #F29E8E;
-  --color-lavender: #C5A3E0;
-  
+  --color-white: #ffffff;
+  --color-mint: #4fb3a6;
+  --color-coral: #f29e8e;
+  --color-lavender: #c5a3e0;
+
   /* Typography */
   --text-base: 16px;
   --font-family: 'Inter', sans-serif;
-  
+
   /* Spacing */
   --space-2: 16px;
   --space-3: 24px;
-  
+
   /* Border */
   --radius: 8px;
   --outline-width: 2px;
@@ -493,6 +565,7 @@ All interactive elements use 2px outlines for accessibility and brand consistenc
 ```
 
 ### Using Variables
+
 ```css
 /* In CSS */
 .custom-button {
@@ -521,8 +594,11 @@ module.exports = {
 ## Usage Examples
 
 ### Modal/Dialog Pattern
+
 ```html
-<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+>
   <div class="card-base max-w-md w-full mx-4">
     <div class="p-6">
       <h3 class="text-2xl font-semibold mb-4">Modal Title</h3>
@@ -537,6 +613,7 @@ module.exports = {
 ```
 
 ### Navigation Pattern
+
 ```html
 <nav class="bg-white border-b-2 border-black sticky top-0 z-50">
   <div class="container">
@@ -553,26 +630,31 @@ module.exports = {
 ```
 
 ### Form Pattern
+
 ```html
 <form class="card-base max-w-md mx-auto">
   <div class="p-6">
     <h2 class="text-2xl font-semibold mb-6">Contact Form</h2>
-    
+
     <div class="mb-4">
       <label class="block text-sm font-medium mb-2">Name</label>
-      <input type="text" class="input-base" placeholder="Your name">
+      <input type="text" class="input-base" placeholder="Your name" />
     </div>
-    
+
     <div class="mb-4">
       <label class="block text-sm font-medium mb-2">Email</label>
-      <input type="email" class="input-base" placeholder="your@email.com">
+      <input type="email" class="input-base" placeholder="your@email.com" />
     </div>
-    
+
     <div class="mb-6">
       <label class="block text-sm font-medium mb-2">Message</label>
-      <textarea class="input-base" rows="4" placeholder="Your message"></textarea>
+      <textarea
+        class="input-base"
+        rows="4"
+        placeholder="Your message"
+      ></textarea>
     </div>
-    
+
     <button type="submit" class="btn-base bg-coral text-white w-full">
       Send Message
     </button>
@@ -585,6 +667,7 @@ module.exports = {
 ## Brand Voice in Design
 
 ### Visual Personality
+
 - **Professional**: Clean lines, consistent spacing, purposeful design
 - **Innovative**: Modern typography, subtle animations, fresh color palette
 - **Accessible**: High contrast, clear hierarchy, inclusive design
@@ -593,6 +676,7 @@ module.exports = {
 ### Do's and Don'ts
 
 #### Do's ✅
+
 - Use 2px outlines on all interactive elements
 - Maintain 8px grid spacing throughout
 - Use accent colors purposefully (not decoratively)
@@ -602,6 +686,7 @@ module.exports = {
 - Use consistent animation timing (0.2s ease-in-out)
 
 #### Don'ts ❌
+
 - Don't use gradients or complex shadows
 - Don't mix different outline widths
 - Don't use accent colors for large background areas

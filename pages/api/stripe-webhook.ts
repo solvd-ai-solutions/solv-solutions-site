@@ -8,7 +8,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
@@ -21,7 +24,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     event = stripe.webhooks.constructEvent(req.body, sig!, endpointSecret);
   } catch (err) {
     console.error('Webhook signature verification failed:', err);
-    return res.status(400).json({ message: 'Webhook signature verification failed' });
+    return res
+      .status(400)
+      .json({ message: 'Webhook signature verification failed' });
   }
 
   try {
@@ -29,11 +34,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       case 'payment_intent.succeeded':
         await handlePaymentSuccess(event.data.object as Stripe.PaymentIntent);
         break;
-      
+
       case 'payment_intent.payment_failed':
         await handlePaymentFailure(event.data.object as Stripe.PaymentIntent);
         break;
-      
+
       default:
         console.log(`Unhandled event type: ${event.type}`);
     }
@@ -160,4 +165,4 @@ Payment failed at ${new Date().toLocaleString()}
     subject: `❌ PAYMENT FAILED - ${customer} - $${amount}`,
     html: failureEmailContent.replace(/\n/g, '<br>'),
   });
-} 
+}

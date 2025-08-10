@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+set -e
+
+# Auto-format code
+npm run format
+
+# Run linting
+npm run lint
+
+# Type check
+npm run type-check
+
+# If all checks pass, stage the formatted files
+git add .

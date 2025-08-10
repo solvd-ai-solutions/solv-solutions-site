@@ -1,9 +1,9 @@
 {
-	"folders": [
-		{
-			"name": "solv-solutions-site",
-			"path": "."
-		}
-	],
-	"settings": {}
+  "folders": [
+    {
+      "name": "solv-solutions-site",
+      "path": ".",
+    },
+  ],
+  "settings": {},
 }

@@ -24,23 +24,22 @@ export default async function handler(
 
     if (error) {
       console.error('Resend error:', error);
-      return res.status(500).json({ 
-        message: 'Email sending failed', 
-        error: error.message 
+      return res.status(500).json({
+        message: 'Email sending failed',
+        error: error.message,
       });
     }
 
     console.log('Test email sent successfully:', data);
-    res.status(200).json({ 
+    res.status(200).json({
       message: 'Test email sent successfully',
-      data 
+      data,
     });
-
   } catch (error) {
     console.error('Test email error:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       message: 'Error sending test email',
-      error: error instanceof Error ? error.message : 'Unknown error'
+      error: error instanceof Error ? error.message : 'Unknown error',
     });
   }
-} 
+}
