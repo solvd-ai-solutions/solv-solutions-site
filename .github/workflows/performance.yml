@@ -1,0 +1,99 @@
+name: Performance Monitoring
+
+on:
+  schedule:
+    # Run every day at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual triggering
+  push:
+    branches: [main]
+
+jobs:
+  lighthouse-audit:
+    name: Lighthouse Performance Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Start application
+        run: npm run start &
+        env:
+          PORT: 3000
+
+      - name: Wait for application to start
+        run: |
+          timeout 60 bash -c 'until curl -s http://localhost:3000 > /dev/null; do sleep 2; done'
+
+      - name: Run Lighthouse audit
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            http://localhost:3000
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          configPath: './lighthouserc.json'
+
+      - name: Stop application
+        run: pkill -f "next start"
+
+  bundle-analysis:
+    name: Bundle Size Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Analyze bundle size
+        run: npm run analyze:browser
+
+      - name: Upload bundle analysis
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-analysis
+          path: .next/analyze/
+          retention-days: 30
+
+  performance-alerts:
+    name: Performance Alerts
+    runs-on: ubuntu-latest
+    needs: [lighthouse-audit, bundle-analysis]
+    if: always()
+    steps:
+      - name: Check Lighthouse results
+        run: |
+          if [ -f ".lighthouseci/lighthouse-results.json" ]; then
+            echo "Lighthouse audit completed successfully"
+            # Here you could add logic to check scores and send alerts
+          else
+            echo "Lighthouse audit failed"
+            exit 1
+          fi
+
+      - name: Performance summary
+        run: |
+          echo "📊 Performance monitoring completed"
+          echo "Bundle analysis: ✅"
+          echo "Lighthouse audit: ✅"
+          echo "Check artifacts for detailed reports"

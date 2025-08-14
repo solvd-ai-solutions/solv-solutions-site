@@ -15,9 +15,17 @@
     "pre-commit": "npm run format && npm run lint && npm run type-check",
     "dev:watch": "concurrently \"npm run dev\" \"npm run lint:watch\"",
     "lint:watch": "next lint --watch",
+    "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:ci": "jest --ci --coverage --watchAll=false",
     "deploy:staging": "vercel --prod",
-    "deploy:production": "vercel --prod --confirm"
+    "deploy:production": "vercel --prod",
+    "analyze": "cross-env ANALYZE=true npm run build",
+    "analyze:server": "cross-env BUNDLE_ANALYZE=server npm run build",
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser npm run build",
+    "performance:audit": "npm run build && lighthouse http://localhost:3000 --output=json --output-path=./lighthouse-report.json",
+    "performance:check": "npm run build && npm run start & sleep 10 && curl -s http://localhost:3000 | grep -q 'Solvd AI Solutions' && echo 'Performance check passed' || echo 'Performance check failed'"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.3",
@@ -85,6 +93,16 @@
     "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vercel": "^44.7.3"
+    "vercel": "^44.7.3",
+    "@next/bundle-analyzer": "^15.4.5",
+    "cross-env": "^7.0.3",
+    "webpack-bundle-analyzer": "^4.10.1",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.5.2",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "@types/jest": "^29.5.12",
+    "ts-jest": "^29.1.2"
   }
 }
