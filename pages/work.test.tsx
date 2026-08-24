@@ -13,13 +13,36 @@ describe('Work page', () => {
     expect(screen.getByText('This Website')).toBeInTheDocument();
   });
 
-  it('links external projects out, and leaves non-linked projects as plain cards', () => {
+  it('gives external links target=_blank/rel=noopener, leaves the internal demo link plain, and leaves non-linked projects unwrapped', () => {
     render(<Work />);
-    expect(
-      screen.getByRole('link', { name: /life imitates thought/i })
-    ).toHaveAttribute('href', 'https://lifeimitatesthought.quest');
-    expect(
-      screen.queryByRole('link', { name: /^persono$/i })
-    ).not.toBeInTheDocument();
+
+    // Internal route: pet-bio-generator's externalUrl is a relative path, not really external
+    const petBioLink = screen.getByRole('link', {
+      name: /pet bio generator/i,
+    });
+    expect(petBioLink).toHaveAttribute('href', '/demos/pet-bio-generator');
+    expect(petBioLink).not.toHaveAttribute('target');
+    expect(petBioLink).not.toHaveAttribute('rel');
+
+    // Genuinely external: should get target=_blank + rel=noopener noreferrer
+    const lifeImitatesLink = screen.getByRole('link', {
+      name: /life imitates thought/i,
+    });
+    expect(lifeImitatesLink).toHaveAttribute(
+      'href',
+      'https://lifeimitatesthought.quest'
+    );
+    expect(lifeImitatesLink).toHaveAttribute('target', '_blank');
+    expect(lifeImitatesLink).toHaveAttribute('rel', 'noopener noreferrer');
+
+    const cutOrderLink = screen.getByRole('link', {
+      name: /cut & order manager/i,
+    });
+    expect(cutOrderLink).toHaveAttribute('target', '_blank');
+    expect(cutOrderLink).toHaveAttribute('rel', 'noopener noreferrer');
+
+    // No externalUrl at all: should render as a plain (non-clickable) card, not wrapped in <a>
+    const personoHeading = screen.getByText('Persono');
+    expect(personoHeading.closest('a')).toBeNull();
   });
 });
