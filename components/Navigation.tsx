@@ -2,6 +2,7 @@ import { OutlineButton } from './ui/outline-button';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,17 +35,23 @@ export function Navigation() {
 
           {/* Desktop Navigation */}
           <div className='hidden md:flex items-center gap-8'>
+            <Link
+              href='/work'
+              className='text-white hover:text-mint transition-colors font-medium text-lg cursor-pointer'
+            >
+              Work
+            </Link>
+            <a
+              href='#services'
+              className='text-white hover:text-lavender transition-colors font-medium text-lg cursor-pointer'
+            >
+              Services
+            </a>
             <a
               href='#about'
               className='text-white hover:text-lavender transition-colors font-medium text-lg cursor-pointer'
             >
               About
-            </a>
-            <a
-              href='#codex-demo'
-              className='text-white hover:text-lavender transition-colors font-medium text-lg cursor-pointer'
-            >
-              Codex
             </a>
             <a
               href='#contact'
@@ -86,23 +93,23 @@ export function Navigation() {
             }}
           >
             <div className='flex flex-col space-y-4 px-4'>
+              <Link
+                href='/work'
+                className='text-white hover:text-mint transition-colors font-medium py-2 text-left'
+              >
+                Work
+              </Link>
+              <button
+                onClick={() => scrollToSection('services')}
+                className='text-white hover:text-lavender transition-colors font-medium py-2 text-left'
+              >
+                Services
+              </button>
               <button
                 onClick={() => scrollToSection('about')}
                 className='text-white hover:text-lavender transition-colors font-medium py-2 text-left'
               >
                 About
-              </button>
-              <button
-                onClick={() => scrollToSection('demos')}
-                className='text-white hover:text-mint transition-colors font-medium py-2 text-left'
-              >
-                Demos
-              </button>
-              <button
-                onClick={() => scrollToSection('codex-demo')}
-                className='text-white hover:text-lavender transition-colors font-medium py-2 text-left'
-              >
-                Codex
               </button>
               <button
                 onClick={() => scrollToSection('contact')}
