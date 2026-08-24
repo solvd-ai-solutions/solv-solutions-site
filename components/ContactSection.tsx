@@ -3,10 +3,10 @@ import { OutlineButton } from './ui/outline-button';
 import { QuoteModal } from './QuoteModal';
 import { scrollToSection } from './ui/utils';
 
+const CONTACT_EMAIL = 'geoff@persono.app';
+
 export function ContactSection() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-
-  console.log('ContactSection rendered, isQuoteModalOpen:', isQuoteModalOpen);
 
   return (
     <>
@@ -17,9 +17,9 @@ export function ContactSection() {
               Ready to Get Started?
             </h2>
             <p className='text-xl text-black max-w-4xl mx-auto leading-relaxed'>
-              Get an instant AI-powered quote, reach out to discuss your
-              project, or start immediately. Choose the option that works best
-              for you.
+              Get an instant AI-powered quote or reach out to talk through your
+              project. Pricing and scope get worked out together, not on this
+              page.
             </p>
           </div>
 
@@ -28,7 +28,7 @@ export function ContactSection() {
             <OutlineButton
               variant='mint'
               onClick={() => {
-                const mailtoLink = `mailto:gpeterson3030@gmail.com?subject=AI Quote Request&body=Hi Geoff,%0D%0A%0D%0AI'm interested in getting an AI quote for my project.%0D%0A%0D%0AProject Description:%0D%0A%0D%0A%0D%0A%0D%0ABest regards,%0D%0A[Your Name]`;
+                const mailtoLink = `mailto:${CONTACT_EMAIL}?subject=AI Quote Request&body=Hi Geoff,%0D%0A%0D%0AI'm interested in getting an AI quote for my project.%0D%0A%0D%0AProject Description:%0D%0A%0D%0A%0D%0A%0D%0ABest regards,%0D%0A[Your Name]`;
                 window.location.href = mailtoLink;
               }}
               className='w-full py-4 text-lg'
@@ -38,21 +38,21 @@ export function ContactSection() {
 
             <OutlineButton
               variant='lavender'
-              onClick={() => scrollToSection('codex-demo')}
+              onClick={() => scrollToSection('services')}
               className='w-full py-4 text-lg'
             >
-              Explore Codex
+              Explore Services
             </OutlineButton>
 
             <OutlineButton
               variant='coral'
               onClick={() => {
-                const mailtoLink = `mailto:gpeterson3030@gmail.com?subject=Codex Integration Inquiry&body=Hi Geoff,%0D%0A%0D%0AI'd like to discuss integrating Codex automation into my business processes.%0D%0A%0D%0ACurrent Systems:%0D%0A%0D%0A%0D%0A%0D%0ABest regards,%0D%0A[Your Name]`;
+                const mailtoLink = `mailto:${CONTACT_EMAIL}?subject=Project Inquiry&body=Hi Geoff,%0D%0A%0D%0AI'd like to talk through a project.%0D%0A%0D%0ACurrent Systems:%0D%0A%0D%0A%0D%0A%0D%0ABest regards,%0D%0A[Your Name]`;
                 window.location.href = mailtoLink;
               }}
               className='w-full py-4 text-lg'
             >
-              Discuss Codex
+              Discuss a Project
             </OutlineButton>
           </div>
         </div>
