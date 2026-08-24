@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Work from './work';
+import Work from '../pages/work';
 
 describe('Work page', () => {
   it('renders all 7 project names', () => {

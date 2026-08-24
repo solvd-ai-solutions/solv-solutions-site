@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Home from './index';
+import Home from '../pages/index';
 
 describe('Home page', () => {
   it('renders without crashing and includes a real page title in Head', () => {
