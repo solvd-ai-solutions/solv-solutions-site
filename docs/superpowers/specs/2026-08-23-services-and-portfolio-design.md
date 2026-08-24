@@ -29,6 +29,7 @@ Phase 2 is intentionally deferred — 3 of 7 projects don't have screenshots yet
 **Nav:** Home | Work | Services | About | Contact (currently only has About/Contact anchors)
 
 **Home page** (`pages/index.tsx`), top to bottom:
+
 1. Hero (unchanged)
 2. About (unchanged — personality/values cards)
 3. **Services** (new — wire up `ServicesSection.tsx` with real content, replacing the placeholder "Choose Your Plan" copy)
@@ -51,15 +52,15 @@ Full copy is in the conversation transcript; use it verbatim when implementing �
 
 ## Portfolio: 7 projects
 
-| Project | Status | Timeline source | Screenshot status |
-|---|---|---|---|
-| Persono | Live case study | git (`personoapp`, 697 commits, Oct 2025 – present) | ✅ 2 shots: web landing (`public/work/persono/landing.png`), native mobile home (`public/work/persono/mobile-today.png`) — captured this session from real running instances |
-| RunIt | Live case study | git (`RunIt`, 45 commits, Aug 19–23 2026 sprint) | ⚠️ 1 shot: onboarding/sign-up screen only (`public/work/runit/onboarding.png`). Deeper screens need either a disposable test login or user-supplied screenshots — completing sign-up would write a real row to the production Postgres backend, which I stopped short of automating. |
-| Cut & Order Manager | Real demo, folding into portfolio | git history in `solv-solutions-site` + the dedicated `cut-order-manager` org repo | ❌ Not yet captured — the app is live in this repo (`pages/demos/cut-order-manager.tsx`); straightforward to screenshot in Phase 2. |
-| Pet Bio Generator | Real demo, folding into portfolio | same as above (`instant-pet-bio-generator` org repo) | ❌ Not yet captured — same as above, straightforward. |
-| Copilot AI Resume Writing Agent | Live case study | user-provided (built April 2026, M365 Custom Copilot Agent, in active use org-wide) | ❌ Cannot be automated — lives in the user's M365 tenant, no tool access. If the user supplies screenshots, they likely contain colleague names and real resume/job content and **must be redacted before use**. |
-| Life Imitates Thought | Live case study | domain registered 2026-05-27 (whois); Next.js on Vercel (confirmed via headers) | ❌ Not yet captured — site is live and publicly reachable, straightforward to screenshot in Phase 2. |
-| Solvd AI Solutions website (this site) | Live case study, meta | git (this repo, active since Aug 2025; the abandoned App-Router prototype is a separate, disconnected fork not part of this history) | ❌ Not yet captured — screenshot once Phase 1 ships so it reflects the actual current state, not the pre-rebuild version. |
+| Project                                | Status                            | Timeline source                                                                                                                      | Screenshot status                                                                                                                                                                                                                                                                    |
+| -------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Persono                                | Live case study                   | git (`personoapp`, 697 commits, Oct 2025 – present)                                                                                  | ✅ 2 shots: web landing (`public/work/persono/landing.png`), native mobile home (`public/work/persono/mobile-today.png`) — captured this session from real running instances                                                                                                         |
+| RunIt                                  | Live case study                   | git (`RunIt`, 45 commits, Aug 19–23 2026 sprint)                                                                                     | ⚠️ 1 shot: onboarding/sign-up screen only (`public/work/runit/onboarding.png`). Deeper screens need either a disposable test login or user-supplied screenshots — completing sign-up would write a real row to the production Postgres backend, which I stopped short of automating. |
+| Cut & Order Manager                    | Real demo, folding into portfolio | git history in `solv-solutions-site` + the dedicated `cut-order-manager` org repo                                                    | ❌ Not yet captured — the app is live in this repo (`pages/demos/cut-order-manager.tsx`); straightforward to screenshot in Phase 2.                                                                                                                                                  |
+| Pet Bio Generator                      | Real demo, folding into portfolio | same as above (`instant-pet-bio-generator` org repo)                                                                                 | ❌ Not yet captured — same as above, straightforward.                                                                                                                                                                                                                                |
+| Copilot AI Resume Writing Agent        | Live case study                   | user-provided (built April 2026, M365 Custom Copilot Agent, in active use org-wide)                                                  | ❌ Cannot be automated — lives in the user's M365 tenant, no tool access. If the user supplies screenshots, they likely contain colleague names and real resume/job content and **must be redacted before use**.                                                                     |
+| Life Imitates Thought                  | Live case study                   | domain registered 2026-05-27 (whois); Next.js on Vercel (confirmed via headers)                                                      | ❌ Not yet captured — site is live and publicly reachable, straightforward to screenshot in Phase 2.                                                                                                                                                                                 |
+| Solvd AI Solutions website (this site) | Live case study, meta             | git (this repo, active since Aug 2025; the abandoned App-Router prototype is a separate, disconnected fork not part of this history) | ❌ Not yet captured — screenshot once Phase 1 ships so it reflects the actual current state, not the pre-rebuild version.                                                                                                                                                            |
 
 Google Drive Prep is **not** a portfolio entry — it's a service (see AI Workspace & Tool Architecture above), since it's a client engagement offering, not a software build with an architecture/timeline of its own.
 
@@ -78,6 +79,7 @@ Google Drive Prep is **not** a portfolio entry — it's a service (see AI Worksp
 ## Screenshots still needed before Phase 2 can start
 
 Non-blocking for Phase 1 (which doesn't need per-project screenshots), but tracked here so Phase 2 doesn't start blind:
+
 - RunIt: deeper authenticated screens (needs user input — test login or user-supplied)
 - Cut & Order Manager, Pet Bio Generator, Life Imitates Thought, Solvd AI site itself: capturable directly, no blockers
 - Copilot AI Resume Writing Agent: user-supplied only, redact before use
