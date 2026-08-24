@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { OutlineButton } from './ui/outline-button';
 import { QuoteModal } from './QuoteModal';
 import { scrollToSection } from './ui/utils';
@@ -7,6 +8,7 @@ const CONTACT_EMAIL = 'geoff@persono.app';
 
 export function ContactSection() {
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -38,7 +40,13 @@ export function ContactSection() {
 
             <OutlineButton
               variant='lavender'
-              onClick={() => scrollToSection('services')}
+              onClick={() => {
+                if (router.pathname === '/') {
+                  scrollToSection('services');
+                } else {
+                  router.push('/#services');
+                }
+              }}
               className='w-full py-4 text-lg'
             >
               Explore Services

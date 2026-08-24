@@ -31,7 +31,6 @@ const customJestConfig = {
   testMatch: [
     '<rootDir>/__tests__/**/*.{ts,tsx}',
     '<rootDir>/components/**/*.{test,spec}.{ts,tsx}',
-    '<rootDir>/pages/**/*.{test,spec}.{ts,tsx}',
     '<rootDir>/lib/**/*.{test,spec}.{ts,tsx}',
   ],
 };

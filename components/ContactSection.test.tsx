@@ -1,10 +1,19 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ContactSection } from './ContactSection';
 
+let mockPathname = '/';
+const mockPush = jest.fn();
+jest.mock('next/router', () => ({
+  useRouter: () => ({ pathname: mockPathname, push: mockPush }),
+}));
+
 describe('ContactSection', () => {
   const originalLocation = window.location;
 
   beforeEach(() => {
+    mockPathname = '/';
+    mockPush.mockClear();
+
     // window.location.href is assigned imperatively by the mailto buttons;
     // replace it with a plain writable object so we can assert on it.
     delete (window as unknown as { location?: unknown }).location;
@@ -43,5 +52,30 @@ describe('ContactSection', () => {
     render(<ContactSection />);
     expect(screen.queryByText(/payment/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/checkout/i)).not.toBeInTheDocument();
+  });
+
+  it('smooth-scrolls to #services when "Explore Services" is clicked on the homepage', () => {
+    mockPathname = '/';
+    document.body.innerHTML += '<div id="services"></div>';
+    const scrollIntoViewMock = jest.fn();
+    Element.prototype.scrollIntoView = scrollIntoViewMock;
+
+    render(<ContactSection />);
+    fireEvent.click(screen.getByRole('button', { name: /explore services/i }));
+
+    expect(scrollIntoViewMock).toHaveBeenCalled();
+    expect(mockPush).not.toHaveBeenCalled();
+  });
+
+  it('navigates to /#services when "Explore Services" is clicked off the homepage', () => {
+    mockPathname = '/work';
+    const scrollIntoViewMock = jest.fn();
+    Element.prototype.scrollIntoView = scrollIntoViewMock;
+
+    render(<ContactSection />);
+    fireEvent.click(screen.getByRole('button', { name: /explore services/i }));
+
+    expect(mockPush).toHaveBeenCalledWith('/#services');
+    expect(scrollIntoViewMock).not.toHaveBeenCalled();
   });
 });

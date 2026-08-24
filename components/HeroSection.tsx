@@ -1,7 +1,10 @@
+import { useRouter } from 'next/router';
 import { OutlineButton } from './ui/outline-button';
 import { scrollToSection } from './ui/utils';
 
 export function HeroSection() {
+  const router = useRouter();
+
   return (
     <section className='relative px-6 overflow-hidden pt-280 pb-140'>
       {/* Grid Pattern Background */}
@@ -48,10 +51,10 @@ export function HeroSection() {
           </OutlineButton>
           <OutlineButton
             variant='lavender'
-            onClick={() => scrollToSection('codex-demo')}
+            onClick={() => router.push('/work')}
             className='px-8 py-4 text-lg font-semibold'
           >
-            Explore Codex
+            See Our Work
           </OutlineButton>
         </div>
 
