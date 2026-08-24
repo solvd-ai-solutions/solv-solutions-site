@@ -11,7 +11,9 @@ The two "demo" apps embedded on the home page today — Cut & Order Manager and 
 
 ## Goal
 
-Turn the site into a dual-purpose page: a consulting pitch for Solvd AI Solutions' services, and a portfolio of real AI builds. Visual direction: modern and memorable, not illustration-heavy — the current outline-card / geometric-divider / pastel-brand aesthetic stays, this is a content and structure build-out, not a visual redesign.
+Turn the site into a dual-purpose page: a consulting pitch for Solvd AI Solutions' services, and a portfolio of real AI builds.
+
+**Visual direction:** modern and memorable, not illustration-heavy (no mascot art, no stock-photo hero imagery) — but not plain either. Geometric shapes and patterns, optical-illusion-style visual tricks, smooth transitions, quirky/out-of-the-box touches, and colors that read as authentic rather than corporate-safe. This is consistent with what's already there (the `SectionDivider` component's diagonal/triangle/wave/diamond patterns, the mint/coral/lavender brand palette) — lean into that language rather than introducing a generic card-grid look. This is primarily a content and structure build-out, not a full visual redesign, but every new component built for it (Services cards, the Portfolio teaser, the `/work` grid) should carry this personality rather than defaulting to plain white cards. This direction carries into Phase 2's case-study page design as well.
 
 ## Scope decomposition
 
