@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { Navigation } from '../components/Navigation';
 import { HeroSection } from '../components/HeroSection';
 import { AboutSection } from '../components/AboutSection';
+import { ServicesSection } from '../components/ServicesSection';
 import { FeaturesGrid } from '../components/FeaturesGrid';
 import { ContactSection } from '../components/ContactSection';
 import { SectionDivider } from '../components/SectionDivider';
@@ -43,6 +44,11 @@ export default function Home() {
       <SectionDivider pattern='diagonal' color='mint' />
 
       <AboutSection />
+
+      {/* Geometric Divider */}
+      <SectionDivider pattern='triangles' color='coral' />
+
+      <ServicesSection />
 
       {/* Geometric Divider */}
       <SectionDivider pattern='triangles' color='coral' />

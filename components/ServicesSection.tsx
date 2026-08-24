@@ -1,79 +1,59 @@
+import { OutlineCard, OutlineCardContent } from './ui/outline-card';
+import { SectionDivider } from './SectionDivider';
+import { serviceCategories } from '../lib/services';
+
+const CATEGORY_COLORS = ['mint', 'coral', 'lavender'] as const;
+
 export function ServicesSection() {
   return (
     <section id='services' className='py-16 px-6'>
       <div className='container mx-auto max-w-6xl'>
-        <div className='text-center mb-16'>
+        <div className='text-center mb-12'>
           <h2 className='text-3xl md:text-4xl font-bold text-black mb-4'>
-            Choose Your Plan
+            Services & Capabilities
           </h2>
-          <p className='text-xl text-black max-w-4xl mx-auto leading-relaxed'>
-            Select the perfect solution for your needs. From our growing library
-            of pre-built apps to enterprise-level custom implementations, we
-            have options for every business size.
+          <p className='text-xl text-black max-w-3xl mx-auto leading-relaxed'>
+            From full AI adoption strategy to the tools that make it stick —
+            here&apos;s what we do.
           </p>
         </div>
 
-        <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8'>
-          <div className='bg-white rounded-lg shadow-lg p-6 border-2 border-mint'>
-            <h3 className='text-xl font-semibold text-gray-800 mb-3'>
-              Custom AI Applications
-            </h3>
-            <p className='text-gray-600'>
-              Tailored AI solutions that solve your specific business challenges
-              and streamline operations.
-            </p>
-          </div>
-
-          <div className='bg-white rounded-lg shadow-lg p-6 border-2 border-lavender'>
-            <h3 className='text-xl font-semibold text-gray-800 mb-3'>
-              Codex Automation
-            </h3>
-            <p className='text-gray-600'>
-              AI-driven workflow automation that connects your tools and
-              processes for seamless operations.
-            </p>
-          </div>
-
-          <div className='bg-white rounded-lg shadow-lg p-6 border-2 border-coral'>
-            <h3 className='text-xl font-semibold text-gray-800 mb-3'>
-              Process Optimization
-            </h3>
-            <p className='text-gray-600'>
-              Streamline your workflows with intelligent automation and
-              data-driven insights.
-            </p>
-          </div>
-
-          <div className='bg-white rounded-lg shadow-lg p-6 border-2 border-mint'>
-            <h3 className='text-xl font-semibold text-gray-800 mb-3'>
-              Integration Services
-            </h3>
-            <p className='text-gray-600'>
-              Connect your existing systems with Codex-powered automation for
-              maximum efficiency.
-            </p>
-          </div>
-
-          <div className='bg-white rounded-lg shadow-lg p-6 border-2 border-lavender'>
-            <h3 className='text-xl font-semibold text-gray-800 mb-3'>
-              AI Training & Support
-            </h3>
-            <p className='text-gray-600'>
-              Get your team up to speed with comprehensive training and ongoing
-              support.
-            </p>
-          </div>
-
-          <div className='bg-white rounded-lg shadow-lg p-6 border-2 border-coral'>
-            <h3 className='text-xl font-semibold text-gray-800 mb-3'>
-              Maintenance & Updates
-            </h3>
-            <p className='text-gray-600'>
-              Keep your AI solutions current with regular updates and proactive
-              maintenance.
-            </p>
-          </div>
-        </div>
+        {serviceCategories.map((category, categoryIndex) => {
+          const color = CATEGORY_COLORS[categoryIndex % CATEGORY_COLORS.length];
+          return (
+            <div key={category.name} className='mb-12 last:mb-0'>
+              <h3 className='text-2xl font-semibold text-black mb-6'>
+                {category.name}
+              </h3>
+              <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
+                {category.items.map(item => (
+                  <OutlineCard key={item.title} hover accentColor={color}>
+                    <OutlineCardContent className='p-5'>
+                      <h4 className='font-semibold text-black mb-2 text-lg'>
+                        {item.title}
+                      </h4>
+                      <p className='text-sm text-black leading-relaxed'>
+                        {item.description}
+                      </p>
+                    </OutlineCardContent>
+                  </OutlineCard>
+                ))}
+              </div>
+              {categoryIndex < serviceCategories.length - 1 && (
+                <div className='mt-12'>
+                  <SectionDivider
+                    pattern={categoryIndex === 0 ? 'dots' : 'diagonal'}
+                    color={
+                      CATEGORY_COLORS[
+                        (categoryIndex + 1) % CATEGORY_COLORS.length
+                      ]
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
