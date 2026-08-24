@@ -1,10 +1,13 @@
 import { OutlineButton } from './ui/outline-button';
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, type MouseEvent } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -12,6 +15,27 @@ export function Navigation() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
     setIsMenuOpen(false);
+  };
+
+  // Services/About only exist on the homepage. When we're already there,
+  // intercept the click and smooth-scroll (matching current behavior)
+  // instead of letting Link do a real (jump) navigation. When we're on
+  // another page (e.g. /work), let the Link's real href do its job and
+  // navigate to '/#<section>' — Next.js will land on the homepage and
+  // scroll to the hash once it's mounted.
+  const handleSectionLinkClick = (
+    e: MouseEvent<HTMLAnchorElement>,
+    sectionId: string
+  ) => {
+    const isPlainLeftClick =
+      e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
+
+    if (router.pathname === '/' && isPlainLeftClick) {
+      e.preventDefault();
+      scrollToSection(sectionId);
+    } else {
+      setIsMenuOpen(false);
+    }
   };
 
   return (
@@ -22,7 +46,7 @@ export function Navigation() {
       <div className='container mx-auto max-w-6xl'>
         <div className='flex items-center justify-between w-full'>
           {/* Logo */}
-          <div className='flex items-center'>
+          <Link href='/' className='flex items-center'>
             <Image
               src='/Assets/white_on_black_logo.png'
               alt='Solvd: AI Solutions'
@@ -30,22 +54,30 @@ export function Navigation() {
               height={50}
               style={{ width: '150px', height: 'auto' }}
             />
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className='hidden md:flex items-center gap-8'>
-            <a
-              href='#about'
+            <Link
+              href='/work'
+              className='text-white hover:text-mint transition-colors font-medium text-lg cursor-pointer'
+            >
+              Work
+            </Link>
+            <Link
+              href='/#services'
+              onClick={e => handleSectionLinkClick(e, 'services')}
+              className='text-white hover:text-lavender transition-colors font-medium text-lg cursor-pointer'
+            >
+              Services
+            </Link>
+            <Link
+              href='/#about'
+              onClick={e => handleSectionLinkClick(e, 'about')}
               className='text-white hover:text-lavender transition-colors font-medium text-lg cursor-pointer'
             >
               About
-            </a>
-            <a
-              href='#codex-demo'
-              className='text-white hover:text-lavender transition-colors font-medium text-lg cursor-pointer'
-            >
-              Codex
-            </a>
+            </Link>
             <a
               href='#contact'
               className='text-white hover:text-coral transition-colors font-medium text-lg cursor-pointer'
@@ -86,24 +118,26 @@ export function Navigation() {
             }}
           >
             <div className='flex flex-col space-y-4 px-4'>
-              <button
-                onClick={() => scrollToSection('about')}
+              <Link
+                href='/work'
+                className='text-white hover:text-mint transition-colors font-medium py-2 text-left'
+              >
+                Work
+              </Link>
+              <Link
+                href='/#services'
+                onClick={e => handleSectionLinkClick(e, 'services')}
+                className='text-white hover:text-lavender transition-colors font-medium py-2 text-left'
+              >
+                Services
+              </Link>
+              <Link
+                href='/#about'
+                onClick={e => handleSectionLinkClick(e, 'about')}
                 className='text-white hover:text-lavender transition-colors font-medium py-2 text-left'
               >
                 About
-              </button>
-              <button
-                onClick={() => scrollToSection('demos')}
-                className='text-white hover:text-mint transition-colors font-medium py-2 text-left'
-              >
-                Demos
-              </button>
-              <button
-                onClick={() => scrollToSection('codex-demo')}
-                className='text-white hover:text-lavender transition-colors font-medium py-2 text-left'
-              >
-                Codex
-              </button>
+              </Link>
               <button
                 onClick={() => scrollToSection('contact')}
                 className='text-white hover:text-coral transition-colors font-medium py-2 text-left'

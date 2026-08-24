@@ -16,6 +16,7 @@ const customJestConfig = {
   collectCoverageFrom: [
     'components/**/*.{ts,tsx}',
     'pages/**/*.{ts,tsx}',
+    'lib/**/*.{ts,tsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',
   ],
@@ -30,7 +31,7 @@ const customJestConfig = {
   testMatch: [
     '<rootDir>/__tests__/**/*.{ts,tsx}',
     '<rootDir>/components/**/*.{test,spec}.{ts,tsx}',
-    '<rootDir>/pages/**/*.{test,spec}.{ts,tsx}',
+    '<rootDir>/lib/**/*.{test,spec}.{ts,tsx}',
   ],
 };
 
