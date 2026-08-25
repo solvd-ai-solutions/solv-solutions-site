@@ -16,6 +16,7 @@ export interface Project {
   icon: LucideIcon;
   color: 'mint' | 'coral' | 'lavender';
   externalUrl?: string;
+  caseHref: string;
   featured: boolean;
 }
 
@@ -37,6 +38,7 @@ export const projects: Project[] = [
       'AI-powered journaling and self-development app that surfaces patterns in how you think and live — designed and built end to end, iOS and web.',
     icon: BookOpen,
     color: 'mint',
+    caseHref: '/work/persono',
     featured: true,
   },
   {
@@ -46,6 +48,7 @@ export const projects: Project[] = [
       'Turns a photographed run-of-show document into a live, AI-built event schedule for iPhone and Android — from idea to a shipped v1 in about four days.',
     icon: Calendar,
     color: 'coral',
+    caseHref: '/work/runit',
     featured: true,
   },
   {
@@ -56,6 +59,7 @@ export const projects: Project[] = [
     icon: Scissors,
     color: 'lavender',
     externalUrl: 'https://demo1.solvdaisolutions.com',
+    caseHref: '/work/cut-order-manager',
     featured: true,
   },
   {
@@ -65,7 +69,8 @@ export const projects: Project[] = [
       'Generates adoption-ready pet bios from a photo and a few notes, for shelters and rescues that need copy fast.',
     icon: Heart,
     color: 'mint',
-    externalUrl: '/demos/pet-bio-generator',
+    externalUrl: 'https://instant-pet-bio-generator.vercel.app',
+    caseHref: '/work/pet-bio-generator',
     featured: false,
   },
   {
@@ -75,6 +80,7 @@ export const projects: Project[] = [
       'Matches a resume against open roles, surfaces the highest-fit jobs, and rewrites the resume around the keywords that get past the screen — built on Microsoft Copilot, in active use org-wide.',
     icon: FileText,
     color: 'coral',
+    caseHref: '/work/resume-writing-agent',
     featured: false,
   },
   {
@@ -85,6 +91,7 @@ export const projects: Project[] = [
     icon: Sparkles,
     color: 'lavender',
     externalUrl: 'https://lifeimitatesthought.quest',
+    caseHref: '/work/life-imitates-thought',
     featured: true,
   },
   {
@@ -94,6 +101,7 @@ export const projects: Project[] = [
       "The site you're looking at right now — built end to end with Claude Code, from the Services section down to this sentence.",
     icon: Layers,
     color: 'mint',
+    caseHref: '/work/solvd-ai-solutions-site',
     featured: false,
   },
 ];

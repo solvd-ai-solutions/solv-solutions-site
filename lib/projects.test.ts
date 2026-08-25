@@ -45,4 +45,11 @@ describe('projects', () => {
       );
     }
   });
+
+  it('every project has a caseHref pointing at its own case-study page', () => {
+    expect(projects).toHaveLength(7);
+    for (const project of projects) {
+      expect(project.caseHref).toBe(`/work/${project.slug}`);
+    }
+  });
 });

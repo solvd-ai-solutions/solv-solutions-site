@@ -13,16 +13,20 @@ describe('Work page', () => {
     expect(screen.getByText('This Website')).toBeInTheDocument();
   });
 
-  it('gives external links target=_blank/rel=noopener, leaves the internal demo link plain, and leaves non-linked projects unwrapped', () => {
+  it('gives external links target=_blank/rel=noopener and leaves non-linked projects unwrapped', () => {
     render(<Work />);
 
-    // Internal route: pet-bio-generator's externalUrl is a relative path, not really external
+    // pet-bio-generator's externalUrl now points at the standalone Vercel
+    // demo (Task 4), so it's genuinely external like the others below.
     const petBioLink = screen.getByRole('link', {
       name: /pet bio generator/i,
     });
-    expect(petBioLink).toHaveAttribute('href', '/demos/pet-bio-generator');
-    expect(petBioLink).not.toHaveAttribute('target');
-    expect(petBioLink).not.toHaveAttribute('rel');
+    expect(petBioLink).toHaveAttribute(
+      'href',
+      'https://instant-pet-bio-generator.vercel.app'
+    );
+    expect(petBioLink).toHaveAttribute('target', '_blank');
+    expect(petBioLink).toHaveAttribute('rel', 'noopener noreferrer');
 
     // Genuinely external: should get target=_blank + rel=noopener noreferrer
     const lifeImitatesLink = screen.getByRole('link', {
