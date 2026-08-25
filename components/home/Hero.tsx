@@ -57,17 +57,18 @@ export function Hero() {
               />
               Custom AI, actually shipped
             </div>
-            <div
+            <h1
               className='ts-display'
               style={{
                 fontWeight: 800,
                 fontSize: 'clamp(44px, 8vw, 88px)',
                 lineHeight: 0.98,
                 letterSpacing: '-3px',
+                margin: 0,
               }}
             >
               AI that earns its keep.
-            </div>
+            </h1>
             <div
               style={{
                 fontSize: 20,

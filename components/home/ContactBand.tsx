@@ -1,7 +1,7 @@
 const CONTACT_EMAIL = 'geoff@persono.app';
 
-// Copied verbatim from components/ContactSection.tsx's "Get AI Quote"
-// handler — this is the quote mailto, not the "Discuss a Project" one.
+// The homepage's "Get a quote" mailto CTA — pre-fills a subject/body so a
+// visitor can request a quote in one click, no form or backend involved.
 const QUOTE_MAILTO = `mailto:${CONTACT_EMAIL}?subject=AI Quote Request&body=Hi Geoff,%0D%0A%0D%0AI'm interested in getting an AI quote for my project.%0D%0A%0D%0AProject Description:%0D%0A%0D%0A%0D%0A%0D%0ABest regards,%0D%0A[Your Name]`;
 
 export function ContactBand() {
@@ -60,7 +60,7 @@ export function ContactBand() {
           >
             03
           </div>
-          <div
+          <h2
             className='ts-display'
             style={{
               fontWeight: 800,
@@ -68,10 +68,11 @@ export function ContactBand() {
               letterSpacing: '-2px',
               color: '#f7f2e8',
               lineHeight: 1.02,
+              margin: 0,
             }}
           >
             Ready when you are.
-          </div>
+          </h2>
         </div>
         <div
           style={{
@@ -102,21 +103,6 @@ export function ContactBand() {
           </a>
           <span style={{ fontSize: 17, color: '#f7f2e8', fontWeight: 500 }}>
             {CONTACT_EMAIL}
-          </span>
-        </div>
-        <div
-          style={{
-            borderTop: '1px solid #4a443b',
-            paddingTop: 22,
-            display: 'flex',
-            justifyContent: 'space-between',
-            fontSize: 13,
-            color: '#857c6d',
-          }}
-        >
-          <span>© 2026 Solvd AI Solutions</span>
-          <span>
-            Custom AI apps &amp; adoption consulting for small business
           </span>
         </div>
       </div>

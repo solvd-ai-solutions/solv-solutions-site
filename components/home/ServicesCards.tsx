@@ -13,6 +13,7 @@ const titleStyle: React.CSSProperties = {
   fontWeight: 700,
   fontSize: 24,
   lineHeight: 1.15,
+  margin: 0,
 };
 
 const bodyStyle: React.CSSProperties = {
@@ -44,12 +45,18 @@ export function ServicesCards() {
         >
           01
         </div>
-        <div
+        <h2
           className='ts-display'
-          style={{ fontWeight: 800, fontSize: 46, letterSpacing: '-1.5px' }}
+          style={{
+            fontWeight: 800,
+            fontSize: 46,
+            letterSpacing: '-1.5px',
+            lineHeight: 1.5,
+            margin: 0,
+          }}
         >
           What we do
-        </div>
+        </h2>
       </div>
 
       <div className='ts-grid-3'>
@@ -63,9 +70,9 @@ export function ServicesCards() {
               borderRadius: '50%',
             }}
           />
-          <div className='ts-display' style={titleStyle}>
+          <h3 className='ts-display' style={titleStyle}>
             AI Enablement &amp; Training
-          </div>
+          </h3>
           <div style={bodyStyle}>
             Adoption plans, hands-on training with your team&apos;s real
             documents, governance that fits on one page. Signature deliverable:
@@ -83,9 +90,9 @@ export function ServicesCards() {
               strokeLinejoin='round'
             />
           </svg>
-          <div className='ts-display' style={titleStyle}>
+          <h3 className='ts-display' style={titleStyle}>
             Custom AI-Powered Tools
-          </div>
+          </h3>
           <div style={bodyStyle}>
             Purpose-built apps, document generation systems, and instruction
             sets that keep AI output consistent with your voice — human review
@@ -103,9 +110,9 @@ export function ServicesCards() {
               borderRadius: 16,
             }}
           />
-          <div className='ts-display' style={titleStyle}>
+          <h3 className='ts-display' style={titleStyle}>
             Custom Non-AI Digital Tools
-          </div>
+          </h3>
           <div style={bodyStyle}>
             Invoicing systems, trackers, dashboards, and small web tools — plain
             logic where AI isn&apos;t the answer.

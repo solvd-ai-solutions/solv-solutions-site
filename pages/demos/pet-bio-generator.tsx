@@ -3,8 +3,8 @@ import Head from 'next/head';
 
 export default function PetBioGeneratorDemo() {
   useEffect(() => {
-    // For now, redirect to main page since we don't have a live URL yet
-    // Replace this URL when you have the Pet Bio Generator deployed
+    // The Pet Bio Generator now runs on its own deployment — send visitors
+    // straight there instead of hosting a copy of the app on this domain.
     window.location.replace('https://instant-pet-bio-generator.vercel.app');
   }, []);
 
@@ -57,7 +57,7 @@ export default function PetBioGeneratorDemo() {
               marginBottom: '20px',
             }}
           >
-            🚧
+            🐾
           </div>
           <h1
             style={{
@@ -76,9 +76,9 @@ export default function PetBioGeneratorDemo() {
               marginBottom: '24px',
             }}
           >
-            This demo is coming soon! We&apos;re working on deploying the Pet
-            Bio Generator. You&apos;ll be redirected back to see our other
-            demos.
+            This demo now lives on its own deployment. You&apos;re being
+            redirected to the live Pet Bio Generator — if that doesn&apos;t
+            happen automatically, use the link below.
           </p>
           <a
             href='https://instant-pet-bio-generator.vercel.app'
@@ -105,7 +105,7 @@ export default function PetBioGeneratorDemo() {
               e.currentTarget.style.color = 'white';
             }}
           >
-            ❤️ Back to Demos
+            🐾 Open Pet Bio Generator
           </a>
         </div>
       </div>

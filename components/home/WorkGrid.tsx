@@ -36,12 +36,18 @@ export function WorkGrid() {
           >
             02
           </div>
-          <div
+          <h2
             className='ts-display'
-            style={{ fontWeight: 800, fontSize: 46, letterSpacing: '-1.5px' }}
+            style={{
+              fontWeight: 800,
+              fontSize: 46,
+              letterSpacing: '-1.5px',
+              lineHeight: 1.5,
+              margin: 0,
+            }}
           >
             Real apps, really shipped.
-          </div>
+          </h2>
         </div>
         <Link
           href='/work'

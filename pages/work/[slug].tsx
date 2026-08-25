@@ -351,7 +351,7 @@ export default function CaseStudyPage({
       <div className='ts-section' style={{ paddingTop: 16, paddingBottom: 72 }}>
         <div className='ts-grid-2' style={{ gap: 48 }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-            <div
+            <h2
               className='ts-display'
               style={{
                 fontWeight: 800,
@@ -359,16 +359,18 @@ export default function CaseStudyPage({
                 borderBottom: '3px solid #ef6a4b',
                 paddingBottom: 10,
                 width: 'fit-content',
+                lineHeight: 1.5,
+                margin: 0,
               }}
             >
               The problem
-            </div>
+            </h2>
             <div style={{ fontSize: 17, lineHeight: 1.65, color: '#4a443b' }}>
               {study.problem}
             </div>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-            <div
+            <h2
               className='ts-display'
               style={{
                 fontWeight: 800,
@@ -376,10 +378,12 @@ export default function CaseStudyPage({
                 borderBottom: '3px solid #2aa08f',
                 paddingBottom: 10,
                 width: 'fit-content',
+                lineHeight: 1.5,
+                margin: 0,
               }}
             >
               The story
-            </div>
+            </h2>
             <div style={{ fontSize: 17, lineHeight: 1.65, color: '#4a443b' }}>
               {study.story}
             </div>
@@ -389,12 +393,18 @@ export default function CaseStudyPage({
 
       {/* Timeline */}
       <div className='ts-section' style={{ paddingBottom: 72 }}>
-        <div
+        <h2
           className='ts-display'
-          style={{ fontWeight: 800, fontSize: 26, marginBottom: 36 }}
+          style={{
+            fontWeight: 800,
+            fontSize: 26,
+            lineHeight: 1.5,
+            marginTop: 0,
+            marginBottom: 36,
+          }}
         >
           Timeline
-        </div>
+        </h2>
         <div
           className='ts-timeline'
           style={{
@@ -448,12 +458,18 @@ export default function CaseStudyPage({
 
       {/* Architecture */}
       <div className='ts-section' style={{ paddingBottom: 72 }}>
-        <div
+        <h2
           className='ts-display'
-          style={{ fontWeight: 800, fontSize: 26, marginBottom: 36 }}
+          style={{
+            fontWeight: 800,
+            fontSize: 26,
+            lineHeight: 1.5,
+            marginTop: 0,
+            marginBottom: 36,
+          }}
         >
           How it&apos;s built
-        </div>
+        </h2>
         <div className='ts-arch-flow'>
           {study.architecture.map((node, i) => (
             <Fragment key={node.title}>
@@ -540,16 +556,18 @@ export default function CaseStudyPage({
         }}
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-          <div
+          <h2
             style={{
               fontSize: 13,
               fontWeight: 600,
               letterSpacing: '0.16em',
               color: '#b3aa9c',
+              lineHeight: 1.5,
+              margin: 0,
             }}
           >
             NEXT PROJECT
-          </div>
+          </h2>
           {/* No inline color here: the ink band above sets `color: '#f7f2e8'`
               and `.ts-page a { color: inherit }` carries it down, so
               `.ts-page a:hover` can still swap it to coral. */}

@@ -282,9 +282,17 @@ export function ProjectCard({ card }: { card: ProjectCardData }) {
             alignItems: 'baseline',
           }}
         >
-          <div className='ts-display' style={{ fontWeight: 700, fontSize: 26 }}>
+          <h3
+            className='ts-display'
+            style={{
+              fontWeight: 700,
+              fontSize: 26,
+              lineHeight: 1.5,
+              margin: 0,
+            }}
+          >
             {card.name}
-          </div>
+          </h3>
           <div
             style={{
               fontSize: 13,

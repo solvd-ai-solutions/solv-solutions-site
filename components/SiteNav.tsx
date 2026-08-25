@@ -7,8 +7,6 @@ import { useState, type MouseEvent } from 'react';
 // and smooth-scroll to the section instead of letting Link do a real (jump)
 // navigation. Anywhere else, let the Link's real '/#<section>' href do its
 // job — Next.js lands on the homepage and scrolls to the hash once mounted.
-// Ported from components/Navigation.tsx's handleSectionLinkClick, which
-// already survived review.
 function useSectionLinkClick(closeMenu: () => void) {
   const router = useRouter();
 
