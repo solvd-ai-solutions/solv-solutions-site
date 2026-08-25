@@ -1,4 +1,4 @@
-import { projects, ICON_BOX_CLASSES } from './projects';
+import { projects } from './projects';
 
 describe('projects', () => {
   it('has exactly 7 projects', () => {
@@ -38,11 +38,10 @@ describe('projects', () => {
     }
   });
 
-  it('ICON_BOX_CLASSES has a literal class string for every project color', () => {
+  it('every project has a caseHref pointing at its own case-study page', () => {
+    expect(projects).toHaveLength(7);
     for (const project of projects) {
-      expect(ICON_BOX_CLASSES[project.color]).toEqual(
-        expect.stringContaining(`bg-${project.color}`)
-      );
+      expect(project.caseHref).toBe(`/work/${project.slug}`);
     }
   });
 });
