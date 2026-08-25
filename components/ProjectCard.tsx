@@ -21,6 +21,14 @@ export interface ProjectCardData {
   initialLetter?: string;
 }
 
+// The card title's heading level depends on what sits above the grid in a
+// given consumer: WorkGrid.tsx (homepage) has an h2 ("Real apps, really
+// shipped.") above its cards, so titles default to h3. pages/work/index.tsx
+// has only an h1 ("Real apps, really shipped.") above its grid — no h2 in
+// between — so it must pass headingLevel='h2' itself to avoid skipping a
+// level. Same className/inline styles either way; only the tag changes.
+export type CardHeadingLevel = 'h2' | 'h3';
+
 // Looks up a project's real case-study route from lib/projects.ts so every
 // card link stays wired to an actual page rather than a hardcoded guess.
 export function getCaseHref(slug: string): string {
@@ -240,7 +248,14 @@ function CardHeaderMotif({
   }
 }
 
-export function ProjectCard({ card }: { card: ProjectCardData }) {
+export function ProjectCard({
+  card,
+  headingLevel = 'h3',
+}: {
+  card: ProjectCardData;
+  headingLevel?: CardHeadingLevel;
+}) {
+  const TitleTag = headingLevel;
   return (
     <Link
       href={getCaseHref(card.slug)}
@@ -282,7 +297,7 @@ export function ProjectCard({ card }: { card: ProjectCardData }) {
             alignItems: 'baseline',
           }}
         >
-          <h3
+          <TitleTag
             className='ts-display'
             style={{
               fontWeight: 700,
@@ -292,7 +307,7 @@ export function ProjectCard({ card }: { card: ProjectCardData }) {
             }}
           >
             {card.name}
-          </h3>
+          </TitleTag>
           <div
             style={{
               fontSize: 13,

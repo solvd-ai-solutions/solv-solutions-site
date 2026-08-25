@@ -52,6 +52,7 @@ export default function WorkIndex() {
             <ProjectCard
               key={project.slug}
               card={getProjectCard(project.slug)}
+              headingLevel='h2'
             />
           ))}
         </div>
