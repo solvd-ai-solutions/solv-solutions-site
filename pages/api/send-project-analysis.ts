@@ -304,19 +304,19 @@ TOTAL: ${formData.contactInfo.state ? `$${quote.price + Math.round(quote.price *
     console.log('Preparing to send email...');
     console.log('Resend API Key present:', !!process.env.RESEND_API_KEY);
     console.log('Email subject:', emailSubject);
-    console.log('Email to: gpeterson3030@gmail.com');
+    console.log('Email to: geoff@persono.app');
 
     // Send email using Resend
     try {
       console.log('Attempting to send email with Resend...');
       console.log('From: Solvd AI Solutions <onboarding@resend.dev>');
-      console.log('To: gpeterson3030@gmail.com');
+      console.log('To: geoff@persono.app');
       console.log('Subject length:', emailSubject.length);
       console.log('Body length:', emailBody.length);
 
       const { data, error } = await resend.emails.send({
         from: 'Solvd AI Solutions <onboarding@resend.dev>',
-        to: ['gpeterson3030@gmail.com'],
+        to: ['geoff@persono.app'],
         subject: emailSubject,
         text: emailBody,
       });
