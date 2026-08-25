@@ -908,6 +908,26 @@
   grid-template-columns: 2fr 1fr;
   gap: 32px;
 }
+/* Case-study screenshot frames. Heights live here (not inline) so the
+   mobile media query below can release them to natural aspect ratio. */
+.ts-shot-frame {
+  height: 528px;
+}
+.ts-shot-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
+.ts-shot-single {
+  width: 100%;
+  height: auto;
+  max-height: 620px;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+}
 
 .ts-marquee-track {
   display: flex;
@@ -971,6 +991,17 @@
   }
   .ts-shot-grid {
     grid-template-columns: 1fr;
+  }
+  /* Natural aspect ratio on phones: the fixed desktop frame heights would
+     crop the single stacked column to a 528px cover window. */
+  .ts-shot-frame {
+    height: auto;
+  }
+  .ts-shot-frame .ts-shot-img {
+    height: auto;
+  }
+  .ts-shot-single {
+    max-height: none;
   }
 }
 @media (prefers-reduced-motion: reduce) {

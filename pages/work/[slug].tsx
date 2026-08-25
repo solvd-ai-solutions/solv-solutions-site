@@ -272,6 +272,7 @@ export default function CaseStudyPage({
             {study.screenshots.map((shot, i) => (
               <div
                 key={shot.src}
+                className='ts-shot-frame'
                 style={{
                   border: '3px solid #1c1915',
                   borderRadius: 20,
@@ -279,21 +280,10 @@ export default function CaseStudyPage({
                     i === 0 ? '10px 10px 0 #1c1915' : '10px 10px 0 #ef6a4b',
                   overflow: 'hidden',
                   background: shot.dark ? '#0d1117' : '#ffffff',
-                  height: 528,
                 }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={shot.src}
-                  alt={shot.alt}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'top',
-                    display: 'block',
-                  }}
-                />
+                <img src={shot.src} alt={shot.alt} className='ts-shot-img' />
               </div>
             ))}
           </div>
@@ -312,14 +302,7 @@ export default function CaseStudyPage({
             <img
               src={study.screenshots[0].src}
               alt={study.screenshots[0].alt}
-              style={{
-                width: '100%',
-                height: 'auto',
-                maxHeight: 620,
-                objectFit: 'cover',
-                objectPosition: 'top',
-                display: 'block',
-              }}
+              className='ts-shot-single'
             />
           </div>
         )}

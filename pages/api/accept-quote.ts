@@ -138,7 +138,7 @@ This quote was accepted at ${new Date().toLocaleString()}
     try {
       await transporter.sendMail({
         from: process.env.EMAIL_USER,
-        to: 'gpeterson3030@gmail.com',
+        to: 'geoff@persono.app',
         subject: `🎉 QUOTE ACCEPTED - ${userContactInfo?.name || 'Customer'} - $${totalWithTax}`,
         html: emailContent.replace(/\n/g, '<br>'),
       });

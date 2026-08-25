@@ -82,7 +82,7 @@ Thank you for your payment of **$${amount}** for your AI project.
 3. Our team will begin development according to your timeline
 
 **Contact Information:**
-- Email: hello@solvd.ai
+- Email: geoff@persono.app
 - Website: https://www.solvdaisolutions.com
 
 Thank you for choosing Solvd AI Solutions!
@@ -121,7 +121,7 @@ Payment received at ${new Date().toLocaleString()}
 
   await transporter.sendMail({
     from: process.env.EMAIL_USER,
-    to: 'gpeterson3030@gmail.com',
+    to: 'geoff@persono.app',
     subject: `💰 PAYMENT RECEIVED - ${customer} - $${amount}`,
     html: notificationEmailContent.replace(/\n/g, '<br>'),
   });
@@ -161,7 +161,7 @@ Payment failed at ${new Date().toLocaleString()}
 
   await transporter.sendMail({
     from: process.env.EMAIL_USER,
-    to: 'gpeterson3030@gmail.com',
+    to: 'geoff@persono.app',
     subject: `❌ PAYMENT FAILED - ${customer} - $${amount}`,
     html: failureEmailContent.replace(/\n/g, '<br>'),
   });

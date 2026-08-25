@@ -249,7 +249,7 @@ export default function PaymentSuccessPage() {
                 style={{ fontSize: '14px', color: '#666', lineHeight: '1.6' }}
               >
                 <div style={{ marginBottom: '8px' }}>
-                  <strong>Email:</strong> hello@solvd.ai
+                  <strong>Email:</strong> geoff@persono.app
                 </div>
                 <div style={{ marginBottom: '8px' }}>
                   <strong>Website:</strong> https://www.solvdaisolutions.com
@@ -284,7 +284,7 @@ export default function PaymentSuccessPage() {
               <button
                 onClick={() =>
                   (window.location.href =
-                    'mailto:hello@solvd.ai?subject=Payment Confirmation - Questions')
+                    'mailto:geoff@persono.app?subject=Payment Confirmation - Questions')
                 }
                 style={{
                   flex: 1,

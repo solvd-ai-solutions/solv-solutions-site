@@ -15,7 +15,10 @@ export function ContactBand() {
         style={{
           background: '#1c1915',
           borderRadius: 40,
-          padding: '80px 72px',
+          // clamp() keeps desktop at the mockup's 80/72 while easing the
+          // card's padding down on narrow viewports (inline styles can't be
+          // overridden by media queries, so the fluid value lives here).
+          padding: 'clamp(32px, 6vw, 80px) clamp(20px, 5vw, 72px)',
           position: 'relative',
           overflow: 'hidden',
           display: 'flex',

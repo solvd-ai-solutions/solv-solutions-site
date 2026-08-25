@@ -17,7 +17,7 @@ export default async function handler(
 
     const { data, error } = await resend.emails.send({
       from: 'Solvd AI Solutions <onboarding@resend.dev>',
-      to: ['gpeterson3030@gmail.com'],
+      to: ['geoff@persono.app'],
       subject: 'Test Email from Solvd AI Solutions',
       text: 'This is a test email to verify Resend is working properly.',
     });
