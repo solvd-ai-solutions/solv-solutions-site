@@ -1,0 +1,789 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&amp;family=Outfit:wght@400;500;600&amp;display=swap"
+        />
+        <style>
+          body {
+            margin: 0;
+            background: #f7f2e8;
+            font-family: 'Outfit', system-ui, sans-serif;
+            color: #1c1915;
+          }
+          a {
+            color: #1c1915;
+            text-decoration: none;
+          }
+          a:hover {
+            color: #ef6a4b;
+          }
+        </style>
+      </helmet>
+      <div style="width: 1440px; background: #f7f2e8; overflow: hidden">
+        <!-- Nav (compact) -->
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 64px;
+            border-bottom: 3px solid #1c1915;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: baseline;
+              gap: 2px;
+              font-family: 'Bricolage Grotesque', sans-serif;
+              font-weight: 800;
+              font-size: 24px;
+            "
+          >
+            <span>Sol</span>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="align-self: center"
+            >
+              <path
+                d="M4 13 L10 19 L21 5"
+                stroke="#2aa08f"
+                stroke-width="4.5"
+                stroke-linecap="square"
+              ></path>
+            </svg>
+            <span>d</span>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 36px;
+              font-weight: 600;
+              font-size: 14px;
+              letter-spacing: 0.04em;
+            "
+          >
+            <a href="#work" style="color: #ef6a4b">← ALL WORK</a>
+            <a
+              href="#contact"
+              style="
+                background: #1c1915;
+                color: #f7f2e8;
+                padding: 10px 22px;
+                border-radius: 999px;
+                box-shadow: 4px 4px 0 #ef6a4b;
+              "
+              >START A PROJECT</a
+            >
+          </div>
+        </div>
+
+        <!-- Case hero -->
+        <div
+          style="
+            padding: 72px 64px 56px 64px;
+            border-bottom: 3px solid #1c1915;
+            position: relative;
+            overflow: hidden;
+          "
+        >
+          <div
+            style="
+              position: absolute;
+              top: -50px;
+              right: -50px;
+              width: 260px;
+              height: 260px;
+              background: #2aa08f;
+              border-radius: 50%;
+              opacity: 0.14;
+            "
+          ></div>
+          <div
+            style="
+              font-size: 14px;
+              font-weight: 600;
+              letter-spacing: 0.16em;
+              color: #2aa08f;
+              margin-bottom: 20px;
+            "
+          >
+            WORK / 01
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: flex-end;
+              justify-content: space-between;
+              gap: 40px;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                max-width: 820px;
+              "
+            >
+              <div
+                style="
+                  font-family: 'Bricolage Grotesque', sans-serif;
+                  font-weight: 800;
+                  font-size: 84px;
+                  line-height: 0.95;
+                  letter-spacing: -2.5px;
+                "
+              >
+                Persono
+              </div>
+              <div style="font-size: 22px; line-height: 1.5; color: #4a443b">
+                An AI journaling and self-development platform that surfaces
+                patterns in how you think and live — designed and built end to
+                end, web and native iOS.
+              </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                min-width: 300px;
+                border: 3px solid #1c1915;
+                border-radius: 20px;
+                background: #ffffff;
+                padding: 24px;
+                box-shadow: 8px 8px 0 #2aa08f;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 14px;
+                "
+              >
+                <span
+                  style="
+                    font-weight: 600;
+                    letter-spacing: 0.08em;
+                    color: #6e6558;
+                  "
+                  >TIMELINE</span
+                ><span style="font-weight: 600">Oct 2025 — now</span>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 14px;
+                "
+              >
+                <span
+                  style="
+                    font-weight: 600;
+                    letter-spacing: 0.08em;
+                    color: #6e6558;
+                  "
+                  >COMMITS</span
+                ><span style="font-weight: 600">700+</span>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 14px;
+                "
+              >
+                <span
+                  style="
+                    font-weight: 600;
+                    letter-spacing: 0.08em;
+                    color: #6e6558;
+                  "
+                  >PLATFORMS</span
+                ><span style="font-weight: 600">Web + iOS</span>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  font-size: 14px;
+                "
+              >
+                <span
+                  style="
+                    font-weight: 600;
+                    letter-spacing: 0.08em;
+                    color: #6e6558;
+                  "
+                  >STATUS</span
+                ><span style="font-weight: 600; color: #2aa08f">Live beta</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screenshots -->
+        <div
+          style="
+            padding: 64px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 32px;
+            align-items: start;
+          "
+        >
+          <div
+            style="
+              border: 3px solid #1c1915;
+              border-radius: 20px;
+              box-shadow: 10px 10px 0 #1c1915;
+              overflow: hidden;
+              background: #ffffff;
+              height: 528px;
+            "
+          >
+            <img
+              src="persono-landing.jpg"
+              style="
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top;
+                display: block;
+              "
+              alt="Persono web landing page"
+            />
+          </div>
+          <div
+            style="
+              border: 3px solid #1c1915;
+              border-radius: 20px;
+              box-shadow: 10px 10px 0 #ef6a4b;
+              overflow: hidden;
+              background: #0d1117;
+              height: 528px;
+            "
+          >
+            <img
+              src="persono-mobile.jpg"
+              style="
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: top;
+                display: block;
+              "
+              alt="Persono iOS app home screen"
+            />
+          </div>
+        </div>
+
+        <!-- Problem + story -->
+        <div
+          style="
+            padding: 16px 64px 72px 64px;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 48px;
+          "
+        >
+          <div style="display: flex; flex-direction: column; gap: 18px">
+            <div
+              style="
+                font-family: 'Bricolage Grotesque', sans-serif;
+                font-weight: 800;
+                font-size: 26px;
+                border-bottom: 3px solid #ef6a4b;
+                padding-bottom: 10px;
+                width: fit-content;
+              "
+            >
+              The problem
+            </div>
+            <div style="font-size: 17px; line-height: 1.65; color: #4a443b">
+              Journaling apps capture what you write and do nothing with it. The
+              patterns — what drains you, what repeats, what actually moved you
+              forward — stay buried in your own archive.
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 18px">
+            <div
+              style="
+                font-family: 'Bricolage Grotesque', sans-serif;
+                font-weight: 800;
+                font-size: 26px;
+                border-bottom: 3px solid #2aa08f;
+                padding-bottom: 10px;
+                width: fit-content;
+              "
+            >
+              The story
+            </div>
+            <div style="font-size: 17px; line-height: 1.65; color: #4a443b">
+              Persono pairs a fast, private journal with an AI layer that reads
+              across entries — spotting recurring themes, tracking habits and
+              goals, and turning reflection into a daily practice. Built solo
+              from first commit to live beta, then extended to a native iOS app
+              with a home-screen widget.
+            </div>
+          </div>
+        </div>
+
+        <!-- Timeline -->
+        <div style="padding: 0 64px 72px 64px">
+          <div
+            style="
+              font-family: 'Bricolage Grotesque', sans-serif;
+              font-weight: 800;
+              font-size: 26px;
+              margin-bottom: 36px;
+            "
+          >
+            Timeline
+          </div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(5, minmax(0, 1fr));
+              gap: 0;
+              border: 3px solid #1c1915;
+              border-radius: 20px;
+              overflow: hidden;
+              background: #ffffff;
+            "
+          >
+            <div
+              style="
+                padding: 26px 24px;
+                border-right: 3px solid #1c1915;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+              "
+            >
+              <div
+                style="
+                  font-weight: 600;
+                  font-size: 13px;
+                  letter-spacing: 0.1em;
+                  color: #ef6a4b;
+                "
+              >
+                OCT 2025
+              </div>
+              <div style="font-size: 15px; line-height: 1.5; font-weight: 500">
+                First commit. Core journal, dashboard, Supabase auth.
+              </div>
+            </div>
+            <div
+              style="
+                padding: 26px 24px;
+                border-right: 3px solid #1c1915;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+              "
+            >
+              <div
+                style="
+                  font-weight: 600;
+                  font-size: 13px;
+                  letter-spacing: 0.1em;
+                  color: #ef6a4b;
+                "
+              >
+                OCT 21, 2025
+              </div>
+              <div style="font-size: 15px; line-height: 1.5; font-weight: 500">
+                Beta QA complete, staging deployed to Vercel.
+              </div>
+            </div>
+            <div
+              style="
+                padding: 26px 24px;
+                border-right: 3px solid #1c1915;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+              "
+            >
+              <div
+                style="
+                  font-weight: 600;
+                  font-size: 13px;
+                  letter-spacing: 0.1em;
+                  color: #ef6a4b;
+                "
+              >
+                SPRING 2026
+              </div>
+              <div style="font-size: 15px; line-height: 1.5; font-weight: 500">
+                Security hardening, invite-gated beta, admin dashboard.
+              </div>
+            </div>
+            <div
+              style="
+                padding: 26px 24px;
+                border-right: 3px solid #1c1915;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+              "
+            >
+              <div
+                style="
+                  font-weight: 600;
+                  font-size: 13px;
+                  letter-spacing: 0.1em;
+                  color: #ef6a4b;
+                "
+              >
+                JUL 2026
+              </div>
+              <div style="font-size: 15px; line-height: 1.5; font-weight: 500">
+                Native iOS app (Expo), production DB migrations.
+              </div>
+            </div>
+            <div
+              style="
+                padding: 26px 24px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                background: #2aa08f;
+              "
+            >
+              <div
+                style="
+                  font-weight: 600;
+                  font-size: 13px;
+                  letter-spacing: 0.1em;
+                  color: #f7f2e8;
+                "
+              >
+                NOW
+              </div>
+              <div
+                style="
+                  font-size: 15px;
+                  line-height: 1.5;
+                  font-weight: 500;
+                  color: #f7f2e8;
+                "
+              >
+                Live beta at persono.app — 700+ commits.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Architecture -->
+        <div style="padding: 0 64px 72px 64px">
+          <div
+            style="
+              font-family: 'Bricolage Grotesque', sans-serif;
+              font-weight: 800;
+              font-size: 26px;
+              margin-bottom: 36px;
+            "
+          >
+            How it's built
+          </div>
+          <div style="display: flex; align-items: center; gap: 0">
+            <div
+              style="
+                border: 3px solid #1c1915;
+                border-radius: 16px;
+                background: #ffffff;
+                padding: 22px 26px;
+                text-align: center;
+                flex: 1;
+              "
+            >
+              <div style="font-weight: 600; font-size: 16px">React 18 SPA</div>
+              <div style="font-size: 13px; color: #6e6558; margin-top: 4px">
+                Vite · Tailwind · Zustand
+              </div>
+            </div>
+            <div
+              style="
+                font-family: 'Bricolage Grotesque', sans-serif;
+                font-weight: 800;
+                font-size: 22px;
+                padding: 0 14px;
+                color: #ef6a4b;
+              "
+            >
+              →
+            </div>
+            <div
+              style="
+                border: 3px solid #1c1915;
+                border-radius: 16px;
+                background: #ffffff;
+                padding: 22px 26px;
+                text-align: center;
+                flex: 1;
+              "
+            >
+              <div style="font-weight: 600; font-size: 16px">
+                Vercel serverless
+              </div>
+              <div style="font-size: 13px; color: #6e6558; margin-top: 4px">
+                API routes · edge deploys
+              </div>
+            </div>
+            <div
+              style="
+                font-family: 'Bricolage Grotesque', sans-serif;
+                font-weight: 800;
+                font-size: 22px;
+                padding: 0 14px;
+                color: #ef6a4b;
+              "
+            >
+              →
+            </div>
+            <div
+              style="
+                border: 3px solid #1c1915;
+                border-radius: 16px;
+                background: #ffffff;
+                padding: 22px 26px;
+                text-align: center;
+                flex: 1;
+              "
+            >
+              <div style="font-weight: 600; font-size: 16px">Supabase</div>
+              <div style="font-size: 13px; color: #6e6558; margin-top: 4px">
+                Postgres · Auth · RLS
+              </div>
+            </div>
+            <div
+              style="
+                font-family: 'Bricolage Grotesque', sans-serif;
+                font-weight: 800;
+                font-size: 22px;
+                padding: 0 14px;
+                color: #ef6a4b;
+              "
+            >
+              →
+            </div>
+            <div
+              style="
+                border: 3px solid #1c1915;
+                border-radius: 16px;
+                background: #ffffff;
+                padding: 22px 26px;
+                text-align: center;
+                flex: 1;
+              "
+            >
+              <div style="font-weight: 600; font-size: 16px">n8n workflows</div>
+              <div style="font-size: 13px; color: #6e6558; margin-top: 4px">
+                AI orchestration
+              </div>
+            </div>
+            <div
+              style="
+                font-family: 'Bricolage Grotesque', sans-serif;
+                font-weight: 800;
+                font-size: 22px;
+                padding: 0 14px;
+                color: #ef6a4b;
+              "
+            >
+              →
+            </div>
+            <div
+              style="
+                border: 3px solid #1c1915;
+                border-radius: 16px;
+                background: #1c1915;
+                padding: 22px 26px;
+                text-align: center;
+                flex: 1;
+              "
+            >
+              <div style="font-weight: 600; font-size: 16px; color: #f7f2e8">
+                Claude API
+              </div>
+              <div style="font-size: 13px; color: #b3aa9c; margin-top: 4px">
+                insights · patterns
+              </div>
+            </div>
+          </div>
+          <div
+            style="display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap"
+          >
+            <span
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                border: 2px solid #1c1915;
+                border-radius: 999px;
+                padding: 6px 14px;
+                background: #ffffff;
+              "
+              >REACT 18</span
+            >
+            <span
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                border: 2px solid #1c1915;
+                border-radius: 999px;
+                padding: 6px 14px;
+                background: #ffffff;
+              "
+              >VITE</span
+            >
+            <span
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                border: 2px solid #1c1915;
+                border-radius: 999px;
+                padding: 6px 14px;
+                background: #ffffff;
+              "
+              >TAILWIND</span
+            >
+            <span
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                border: 2px solid #1c1915;
+                border-radius: 999px;
+                padding: 6px 14px;
+                background: #ffffff;
+              "
+              >SUPABASE</span
+            >
+            <span
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                border: 2px solid #1c1915;
+                border-radius: 999px;
+                padding: 6px 14px;
+                background: #ffffff;
+              "
+              >VERCEL</span
+            >
+            <span
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                border: 2px solid #1c1915;
+                border-radius: 999px;
+                padding: 6px 14px;
+                background: #ffffff;
+              "
+              >N8N</span
+            >
+            <span
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                border: 2px solid #1c1915;
+                border-radius: 999px;
+                padding: 6px 14px;
+                background: #ffffff;
+              "
+              >CLAUDE API</span
+            >
+            <span
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.06em;
+                border: 2px solid #1c1915;
+                border-radius: 999px;
+                padding: 6px 14px;
+                background: #ffffff;
+              "
+              >EXPO / iOS</span
+            >
+          </div>
+        </div>
+
+        <!-- Next project -->
+        <div
+          id="contact"
+          style="
+            background: #1c1915;
+            padding: 56px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          "
+        >
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <div
+              style="
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.16em;
+                color: #b3aa9c;
+              "
+            >
+              NEXT PROJECT
+            </div>
+            <div
+              style="
+                font-family: 'Bricolage Grotesque', sans-serif;
+                font-weight: 800;
+                font-size: 44px;
+                color: #f7f2e8;
+                text-transform: uppercase;
+              "
+            >
+              RunIt →
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 22px">
+            <a
+              href="#contact"
+              style="
+                background: #ef6a4b;
+                color: #f7f2e8;
+                font-weight: 600;
+                font-size: 16px;
+                padding: 16px 32px;
+                border: 3px solid #f7f2e8;
+                border-radius: 999px;
+              "
+              >Want one like this?</a
+            >
+            <span style="font-size: 16px; color: #f7f2e8; font-weight: 500"
+              >geoff@persono.app</span
+            >
+          </div>
+        </div>
+      </div>
+    </x-dc>
+  </body>
+</html>

@@ -1,0 +1,1537 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&amp;family=Outfit:wght@400;500;600&amp;display=swap"
+        />
+        <style>
+          body {
+            margin: 0;
+            background: #f7f2e8;
+            font-family: 'Outfit', system-ui, sans-serif;
+            color: #1c1915;
+          }
+          a {
+            color: #1c1915;
+            text-decoration: none;
+          }
+          a:hover {
+            color: #ef6a4b;
+          }
+          @keyframes tangram-marquee {
+            from {
+              transform: translateX(0);
+            }
+            to {
+              transform: translateX(-50%);
+            }
+          }
+        </style>
+      </helmet>
+      <div
+        style="
+          width: 100%;
+          min-width: 1280px;
+          background: #f7f2e8;
+          overflow: hidden;
+        "
+      >
+        <!-- Nav -->
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 26px max(64px, calc((100% - 1312px) / 2));
+            border-bottom: 3px solid #1c1915;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: baseline;
+              gap: 2px;
+              font-family: 'Bricolage Grotesque', sans-serif;
+              font-weight: 800;
+              font-size: 28px;
+              letter-spacing: -0.5px;
+            "
+          >
+            <span>Sol</span>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              style="align-self: center"
+            >
+              <path
+                d="M4 13 L10 19 L21 5"
+                stroke="#2aa08f"
+                stroke-width="4.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+            <span>d</span>
+          </div>
+          <div
+            style="
+              display: flex;
+              align-items: center;
+              gap: 38px;
+              font-weight: 600;
+              font-size: 15px;
+            "
+          >
+            <a href="#work">Work</a>
+            <a href="#services">Services</a>
+            <a href="#about">About</a>
+            <a
+              href="#contact"
+              style="
+                background: #1c1915;
+                color: #f7f2e8;
+                padding: 13px 28px;
+                border-radius: 999px;
+                box-shadow: 5px 5px 0 #ef6a4b;
+              "
+              >Start a project</a
+            >
+          </div>
+        </div>
+
+        <!-- Hero + What-we-do share one reflection-field zone: the shapes drift
+       past the hero's edge and dissolve downward via a vertical mask — no clip line. -->
+        <div style="position: relative">
+          <canvas
+            id="hero-field"
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 1150px;
+              display: block;
+              pointer-events: none;
+              -webkit-mask-image: linear-gradient(
+                to bottom,
+                black 0%,
+                black 52%,
+                transparent 96%
+              );
+              mask-image: linear-gradient(
+                to bottom,
+                black 0%,
+                black 52%,
+                transparent 96%
+              );
+            "
+          ></canvas>
+          <div
+            style="
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 700px;
+              pointer-events: none;
+              background: linear-gradient(
+                90deg,
+                rgba(247, 242, 232, 0.92) 0%,
+                rgba(247, 242, 232, 0.5) 40%,
+                rgba(247, 242, 232, 0) 62%
+              );
+            "
+          ></div>
+          <div id="hero-section" style="position: relative">
+            <div
+              style="
+                position: relative;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 40px;
+                padding: 84px max(64px, calc((100% - 1312px) / 2)) 120px;
+                align-items: center;
+              "
+            >
+              <div style="display: flex; flex-direction: column; gap: 30px">
+                <div
+                  style="
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    background: #ffffff;
+                    border: 3px solid #1c1915;
+                    border-radius: 999px;
+                    padding: 9px 20px;
+                    width: fit-content;
+                    font-size: 14px;
+                    font-weight: 600;
+                  "
+                >
+                  <span
+                    style="
+                      width: 10px;
+                      height: 10px;
+                      border-radius: 50%;
+                      background: #2aa08f;
+                    "
+                  ></span>
+                  Custom AI, actually shipped
+                </div>
+                <div
+                  style="
+                    font-family: 'Bricolage Grotesque', sans-serif;
+                    font-weight: 800;
+                    font-size: 88px;
+                    line-height: 0.98;
+                    letter-spacing: -3px;
+                  "
+                >
+                  AI that earns its keep.
+                </div>
+                <div
+                  style="
+                    font-size: 20px;
+                    line-height: 1.55;
+                    max-width: 490px;
+                    color: #4a443b;
+                  "
+                >
+                  Custom AI apps and adoption consulting for small business —
+                  designed, built, and shipped by the person you actually talk
+                  to.
+                </div>
+                <div style="display: flex; gap: 20px">
+                  <a
+                    href="#work"
+                    style="
+                      background: #ef6a4b;
+                      color: #f7f2e8;
+                      font-weight: 600;
+                      font-size: 17px;
+                      padding: 17px 36px;
+                      border: 3px solid #1c1915;
+                      border-radius: 999px;
+                      box-shadow: 7px 7px 0 #1c1915;
+                    "
+                    >See the work</a
+                  >
+                  <a
+                    href="#contact"
+                    style="
+                      background: #ffffff;
+                      color: #1c1915;
+                      font-weight: 600;
+                      font-size: 17px;
+                      padding: 17px 36px;
+                      border: 3px solid #1c1915;
+                      border-radius: 999px;
+                    "
+                    >Start a project</a
+                  >
+                </div>
+              </div>
+              <!-- Tangram cluster, softened -->
+              <div style="position: relative; height: 520px">
+                <div
+                  style="
+                    position: absolute;
+                    top: 20px;
+                    right: 60px;
+                    width: 220px;
+                    height: 220px;
+                    background: #2aa08f;
+                    border: 3px solid #1c1915;
+                    border-radius: 28px;
+                    box-shadow: 10px 10px 0 #1c1915;
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 130px;
+                    right: 220px;
+                    width: 200px;
+                    height: 200px;
+                    background: #ef6a4b;
+                    border: 3px solid #1c1915;
+                    border-radius: 50%;
+                    box-shadow: 10px 10px 0 #1c1915;
+                  "
+                ></div>
+                <svg
+                  style="position: absolute; top: 276px; right: 30px"
+                  width="256"
+                  height="222"
+                  viewBox="0 0 256 222"
+                  fill="none"
+                >
+                  <path
+                    d="M128 10 L246 212 L10 212 Z"
+                    fill="#8d6fe0"
+                    stroke="#1c1915"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+                <div
+                  style="
+                    position: absolute;
+                    top: 40px;
+                    right: 340px;
+                    width: 130px;
+                    height: 130px;
+                    background: #ffffff;
+                    border: 3px solid #1c1915;
+                    border-radius: 999px 24px 24px 24px;
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 330px;
+                    right: 300px;
+                    width: 150px;
+                    height: 150px;
+                    background: #1c1915;
+                    border-radius: 28px;
+                  "
+                ></div>
+                <svg
+                  style="position: absolute; top: 356px; right: 326px"
+                  width="98"
+                  height="98"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M4 13 L10 19 L21 5"
+                    stroke="#f7f2e8"
+                    stroke-width="3.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Services (inside the animation zone — the field's fade tail passes behind it) -->
+          <div
+            id="services"
+            style="
+              position: relative;
+              padding: 120px max(64px, calc((100% - 1312px) / 2)) 140px;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                align-items: baseline;
+                gap: 24px;
+                margin-bottom: 56px;
+              "
+            >
+              <div
+                style="
+                  font-family: 'Bricolage Grotesque', sans-serif;
+                  font-weight: 800;
+                  font-size: 18px;
+                  color: #ef6a4b;
+                "
+              >
+                01
+              </div>
+              <div
+                style="
+                  font-family: 'Bricolage Grotesque', sans-serif;
+                  font-weight: 800;
+                  font-size: 46px;
+                  letter-spacing: -1.5px;
+                "
+              >
+                What we do
+              </div>
+            </div>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 32px;
+              "
+            >
+              <div
+                style="
+                  border: 3px solid #1c1915;
+                  background: #ffffff;
+                  border-radius: 24px;
+                  box-shadow: 10px 10px 0 #2aa08f;
+                  padding: 36px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 20px;
+                "
+              >
+                <div
+                  style="
+                    width: 64px;
+                    height: 64px;
+                    background: #2aa08f;
+                    border: 3px solid #1c1915;
+                    border-radius: 50%;
+                  "
+                ></div>
+                <div
+                  style="
+                    font-family: 'Bricolage Grotesque', sans-serif;
+                    font-weight: 700;
+                    font-size: 24px;
+                    line-height: 1.15;
+                  "
+                >
+                  AI Enablement &amp; Training
+                </div>
+                <div style="font-size: 16px; line-height: 1.6; color: #4a443b">
+                  Adoption plans, hands-on training with your team's real
+                  documents, governance that fits on one page. Signature
+                  deliverable: the AI Operations Adoption Plan.
+                </div>
+              </div>
+              <div
+                style="
+                  border: 3px solid #1c1915;
+                  background: #ffffff;
+                  border-radius: 24px;
+                  box-shadow: 10px 10px 0 #ef6a4b;
+                  padding: 36px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 20px;
+                "
+              >
+                <svg width="68" height="62" viewBox="0 0 68 62" fill="none">
+                  <path
+                    d="M34 4 L64 58 L4 58 Z"
+                    fill="#ef6a4b"
+                    stroke="#1c1915"
+                    stroke-width="3"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+                <div
+                  style="
+                    font-family: 'Bricolage Grotesque', sans-serif;
+                    font-weight: 700;
+                    font-size: 24px;
+                    line-height: 1.15;
+                  "
+                >
+                  Custom AI-Powered Tools
+                </div>
+                <div style="font-size: 16px; line-height: 1.6; color: #4a443b">
+                  Purpose-built apps, document generation systems, and
+                  instruction sets that keep AI output consistent with your
+                  voice — human review built in.
+                </div>
+              </div>
+              <div
+                style="
+                  border: 3px solid #1c1915;
+                  background: #ffffff;
+                  border-radius: 24px;
+                  box-shadow: 10px 10px 0 #8d6fe0;
+                  padding: 36px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 20px;
+                "
+              >
+                <div
+                  style="
+                    width: 60px;
+                    height: 60px;
+                    background: #8d6fe0;
+                    border: 3px solid #1c1915;
+                    border-radius: 16px;
+                  "
+                ></div>
+                <div
+                  style="
+                    font-family: 'Bricolage Grotesque', sans-serif;
+                    font-weight: 700;
+                    font-size: 24px;
+                    line-height: 1.15;
+                  "
+                >
+                  Custom Non-AI Digital Tools
+                </div>
+                <div style="font-size: 16px; line-height: 1.6; color: #4a443b">
+                  Invoicing systems, trackers, dashboards, and small web tools —
+                  plain logic where AI isn't the answer.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Marquee — the words scroll on their own; the black band beneath them
+       wipes in left-to-right as the strip scrolls into view -->
+        <div
+          id="marquee-band"
+          style="position: relative; height: 58px; overflow: hidden"
+        >
+          <div
+            id="marquee-reveal"
+            style="
+              position: absolute;
+              inset: 0;
+              background: #1c1915;
+              display: flex;
+              align-items: center;
+              -webkit-clip-path: inset(0 100% 0 0);
+              clip-path: inset(0 100% 0 0);
+            "
+          >
+            <div
+              style="
+                display: flex;
+                gap: 0;
+                white-space: nowrap;
+                animation: tangram-marquee 28s linear infinite;
+                width: max-content;
+              "
+            >
+              <div
+                style="
+                  font-family: 'Bricolage Grotesque', sans-serif;
+                  font-weight: 700;
+                  font-size: 21px;
+                  color: #f7f2e8;
+                  letter-spacing: 0.04em;
+                "
+              >
+                CUSTOM AI APPS&nbsp;&nbsp;●&nbsp;&nbsp;ADOPTION
+                PLANS&nbsp;&nbsp;●&nbsp;&nbsp;TEAM
+                TRAINING&nbsp;&nbsp;●&nbsp;&nbsp;WORKFLOW
+                DESIGN&nbsp;&nbsp;●&nbsp;&nbsp;GOVERNANCE&nbsp;&nbsp;●&nbsp;&nbsp;SHIPPED
+                IN WEEKS&nbsp;&nbsp;●&nbsp;&nbsp;
+              </div>
+              <div
+                style="
+                  font-family: 'Bricolage Grotesque', sans-serif;
+                  font-weight: 700;
+                  font-size: 21px;
+                  color: #f7f2e8;
+                  letter-spacing: 0.04em;
+                "
+              >
+                CUSTOM AI APPS&nbsp;&nbsp;●&nbsp;&nbsp;ADOPTION
+                PLANS&nbsp;&nbsp;●&nbsp;&nbsp;TEAM
+                TRAINING&nbsp;&nbsp;●&nbsp;&nbsp;WORKFLOW
+                DESIGN&nbsp;&nbsp;●&nbsp;&nbsp;GOVERNANCE&nbsp;&nbsp;●&nbsp;&nbsp;SHIPPED
+                IN WEEKS&nbsp;&nbsp;●&nbsp;&nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Work -->
+        <div
+          id="work"
+          style="padding: 96px max(64px, calc((100% - 1312px) / 2)) 140px"
+        >
+          <div
+            style="
+              display: flex;
+              align-items: baseline;
+              justify-content: space-between;
+              margin-bottom: 56px;
+            "
+          >
+            <div style="display: flex; align-items: baseline; gap: 24px">
+              <div
+                style="
+                  font-family: 'Bricolage Grotesque', sans-serif;
+                  font-weight: 800;
+                  font-size: 18px;
+                  color: #2aa08f;
+                "
+              >
+                02
+              </div>
+              <div
+                style="
+                  font-family: 'Bricolage Grotesque', sans-serif;
+                  font-weight: 800;
+                  font-size: 46px;
+                  letter-spacing: -1.5px;
+                "
+              >
+                Real apps, really shipped.
+              </div>
+            </div>
+            <a
+              href="#work"
+              style="
+                font-weight: 600;
+                font-size: 16px;
+                border: 3px solid #1c1915;
+                border-radius: 999px;
+                padding: 12px 26px;
+                background: #ffffff;
+              "
+              >All 7 projects →</a
+            >
+          </div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+              gap: 32px;
+            "
+          >
+            <div
+              style="
+                border: 3px solid #1c1915;
+                background: #ffffff;
+                border-radius: 24px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <div
+                style="
+                  height: 180px;
+                  background: #2aa08f;
+                  border-bottom: 3px solid #1c1915;
+                  position: relative;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: 24px;
+                    left: 36px;
+                    width: 120px;
+                    height: 120px;
+                    border: 3px solid #f7f2e8;
+                    border-radius: 50%;
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 60px;
+                    left: 120px;
+                    width: 120px;
+                    height: 120px;
+                    border: 3px solid #f7f2e8;
+                    border-radius: 50%;
+                    opacity: 0.6;
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 26px;
+                    right: 48px;
+                    font-family: 'Bricolage Grotesque', sans-serif;
+                    font-weight: 800;
+                    font-size: 96px;
+                    color: #f7f2e8;
+                    opacity: 0.3;
+                  "
+                >
+                  P
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 28px 32px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                "
+              >
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+                  "
+                >
+                  <div
+                    style="
+                      font-family: 'Bricolage Grotesque', sans-serif;
+                      font-weight: 700;
+                      font-size: 26px;
+                    "
+                  >
+                    Persono
+                  </div>
+                  <div
+                    style="font-size: 13px; font-weight: 600; color: #2aa08f"
+                  >
+                    2025 — now
+                  </div>
+                </div>
+                <div style="font-size: 16px; line-height: 1.55; color: #4a443b">
+                  AI journaling &amp; self-development platform — web + native
+                  iOS, 700+ commits and counting.
+                </div>
+                <div style="display: flex; gap: 10px">
+                  <span
+                    style="
+                      font-size: 12px;
+                      font-weight: 600;
+                      letter-spacing: 0.06em;
+                      border: 2px solid #1c1915;
+                      border-radius: 999px;
+                      padding: 5px 12px;
+                    "
+                    >PRODUCT</span
+                  >
+                  <span
+                    style="
+                      font-size: 12px;
+                      font-weight: 600;
+                      letter-spacing: 0.06em;
+                      border: 2px solid #1c1915;
+                      border-radius: 999px;
+                      padding: 5px 12px;
+                    "
+                    >CLAUDE API</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              style="
+                border: 3px solid #1c1915;
+                background: #ffffff;
+                border-radius: 24px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <div
+                style="
+                  height: 180px;
+                  background: #ef6a4b;
+                  border-bottom: 3px solid #1c1915;
+                  position: relative;
+                  overflow: hidden;
+                "
+              >
+                <svg
+                  style="position: absolute; top: 36px; left: 40px"
+                  width="110"
+                  height="104"
+                  viewBox="0 0 110 104"
+                  fill="none"
+                >
+                  <path
+                    d="M14 8 L96 52 L14 96 Z"
+                    fill="#f7f2e8"
+                    stroke="#1c1915"
+                    stroke-width="0"
+                    stroke-linejoin="round"
+                    opacity="0.85"
+                  ></path>
+                </svg>
+                <div
+                  style="
+                    position: absolute;
+                    top: 52px;
+                    left: 170px;
+                    width: 54px;
+                    height: 20px;
+                    background: #f7f2e8;
+                    border-radius: 999px;
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 82px;
+                    left: 170px;
+                    width: 82px;
+                    height: 20px;
+                    background: #f7f2e8;
+                    opacity: 0.7;
+                    border-radius: 999px;
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 112px;
+                    left: 170px;
+                    width: 38px;
+                    height: 20px;
+                    background: #f7f2e8;
+                    opacity: 0.45;
+                    border-radius: 999px;
+                  "
+                ></div>
+              </div>
+              <div
+                style="
+                  padding: 28px 32px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                "
+              >
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+                  "
+                >
+                  <div
+                    style="
+                      font-family: 'Bricolage Grotesque', sans-serif;
+                      font-weight: 700;
+                      font-size: 26px;
+                    "
+                  >
+                    RunIt
+                  </div>
+                  <div
+                    style="font-size: 13px; font-weight: 600; color: #ef6a4b"
+                  >
+                    4-day ship
+                  </div>
+                </div>
+                <div style="font-size: 16px; line-height: 1.55; color: #4a443b">
+                  Photograph a run-of-show document, get a live event schedule
+                  on your phone — iPhone &amp; Android.
+                </div>
+                <div style="display: flex; gap: 10px">
+                  <span
+                    style="
+                      font-size: 12px;
+                      font-weight: 600;
+                      letter-spacing: 0.06em;
+                      border: 2px solid #1c1915;
+                      border-radius: 999px;
+                      padding: 5px 12px;
+                    "
+                    >iOS + ANDROID</span
+                  >
+                  <span
+                    style="
+                      font-size: 12px;
+                      font-weight: 600;
+                      letter-spacing: 0.06em;
+                      border: 2px solid #1c1915;
+                      border-radius: 999px;
+                      padding: 5px 12px;
+                    "
+                    >AI SCHEDULING</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              style="
+                border: 3px solid #1c1915;
+                background: #ffffff;
+                border-radius: 24px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <div
+                style="
+                  height: 180px;
+                  background: #8d6fe0;
+                  border-bottom: 3px solid #1c1915;
+                  position: relative;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: 28px;
+                    left: 40px;
+                    display: grid;
+                    grid-template-columns: repeat(5, 26px);
+                    gap: 9px;
+                  "
+                >
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      opacity: 0.35;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      opacity: 0.35;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      opacity: 0.35;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      opacity: 0.35;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      opacity: 0.35;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      opacity: 0.35;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      opacity: 0.35;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="
+                      width: 26px;
+                      height: 26px;
+                      background: #f7f2e8;
+                      border-radius: 8px;
+                    "
+                  ></div>
+                </div>
+              </div>
+              <div
+                style="
+                  padding: 28px 32px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                "
+              >
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+                  "
+                >
+                  <div
+                    style="
+                      font-family: 'Bricolage Grotesque', sans-serif;
+                      font-weight: 700;
+                      font-size: 26px;
+                    "
+                  >
+                    Life Imitates Thought
+                  </div>
+                  <div
+                    style="font-size: 13px; font-weight: 600; color: #8d6fe0"
+                  >
+                    live
+                  </div>
+                </div>
+                <div style="font-size: 16px; line-height: 1.55; color: #4a443b">
+                  A city-wide QR scavenger hunt for mindset shifts — scan a
+                  code, get a reframe, track what you've found.
+                </div>
+                <div style="display: flex; gap: 10px">
+                  <span
+                    style="
+                      font-size: 12px;
+                      font-weight: 600;
+                      letter-spacing: 0.06em;
+                      border: 2px solid #1c1915;
+                      border-radius: 999px;
+                      padding: 5px 12px;
+                    "
+                    >SIDE QUEST</span
+                  >
+                  <span
+                    style="
+                      font-size: 12px;
+                      font-weight: 600;
+                      letter-spacing: 0.06em;
+                      border: 2px solid #1c1915;
+                      border-radius: 999px;
+                      padding: 5px 12px;
+                    "
+                    >NEXT.JS</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div
+              style="
+                border: 3px solid #1c1915;
+                background: #ffffff;
+                border-radius: 24px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+              "
+            >
+              <div
+                style="
+                  height: 180px;
+                  background: #1c1915;
+                  border-bottom: 3px solid #1c1915;
+                  position: relative;
+                  overflow: hidden;
+                "
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: 36px;
+                    left: 40px;
+                    width: 180px;
+                    height: 5px;
+                    background: #2aa08f;
+                    border-radius: 999px;
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 66px;
+                    left: 40px;
+                    width: 120px;
+                    height: 5px;
+                    background: #ef6a4b;
+                    border-radius: 999px;
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 96px;
+                    left: 40px;
+                    width: 150px;
+                    height: 5px;
+                    background: #8d6fe0;
+                    border-radius: 999px;
+                  "
+                ></div>
+                <div
+                  style="
+                    position: absolute;
+                    top: 126px;
+                    left: 40px;
+                    width: 90px;
+                    height: 5px;
+                    background: #f7f2e8;
+                    border-radius: 999px;
+                  "
+                ></div>
+              </div>
+              <div
+                style="
+                  padding: 28px 32px;
+                  display: flex;
+                  flex-direction: column;
+                  gap: 12px;
+                "
+              >
+                <div
+                  style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+                  "
+                >
+                  <div
+                    style="
+                      font-family: 'Bricolage Grotesque', sans-serif;
+                      font-weight: 700;
+                      font-size: 26px;
+                    "
+                  >
+                    Cut &amp; Order Manager
+                  </div>
+                  <div
+                    style="font-size: 13px; font-weight: 600; color: #4a443b"
+                  >
+                    live demo
+                  </div>
+                </div>
+                <div style="font-size: 16px; line-height: 1.55; color: #4a443b">
+                  Order management, inventory, and production scheduling built
+                  for cut-to-order and hardware shops.
+                </div>
+                <div style="display: flex; gap: 10px">
+                  <span
+                    style="
+                      font-size: 12px;
+                      font-weight: 600;
+                      letter-spacing: 0.06em;
+                      border: 2px solid #1c1915;
+                      border-radius: 999px;
+                      padding: 5px 12px;
+                    "
+                    >LIVE DEMO</span
+                  >
+                  <span
+                    style="
+                      font-size: 12px;
+                      font-weight: 600;
+                      letter-spacing: 0.06em;
+                      border: 2px solid #1c1915;
+                      border-radius: 999px;
+                      padding: 5px 12px;
+                    "
+                    >SMALL BUSINESS</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div
+          id="contact"
+          style="padding: 24px max(64px, calc((100% - 1312px) / 2)) 120px"
+        >
+          <div
+            style="
+              background: #1c1915;
+              border-radius: 40px;
+              padding: 80px 72px;
+              position: relative;
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+              gap: 30px;
+            "
+          >
+            <div
+              style="
+                position: absolute;
+                top: -70px;
+                right: -50px;
+                width: 300px;
+                height: 300px;
+                background: #2aa08f;
+                opacity: 0.25;
+                border-radius: 50%;
+              "
+            ></div>
+            <svg
+              style="
+                position: absolute;
+                bottom: -40px;
+                right: 200px;
+                opacity: 0.22;
+              "
+              width="240"
+              height="210"
+              viewBox="0 0 240 210"
+              fill="none"
+            >
+              <path
+                d="M120 8 L232 202 L8 202 Z"
+                fill="#ef6a4b"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+            <div style="display: flex; align-items: baseline; gap: 24px">
+              <div
+                style="
+                  font-family: 'Bricolage Grotesque', sans-serif;
+                  font-weight: 800;
+                  font-size: 18px;
+                  color: #8d6fe0;
+                "
+              >
+                03
+              </div>
+              <div
+                style="
+                  font-family: 'Bricolage Grotesque', sans-serif;
+                  font-weight: 800;
+                  font-size: 64px;
+                  letter-spacing: -2px;
+                  color: #f7f2e8;
+                  line-height: 1.02;
+                "
+              >
+                Ready when you are.
+              </div>
+            </div>
+            <div
+              style="
+                font-size: 19px;
+                color: #b3aa9c;
+                max-width: 560px;
+                line-height: 1.55;
+              "
+            >
+              Get a quote or talk through a project. Pricing and scope get
+              worked out together — not on this page.
+            </div>
+            <div style="display: flex; gap: 22px; align-items: center">
+              <a
+                href="#contact"
+                style="
+                  background: #2aa08f;
+                  color: #f7f2e8;
+                  font-weight: 600;
+                  font-size: 17px;
+                  padding: 17px 36px;
+                  border: 3px solid #f7f2e8;
+                  border-radius: 999px;
+                  box-shadow: 7px 7px 0 #ef6a4b;
+                "
+                >Get a quote</a
+              >
+              <span style="font-size: 17px; color: #f7f2e8; font-weight: 500"
+                >geoff@persono.app</span
+              >
+            </div>
+            <div
+              style="
+                border-top: 1px solid #4a443b;
+                padding-top: 22px;
+                display: flex;
+                justify-content: space-between;
+                font-size: 13px;
+                color: #857c6d;
+              "
+            >
+              <span>© 2026 Solvd AI Solutions</span>
+              <span
+                >Custom AI apps &amp; adoption consulting for small
+                business</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </x-dc>
+    <script
+      data-dc-script
+      data-props='{"$preview":{"width":1440,"height":3300}}'
+    >
+      class Component extends DCLogic {
+        componentDidMount() {
+          const canvas = document.getElementById('hero-field');
+          if (!canvas) return;
+          const ctx = canvas.getContext('2d');
+
+          // Solvd palette mapped onto Persono's reflection-field channels
+          const lineRGB = '28, 25, 21'; // ink
+          const accentRGB = '42, 160, 143'; // mint
+          const particleRGB = '203, 92, 64'; // muted coral
+
+          const sync = () => {
+            canvas.width = canvas.clientWidth || 1440;
+            canvas.height = canvas.clientHeight || 1150;
+          };
+          sync();
+
+          const rand = (a, b) => a + Math.random() * (b - a);
+
+          // Perspective walk-through constants (verbatim from PersonoReflectionLoader)
+          const FOV = 460;
+          const FAR = 680;
+          const NEAR = 55;
+          const SPEED = 165;
+
+          const TYPES = [
+            'line',
+            'line',
+            'line',
+            'line',
+            'dot',
+            'dot',
+            'dot',
+            'tri',
+            'cross',
+            'check',
+            'check',
+          ];
+
+          const mkObj = () => {
+            const type = TYPES[Math.floor(Math.random() * TYPES.length)];
+            return {
+              type: type,
+              x: rand(-440, 440),
+              y: rand(-290, 290),
+              z: rand(NEAR + 30, FAR),
+              size: rand(14, 58),
+              angle:
+                type === 'check' ? rand(-0.35, 0.35) : rand(0, Math.PI * 2),
+              spin: type === 'check' ? rand(-0.18, 0.18) : rand(-0.55, 0.55),
+              accent:
+                type === 'check' ? Math.random() < 0.6 : Math.random() < 0.16,
+              alpha: rand(0.22, 0.82),
+              lw: type === 'check' ? rand(0.9, 1.8) : rand(0.5, 1.6),
+            };
+          };
+
+          const objs = Array.from({ length: 68 }, () => mkObj());
+
+          let time = 0;
+          let last = performance.now();
+
+          const draw = now => {
+            this._animId = requestAnimationFrame(draw);
+            if (this._heroOn === false) {
+              last = now;
+              return;
+            } // paused while faded out
+            const dt = Math.min((now - last) / 1000, 0.05);
+            last = now;
+            time += dt;
+
+            const W = canvas.width;
+            const H = canvas.height;
+            const cx = W / 2 + Math.sin(time * 0.38) * W * 0.01;
+            // Anchor the field's heart to the hero's visual center, not the
+            // (taller, services-overlapping) canvas midpoint.
+            const cy = 340 + Math.sin(time * 0.55) * 5;
+
+            ctx.clearRect(0, 0, W, H);
+            objs.sort((a, b) => b.z - a.z);
+
+            for (const o of objs) {
+              o.z -= SPEED * dt;
+              o.angle += o.spin * dt;
+
+              if (o.z < NEAR) {
+                Object.assign(o, mkObj());
+                o.z = FAR;
+                continue;
+              }
+
+              const p = FOV / o.z;
+              const sx = cx + o.x * p;
+              const sy = cy + o.y * p;
+              const ss = o.size * p;
+
+              const margin = ss * 2.5;
+              if (
+                sx < -margin ||
+                sx > W + margin ||
+                sy < -margin ||
+                sy > H + margin
+              )
+                continue;
+
+              const tFar = Math.min(1, (FAR - o.z) / (FAR * 0.3));
+              const tNear = Math.min(1, (o.z - NEAR) / (NEAR * 1.8));
+              const alpha = o.alpha * tFar * tNear;
+              if (alpha < 0.008) continue;
+
+              const rgb = o.accent
+                ? accentRGB
+                : o.type === 'dot'
+                  ? particleRGB
+                  : lineRGB;
+              ctx.strokeStyle = 'rgba(' + rgb + ', ' + alpha + ')';
+              ctx.fillStyle = 'rgba(' + rgb + ', ' + alpha * 0.32 + ')';
+              ctx.lineWidth = Math.max(0.25, o.lw * p * 0.38);
+
+              ctx.save();
+              ctx.translate(sx, sy);
+              ctx.rotate(o.angle);
+              ctx.beginPath();
+
+              if (o.type === 'line') {
+                ctx.moveTo(-ss * 0.5, 0);
+                ctx.lineTo(ss * 0.5, 0);
+                ctx.stroke();
+              } else if (o.type === 'dot') {
+                ctx.arc(0, 0, Math.max(0.7, ss * 0.11), 0, Math.PI * 2);
+                ctx.fill();
+              } else if (o.type === 'tri') {
+                ctx.moveTo(0, -ss * 0.5);
+                ctx.lineTo(ss * 0.44, ss * 0.44);
+                ctx.lineTo(-ss * 0.44, ss * 0.44);
+                ctx.closePath();
+                ctx.stroke();
+              } else if (o.type === 'cross') {
+                ctx.moveTo(-ss * 0.32, 0);
+                ctx.lineTo(ss * 0.32, 0);
+                ctx.moveTo(0, -ss * 0.32);
+                ctx.lineTo(0, ss * 0.32);
+                ctx.stroke();
+              } else if (o.type === 'check') {
+                // The Solvd logo check (SVG path M4 13 L10 19 L21 5, centered on its 24-box)
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.moveTo(-ss * 0.333, ss * 0.042);
+                ctx.lineTo(-ss * 0.083, ss * 0.292);
+                ctx.lineTo(ss * 0.375, -ss * 0.292);
+                ctx.stroke();
+                ctx.lineCap = 'butt';
+                ctx.lineJoin = 'miter';
+              }
+
+              ctx.restore();
+            }
+          };
+
+          this._animId = requestAnimationFrame(draw);
+          this._onResize = () => sync();
+          window.addEventListener('resize', this._onResize);
+
+          // Scroll-linked fade: the reflection field dissolves as the hero
+          // scrolls away into the "What we do" section.
+          this._heroOn = true;
+          let fadedClear = false;
+          this._onScroll = () => {
+            const hero = document.getElementById('hero-section');
+            const h = (hero && hero.offsetHeight) || 690;
+            const y =
+              window.scrollY ||
+              (document.scrollingElement &&
+                document.scrollingElement.scrollTop) ||
+              0;
+            const op = Math.max(0, 1 - y / (h * 0.85));
+            canvas.style.opacity = op;
+            this._heroOn = op > 0.01;
+            if (this._heroOn) fadedClear = false;
+            else if (!fadedClear) {
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              fadedClear = true;
+            }
+
+            // Marquee band: the black strip wipes in left-to-right as it scrolls
+            // into view, sliding beneath the already-scrolling words.
+            const reveal = document.getElementById('marquee-reveal');
+            const band = document.getElementById('marquee-band');
+            if (reveal && band) {
+              const r = band.getBoundingClientRect();
+              const vh = window.innerHeight || 900;
+              const prog = Math.max(0, Math.min(1, (vh - r.top) / (vh * 0.45)));
+              const clip = 'inset(0 ' + (1 - prog) * 100 + '% 0 0)';
+              reveal.style.clipPath = clip;
+              reveal.style.webkitClipPath = clip;
+            }
+          };
+          window.addEventListener('scroll', this._onScroll, { passive: true });
+          this._onScroll();
+          this._skipWhenOff = () => this._heroOn === false;
+        }
+
+        componentWillUnmount() {
+          if (this._animId) cancelAnimationFrame(this._animId);
+          if (this._onResize)
+            window.removeEventListener('resize', this._onResize);
+          if (this._onScroll)
+            window.removeEventListener('scroll', this._onScroll);
+        }
+
+        renderVals() {
+          return {};
+        }
+      }
+    </script>
+  </body>
+</html>
