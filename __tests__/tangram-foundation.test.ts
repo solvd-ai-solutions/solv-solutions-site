@@ -22,6 +22,7 @@ describe('Tangram × Soft foundation', () => {
       '.ts-grid-3',
       '.ts-grid-2',
       '.ts-arch-flow',
+      '.ts-timeline',
       '.ts-marquee-track',
       '.ts-hide-mobile',
       '.ts-only-mobile',

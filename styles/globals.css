@@ -902,6 +902,9 @@
   display: flex;
   align-items: center;
 }
+.ts-timeline {
+  display: grid;
+}
 
 .ts-marquee-track {
   display: flex;
@@ -939,6 +942,23 @@
   .ts-arch-flow {
     flex-direction: column;
     align-items: stretch;
+  }
+  /* The case-study page sets an inline grid-template-columns (repeat(N,...))
+     per study, and inline styles always beat a class selector regardless of
+     media-query specificity — !important is the only way this collapse rule
+     can still win on narrow screens. */
+  .ts-timeline {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  /* Each cell also carries an inline border-right (or 'none' on the last
+     cell) for the desktop column dividers — kill it so stacked rows don't
+     keep a vertical stub, and use a bottom border between rows instead. */
+  .ts-timeline > div {
+    border-right: none !important;
+    border-bottom: 3px solid #1c1915;
+  }
+  .ts-timeline > div:last-child {
+    border-bottom: none;
   }
   .ts-hide-mobile {
     display: none;
