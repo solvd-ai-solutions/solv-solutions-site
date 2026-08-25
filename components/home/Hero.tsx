@@ -1,6 +1,20 @@
 import Link from 'next/link';
+import type { MouseEvent } from 'react';
 import { ReflectionField } from '../ReflectionField';
 import { ServicesCards } from './ServicesCards';
+
+// Mirrors SiteNav's route-aware contact-link handler: on a plain left-click,
+// intercept the jump and smooth-scroll to #contact instead. Hero only ever
+// renders on the homepage, so there's no route check or closeMenu to thread
+// through — just the same click-intercept + scrollIntoView pattern.
+function handleContactClick(e: MouseEvent<HTMLAnchorElement>) {
+  const isPlainLeftClick =
+    e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey;
+  if (!isPlainLeftClick) return;
+
+  e.preventDefault();
+  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+}
 
 // Hero + "What we do" share one reflection-field zone: the shapes drift past
 // the hero's edge and dissolve downward via a vertical mask on the canvas
@@ -98,6 +112,7 @@ export function Hero() {
               </Link>
               <Link
                 href='/#contact'
+                onClick={handleContactClick}
                 style={{
                   background: '#ffffff',
                   color: '#1c1915',

@@ -85,7 +85,14 @@ export function ContactBand() {
           Get a quote or talk through a project. Pricing and scope get worked
           out together — not on this page.
         </div>
-        <div style={{ display: 'flex', gap: 22, alignItems: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 22,
+            alignItems: 'center',
+          }}
+        >
           <a
             href={QUOTE_MAILTO}
             style={{

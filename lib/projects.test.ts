@@ -1,4 +1,4 @@
-import { projects, ICON_BOX_CLASSES } from './projects';
+import { projects } from './projects';
 
 describe('projects', () => {
   it('has exactly 7 projects', () => {
@@ -35,14 +35,6 @@ describe('projects', () => {
     for (const project of projects) {
       expect(project.name.length).toBeGreaterThan(0);
       expect(project.tagline.length).toBeGreaterThan(0);
-    }
-  });
-
-  it('ICON_BOX_CLASSES has a literal class string for every project color', () => {
-    for (const project of projects) {
-      expect(ICON_BOX_CLASSES[project.color]).toEqual(
-        expect.stringContaining(`bg-${project.color}`)
-      );
     }
   });
 

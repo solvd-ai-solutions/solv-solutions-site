@@ -72,6 +72,7 @@ export function MarqueeBand() {
     <div
       ref={bandRef}
       id='marquee-band'
+      aria-hidden='true'
       style={{ position: 'relative', height: 58, overflow: 'hidden' }}
     >
       <div

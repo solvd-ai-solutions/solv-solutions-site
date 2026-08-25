@@ -250,6 +250,7 @@ export function ReflectionField({
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden='true'
       style={{
         position: 'absolute',
         top: 0,

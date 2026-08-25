@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
@@ -905,6 +903,11 @@
 .ts-timeline {
   display: grid;
 }
+.ts-shot-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+}
 
 .ts-marquee-track {
   display: flex;
@@ -965,6 +968,9 @@
   }
   .ts-only-mobile {
     display: inline-flex;
+  }
+  .ts-shot-grid {
+    grid-template-columns: 1fr;
   }
 }
 @media (prefers-reduced-motion: reduce) {

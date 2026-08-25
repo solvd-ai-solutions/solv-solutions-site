@@ -268,14 +268,7 @@ export default function CaseStudyPage({
       {/* Screenshots */}
       <div className='ts-section' style={{ paddingTop: 64, paddingBottom: 64 }}>
         {study.screenshots.length === 2 && (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '2fr 1fr',
-              gap: 32,
-              alignItems: 'start',
-            }}
-          >
+          <div className='ts-shot-grid' style={{ alignItems: 'start' }}>
             {study.screenshots.map((shot, i) => (
               <div
                 key={shot.src}
