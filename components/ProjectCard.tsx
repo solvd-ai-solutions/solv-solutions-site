@@ -13,7 +13,7 @@ export interface ProjectCardData {
   status: string;
   statusColor: string;
   description: string;
-  tags: string[];
+  tags: [string, string];
   headerBg: string;
   motif: Motif;
   // Required when motif === 'initial': the single letter drawn low-opacity

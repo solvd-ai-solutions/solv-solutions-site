@@ -1,55 +1,17 @@
 import Link from 'next/link';
-import { ProjectCard, type ProjectCardData } from '../ProjectCard';
+import { ProjectCard } from '../ProjectCard';
+import { getProjectCard } from '../projectCards';
 
-// Card copy and header motifs ported verbatim from
-// docs/superpowers/specs/mockups/homepage.mockup.html. Rendering (the outer
-// card shape, header motif dispatch, and body layout) lives in
-// components/ProjectCard.tsx, shared with the full /work index.
-const CARDS: ProjectCardData[] = [
-  {
-    slug: 'persono',
-    name: 'Persono',
-    status: '2025 — now',
-    statusColor: '#2aa08f',
-    description:
-      'AI journaling & self-development platform — web + native iOS, 700+ commits and counting.',
-    tags: ['PRODUCT', 'CLAUDE API'],
-    headerBg: '#2aa08f',
-    motif: 'persono',
-  },
-  {
-    slug: 'runit',
-    name: 'RunIt',
-    status: '4-day ship',
-    statusColor: '#ef6a4b',
-    description:
-      'Photograph a run-of-show document, get a live event schedule on your phone — iPhone & Android.',
-    tags: ['iOS + ANDROID', 'AI SCHEDULING'],
-    headerBg: '#ef6a4b',
-    motif: 'runit',
-  },
-  {
-    slug: 'life-imitates-thought',
-    name: 'Life Imitates Thought',
-    status: 'live',
-    statusColor: '#8d6fe0',
-    description:
-      "A city-wide QR scavenger hunt for mindset shifts — scan a code, get a reframe, track what you've found.",
-    tags: ['SIDE QUEST', 'NEXT.JS'],
-    headerBg: '#8d6fe0',
-    motif: 'lit',
-  },
-  {
-    slug: 'cut-order-manager',
-    name: 'Cut & Order Manager',
-    status: 'live demo',
-    statusColor: '#4a443b',
-    description:
-      'Order management, inventory, and production scheduling built for cut-to-order and hardware shops.',
-    tags: ['LIVE DEMO', 'SMALL BUSINESS'],
-    headerBg: '#1c1915',
-    motif: 'com',
-  },
+// The homepage teaser shows 4 curated projects in the mockup's own order
+// (docs/superpowers/specs/mockups/homepage.mockup.html) — NOT site order.
+// Card content itself lives in components/projectCards.ts, shared with the
+// full /work index; this array only decides which 4 slugs appear here and
+// in what order.
+const HOMEPAGE_SLUGS = [
+  'persono',
+  'runit',
+  'life-imitates-thought',
+  'cut-order-manager',
 ];
 
 export function WorkGrid() {
@@ -97,8 +59,8 @@ export function WorkGrid() {
       </div>
 
       <div className='ts-grid-2'>
-        {CARDS.map(card => (
-          <ProjectCard key={card.slug} card={card} />
+        {HOMEPAGE_SLUGS.map(slug => (
+          <ProjectCard key={slug} card={getProjectCard(slug)} />
         ))}
       </div>
     </div>

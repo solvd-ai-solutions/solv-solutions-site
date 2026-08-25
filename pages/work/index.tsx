@@ -2,98 +2,9 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { SiteNav } from '../../components/SiteNav';
 import { SiteFooter } from '../../components/SiteFooter';
-import {
-  ProjectCard,
-  type ProjectCardData,
-} from '../../components/ProjectCard';
-
-// All 7 projects, in site order (matches lib/projects.ts / lib/caseStudies.ts).
-// The 4 with a bespoke mockup motif reuse it verbatim from
-// components/home/WorkGrid.tsx's homepage teaser; the other 3 (pet-bio,
-// resume-agent, this site) fall back to a simple accent header with their
-// initial letter, per task-6-brief.md.
-const CARDS: ProjectCardData[] = [
-  {
-    slug: 'persono',
-    name: 'Persono',
-    status: '2025 — now',
-    statusColor: '#2aa08f',
-    description:
-      'AI journaling & self-development platform — web + native iOS, 700+ commits and counting.',
-    tags: ['PRODUCT', 'CLAUDE API'],
-    headerBg: '#2aa08f',
-    motif: 'persono',
-  },
-  {
-    slug: 'runit',
-    name: 'RunIt',
-    status: '4-day ship',
-    statusColor: '#ef6a4b',
-    description:
-      'Photograph a run-of-show document, get a live event schedule on your phone — iPhone & Android.',
-    tags: ['iOS + ANDROID', 'AI SCHEDULING'],
-    headerBg: '#ef6a4b',
-    motif: 'runit',
-  },
-  {
-    slug: 'cut-order-manager',
-    name: 'Cut & Order Manager',
-    status: 'live demo',
-    statusColor: '#4a443b',
-    description:
-      'Order management, inventory, and production scheduling built for cut-to-order and hardware shops.',
-    tags: ['LIVE DEMO', 'SMALL BUSINESS'],
-    headerBg: '#1c1915',
-    motif: 'com',
-  },
-  {
-    slug: 'pet-bio-generator',
-    name: 'Pet Bio Generator',
-    status: 'live demo',
-    statusColor: '#2aa08f',
-    description:
-      'Generates adoption-ready pet bios from photos and a few details — for shelters that need heartwarming copy fast.',
-    tags: ['LIVE DEMO', 'AI DRAFTING'],
-    headerBg: '#2aa08f',
-    motif: 'initial',
-    initialLetter: 'P',
-  },
-  {
-    slug: 'resume-writing-agent',
-    name: 'AI Resume Writing Agent',
-    status: 'org-wide',
-    statusColor: '#ef6a4b',
-    description:
-      'A Microsoft 365 Copilot agent that matches a resume to open roles and rewrites it around the keywords that get past the screen.',
-    tags: ['M365 COPILOT', 'CUSTOM AGENT'],
-    headerBg: '#ef6a4b',
-    motif: 'initial',
-    initialLetter: 'A',
-  },
-  {
-    slug: 'life-imitates-thought',
-    name: 'Life Imitates Thought',
-    status: 'live',
-    statusColor: '#8d6fe0',
-    description:
-      "A city-wide QR scavenger hunt for mindset shifts — scan a code, get a reframe, track what you've found.",
-    tags: ['SIDE QUEST', 'NEXT.JS'],
-    headerBg: '#8d6fe0',
-    motif: 'lit',
-  },
-  {
-    slug: 'solvd-ai-solutions-site',
-    name: 'This Website',
-    status: "you're on it",
-    statusColor: '#2aa08f',
-    description:
-      "The site you're reading right now — consulting pitch and living portfolio, built end to end with Claude Code.",
-    tags: ['NEXT.JS 15', 'CLAUDE CODE'],
-    headerBg: '#2aa08f',
-    motif: 'initial',
-    initialLetter: 'T',
-  },
-];
+import { ProjectCard } from '../../components/ProjectCard';
+import { getProjectCard } from '../../components/projectCards';
+import { projects } from '../../lib/projects';
 
 export default function WorkIndex() {
   return (
@@ -137,8 +48,11 @@ export default function WorkIndex() {
 
       <div className='ts-section' style={{ paddingBottom: 96 }}>
         <div className='ts-grid-2'>
-          {CARDS.map(card => (
-            <ProjectCard key={card.slug} card={card} />
+          {projects.map(project => (
+            <ProjectCard
+              key={project.slug}
+              card={getProjectCard(project.slug)}
+            />
           ))}
         </div>
       </div>

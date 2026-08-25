@@ -223,7 +223,14 @@ export default function CaseStudyPage({
                 >
                   {row.label}
                 </span>
-                <span style={{ fontWeight: 600 }}>{row.value}</span>
+                <span
+                  style={{
+                    fontWeight: 600,
+                    color: row.label === 'STATUS' ? accent : undefined,
+                  }}
+                >
+                  {row.value}
+                </span>
               </div>
             ))}
             {study.liveUrl && (
