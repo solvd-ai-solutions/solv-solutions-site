@@ -5,7 +5,7 @@ export default function PetBioGeneratorDemo() {
   useEffect(() => {
     // For now, redirect to main page since we don't have a live URL yet
     // Replace this URL when you have the Pet Bio Generator deployed
-    window.location.replace('https://solvdaisolutions.com/#demos');
+    window.location.replace('https://instant-pet-bio-generator.vercel.app');
   }, []);
 
   return (
@@ -81,7 +81,7 @@ export default function PetBioGeneratorDemo() {
             demos.
           </p>
           <a
-            href='https://www.solvdaisolutions.com/#demos'
+            href='https://instant-pet-bio-generator.vercel.app'
             style={{
               display: 'inline-flex',
               alignItems: 'center',
