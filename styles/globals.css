@@ -848,3 +848,100 @@
 .input-base:focus {
   outline-color: var(--color-mint);
 }
+
+/* === Tangram × Soft (2026 redesign) === */
+:root {
+  --t-paper: #f7f2e8;
+  --t-ink: #1c1915;
+  --t-mint: #2aa08f;
+  --t-coral: #ef6a4b;
+  --t-lavender: #8d6fe0;
+}
+
+.ts-page {
+  background: var(--t-paper);
+  color: var(--t-ink);
+  font-family: 'Outfit', system-ui, sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+.ts-page a {
+  color: inherit;
+  text-decoration: none;
+}
+.ts-page a:hover {
+  color: var(--t-coral);
+}
+
+.ts-display {
+  font-family: 'Bricolage Grotesque', 'Outfit', sans-serif;
+}
+
+.ts-section {
+  padding-left: max(64px, calc((100% - 1312px) / 2));
+  padding-right: max(64px, calc((100% - 1312px) / 2));
+}
+
+.ts-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  align-items: center;
+}
+.ts-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+.ts-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+.ts-arch-flow {
+  display: flex;
+  align-items: center;
+}
+
+.ts-marquee-track {
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+  animation: tangram-marquee 28s linear infinite;
+}
+@keyframes tangram-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 1023px) {
+  .ts-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .ts-section {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+  .ts-grid-3,
+  .ts-grid-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ts-arch-flow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ts-hide-mobile {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ts-marquee-track {
+    animation: none;
+  }
+}
