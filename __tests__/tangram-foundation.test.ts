@@ -23,6 +23,8 @@ describe('Tangram × Soft foundation', () => {
       '.ts-grid-2',
       '.ts-arch-flow',
       '.ts-marquee-track',
+      '.ts-hide-mobile',
+      '.ts-only-mobile',
     ]) {
       expect(css).toContain(cls);
     }
