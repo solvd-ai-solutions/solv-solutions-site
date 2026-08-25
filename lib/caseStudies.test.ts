@@ -84,9 +84,12 @@ describe('caseStudies', () => {
     expect(cs?.liveUrl).toBeUndefined();
   });
 
-  it('solvd-ai-solutions-site has empty screenshots but has a liveUrl', () => {
+  it('solvd-ai-solutions-site has the post-redesign screenshot and a liveUrl', () => {
     const cs = getCaseStudy('solvd-ai-solutions-site');
-    expect(cs?.screenshots).toEqual([]);
+    expect(cs?.screenshots).toHaveLength(1);
+    expect(cs?.screenshots[0].src).toBe(
+      '/work/solvd-ai-solutions-site/home.jpg'
+    );
     expect(cs?.liveUrl).toBeDefined();
     expect(cs?.liveUrl?.length).toBeGreaterThan(0);
   });
