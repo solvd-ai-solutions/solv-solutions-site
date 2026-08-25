@@ -80,8 +80,13 @@ export function SiteNav() {
   const closeMenu = () => setIsMenuOpen(false);
   const handleSectionLinkClick = useSectionLinkClick(closeMenu);
 
+  // No inline `color` here: `.ts-page a { color: inherit }` already yields
+  // ink, and the mockup's plain nav anchors carry no inline color either —
+  // that's what lets `.ts-page a:hover { color: var(--t-coral) }` win. An
+  // inline color would beat the class rule and permanently block the hover
+  // state once this mounts inside `.ts-page` (Task 4). The CTA below is the
+  // one link that legitimately needs an inline color (paper-on-ink).
   const linkStyle = {
-    color: '#1c1915',
     textDecoration: 'none',
     fontWeight: 600,
     fontSize: 15,
