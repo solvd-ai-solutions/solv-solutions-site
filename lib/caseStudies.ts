@@ -338,7 +338,12 @@ export const caseStudies: CaseStudy[] = [
     ],
     liveUrl: 'https://www.solvdaisolutions.com',
     liveLabel: 'solvdaisolutions.com',
-    screenshots: [],
+    screenshots: [
+      {
+        src: '/work/solvd-ai-solutions-site/home.jpg',
+        alt: 'solvdaisolutions.com homepage after the Tangram × Soft redesign',
+      },
+    ],
     problem:
       "A consultancy's site has to be two things at once: a clear pitch for the services, and living proof the person behind it actually ships.",
     story:
